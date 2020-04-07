@@ -1,6 +1,10 @@
 SECRET_KEY = 'key'
 
-INSTALLED_APPS = ['type_one.core']
+INSTALLED_APPS = [
+    'django.contrib.contenttypes',
+    'django.contrib.auth',
+    'type_one.core'
+    ]
 
 AUTH_USER_MODEL = "core.User"
 
