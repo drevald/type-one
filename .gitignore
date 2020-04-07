@@ -1,1 +1,3 @@
-.venv
+.vscode/
+type_one/__pycache__/
+type_one/core/__pycache__/
