@@ -1,6 +1,12 @@
 import environ
+import os
 
 env = environ.Env()
+
+BASE_LOC = environ.Path(__file__) - 2
+dot_env = str(BASE_LOC.path(".env"))
+if os.path.exists(dot_env):
+    env.read_env(dot_env)
 
 SECRET_KEY = 'key'
 
@@ -11,6 +17,17 @@ SITE_ID = 1
 DATABASES = {
     "default": env.db()
     }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'mydatabase',
+#         'USER': 'mydatabaseuser',
+#         'PASSWORD': 'mypassword',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }    
 
 INSTALLED_APPS = [
     'django.contrib.contenttypes',
