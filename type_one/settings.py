@@ -72,3 +72,4 @@ AUTH_USER_MODEL = "core.User"
 
 ROOT_URLCONF = "type_one.urls"
 
+LOGIN_REDIRECT_URL = "/"
