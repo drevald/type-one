@@ -11,9 +11,6 @@ class Insulin(models.Model):
     code = models.CharField(max_length=100)
 
 class InsulinShot(models.Model):
-    amount_units = models.FloatField
-    insulin = models.ForeignKey(
-        Insulin, 
-        on_delete=models.CASCADE, 
-        default=1)
-    time = models.TimeField
+    amount_units = models.FloatField()
+    insulin = models.ForeignKey(Insulin, on_delete=models.CASCADE)
+    time = models.TimeField()
