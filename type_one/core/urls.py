@@ -1,13 +1,10 @@
 from django.urls import path
 from .views import Home
-from .views import Spisok
+from .views import *
 
 urlpatterns = [
-    path('', Home.as_view()),
+    path('', Records.as_view()),
+    path('create/', RecordCreate.as_view()),
     path('spisok/', Spisok.as_view()),
+
 ]
-
-
-
-
-
