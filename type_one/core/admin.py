@@ -1,6 +1,8 @@
 from django.contrib import admin
-from .models import SugarLevelUnit, Insulin, Activity
+from .models import *
 
 admin.site.register(SugarLevelUnit)
 admin.site.register(Insulin)
 admin.site.register(Activity)
+admin.site.register(Ingredient)
+admin.site.register(IngredientUnit)
