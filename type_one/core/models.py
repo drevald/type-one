@@ -21,7 +21,9 @@ class SugarLevel(models.Model):
     sugarUnit = models.ForeignKey(SugarLevelUnit, on_delete = models.CASCADE)
 
 class Activity(models.Model):
-    activityCode = models.CharField(max_length = 100)
+    code = models.CharField(max_length = 100)
+    def __str__(self):
+        return self.code
 
 class ActivityPeriod(models.Model):
     activity = models.ForeignKey(Activity, on_delete = models.CASCADE)
@@ -29,13 +31,11 @@ class ActivityPeriod(models.Model):
     endTime = models.TimeField()
 
 class Unit(models.Model):
-    name = models.CharField(max_length = 255)
-
-class IngredientType(models.Model):
     code = models.CharField(max_length = 255)
+    def __str__(self):
+        return self.code
 
 class Ingredient(models.Model):
-    ingredientType = models.ForeignKey(Activity, on_delete = models.CASCADE)
     code = models.CharField(max_length = 255)
     name = models.CharField(max_length = 255)
     glycemicIndex = models.IntegerField()
@@ -44,11 +44,15 @@ class Ingredient(models.Model):
     carbohydratePer100g = models.IntegerField()
     proteinPer100g = models.IntegerField()
     energyKkalPer100g = models.IntegerField()
+    def __str__(self):
+        return self.name
 
 class IngredientUnit(models.Model):
     unit = models.ForeignKey(Unit, on_delete = models.CASCADE)
     ingredient = models.ForeignKey(Ingredient, on_delete = models.CASCADE)
     gramsInUnit = models.FloatField()
+    def __str__(self):
+        return ingredient.code + "_" + unit.name
 
 class Meal(models.Model):
     name = models.CharField(max_length = 255)
