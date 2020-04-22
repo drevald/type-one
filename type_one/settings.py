@@ -18,17 +18,6 @@ DATABASES = {
     "default": env.db()
     }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'mydatabase',
-#         'USER': 'mydatabaseuser',
-#         'PASSWORD': 'mypassword',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432',
-#     }
-# }    
-
 INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.auth',
@@ -36,6 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.sessions',
     'django.contrib.admin',
+    'django.contrib.staticfiles',    
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -69,6 +59,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
@@ -77,3 +68,9 @@ AUTH_USER_MODEL = "core.User"
 ROOT_URLCONF = "type_one.urls"
 
 LOGIN_REDIRECT_URL = "/"
+
+STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
+
+STATIC_URL = STATIC_HOST + '/static/'
+
+STATIC_ROOT = os.path.join(BASE_LOC, 'staticfiles')

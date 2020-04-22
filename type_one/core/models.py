@@ -52,7 +52,7 @@ class IngredientUnit(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete = models.CASCADE)
     gramsInUnit = models.FloatField()
     def __str__(self):
-        return ingredient.code + "_" + unit.name
+        return self.ingredient.code + "_" + self.unit.code
 
 class Meal(models.Model):
     name = models.CharField(max_length = 255)
