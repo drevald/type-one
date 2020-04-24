@@ -1,7 +1,12 @@
 <h1>Records</h1>
-<ul>
-{% for record in object_list %}
-<li>{{ record }}</li>
-{% endfor %}
+<table>    
+    {% for record in object_list %}
+    <tr>
+        <td>{{ record.time }}</td>
+        <td>{{ record.insulinShot }}</td>
+        <td>{{ record.sugarLevel }}</td>
+    </tr>
+    {% endfor %}
+</table>
 <a href='create'>Add record</a>
 </ul>

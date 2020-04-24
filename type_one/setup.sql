@@ -22,7 +22,7 @@ insert into core_ingredient values (20, 'omelette', 0.2, 50, 20, 3, 14, 250, nul
 
 insert into core_unit values (0, 'gramm', null);
 insert into core_unit values (1, 'ml', null);
-insert into core_unit values (2, 'piece', null);
+insert into core_unit values (2, 'slice', null);
 insert into core_unit values (3, 'glass', null);
 insert into core_unit values (4, 'teaspoon', null);
 insert into core_unit values (5, 'spoon', null);
@@ -49,9 +49,6 @@ insert into core_ingredientunit values (DEFAULT, 1, 17, 0, null);
 insert into core_ingredientunit values (DEFAULT, 1, 18, 0, null);
 insert into core_ingredientunit values (DEFAULT, 1, 19, 0, null);
 insert into core_ingredientunit values (DEFAULT, 1, 20, 0, null);
-insert into core_ingredientunit values (DEFAULT, 1.04, 1, 1, null);
-insert into core_ingredientunit values (DEFAULT, 100, 2, 2, null);
-insert into core_ingredientunit values (DEFAULT, 35, 3, 2, null);
-insert into core_ingredientunit values (DEFAULT, 25, 4, 2, null);
-
-
+insert into core_ingredientunit values (DEFAULT, 1.04, 1, 1, null); -- 1.04 grams in 1 ml of milk
+insert into core_ingredientunit values (DEFAULT, 35, 2, 2, null);   -- slice of ray bread is 35g
+insert into core_ingredientunit values (DEFAULT, 25, 3, 2, null);   -- slice of wheat bread is 25g

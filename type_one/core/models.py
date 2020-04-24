@@ -1,5 +1,7 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.utils.translation import gettext as _
+from .strings import string
 
 class Insulin(models.Model):
     code = models.CharField(max_length=100)
@@ -19,15 +21,19 @@ class User(AbstractUser):
 class InsulinShot(models.Model):
     amount_units = models.FloatField()
     insulin = models.ForeignKey(Insulin, on_delete = models.CASCADE)
+    def __str__(self):
+        return str(self.amount_units)
 
 class SugarLevel(models.Model):
     value = models.IntegerField()
     sugarUnit = models.ForeignKey(SugarLevelUnit, on_delete = models.DO_NOTHING)
+    def __str__(self):
+        return str(self.value) + " " + self.sugarUnit.code
 
 class Activity(models.Model):
     code = models.CharField(max_length = 100)
     def __str__(self):
-        return self.code
+        return map[self.code]
     class Meta():
         verbose_name_plural = "Activities"
 
@@ -76,8 +82,8 @@ class MealIngredient(models.Model):
 class Record(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     time = models.TimeField()
-    sugarLevel = models.ForeignKey(SugarLevel, on_delete = models.DO_NOTHING)
-    insulinShot = models.ForeignKey(InsulinShot, on_delete = models.DO_NOTHING)
-    meal = models.ForeignKey(Meal, on_delete = models.DO_NOTHING)
-    activityPeriod = models.ForeignKey(ActivityPeriod, on_delete = models.DO_NOTHING)
-    notes = models.CharField(max_length = 1000)
+    sugarLevel = models.ForeignKey(SugarLevel, on_delete = models.DO_NOTHING, null=True)
+    insulinShot = models.ForeignKey(InsulinShot, on_delete = models.DO_NOTHING, null=True)
+    meal = models.ForeignKey(Meal, on_delete = models.DO_NOTHING, null=True)
+    activityPeriod = models.ForeignKey(ActivityPeriod, on_delete = models.DO_NOTHING, null=True)
+    notes = models.CharField(max_length = 1000, null=True)

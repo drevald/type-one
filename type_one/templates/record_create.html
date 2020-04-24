@@ -1,4 +1,5 @@
 {% block content %}
+{{user.sugar_level_unit}}
 <h1>New post</h1>
 <form action="" method="post">{% csrf_token %}
 {{ form.as_p }}
