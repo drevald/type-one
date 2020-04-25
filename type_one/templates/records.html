@@ -1,12 +1,39 @@
-<h1>Records</h1>
-<table>    
-    {% for record in object_list %}
-    <tr>
-        <td>{{ record.time }}</td>
-        <td>{{ record.insulinShot }}</td>
-        <td>{{ record.sugarLevel }}</td>
-    </tr>
-    {% endfor %}
-</table>
-<a href='create'>Add record</a>
-</ul>
+<html>
+<head>
+{# Load the tag library #}
+{% load bootstrap4 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>Records</h1>
+        </div>
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Insulin shot</th>
+                    <th>Glucose level</th>
+                    <th>Meal</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            {% for record in object_list %}
+            <tr>
+                <td>{{ record.time }}</td>
+                <td>{{ record.insulinShot }}</td>
+                <td>{{ record.sugarLevel }}</td>
+                <td>{{ record.meal }}</td>
+                <td>{{ record.notes }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <a href='create' class="btn btn-primary">Add record</a>
+    </div>
+</body>
+</html>

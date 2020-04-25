@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-04-25 14:04+0300\n"
+"POT-Creation-Date: 2020-04-25 14:29+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -28,110 +28,129 @@ msgstr "Апидра"
 msgid "tujeo"
 msgstr "Туджео"
 
+#: type_one/core/strings.py:6
+msgid "humulin"
+msgstr "Хумулин"
+
 #: type_one/core/strings.py:7
+msgid "humalog"
+msgstr "Хумалог"
+
+#: type_one/core/strings.py:8
+msgid "lantus"
+msgstr "Лантус"
+
+#: type_one/core/strings.py:10
 msgid "sugar"
 msgstr "Сахар"
 
-#: type_one/core/strings.py:8
+#: type_one/core/strings.py:11
 msgid "milk"
 msgstr "Молоко"
 
-#: type_one/core/strings.py:9
+#: type_one/core/strings.py:12
 msgid "ray_bread"
 msgstr "Черных хлеб"
 
-#: type_one/core/strings.py:10
+#: type_one/core/strings.py:13
 msgid "wheat_bread"
 msgstr "Белый хлеб"
 
-#: type_one/core/strings.py:11
+#: type_one/core/strings.py:14
 msgid "potato_boiled"
 msgstr "Вареный картофель"
 
-#: type_one/core/strings.py:12
+#: type_one/core/strings.py:15
 msgid "potato_fried"
 msgstr "Жареный картофель"
 
-#: type_one/core/strings.py:13
+#: type_one/core/strings.py:16
 msgid "spaghetti"
 msgstr "Спагетти"
 
-#: type_one/core/strings.py:14
+#: type_one/core/strings.py:17
 msgid "buckwheat"
 msgstr "Гречка"
 
-#: type_one/core/strings.py:15
+#: type_one/core/strings.py:18
 msgid "rice"
 msgstr "Рис"
 
-#: type_one/core/strings.py:16
+#: type_one/core/strings.py:19
 msgid "butter"
 msgstr "Сливочное масло"
 
-#: type_one/core/strings.py:17
+#: type_one/core/strings.py:20
 msgid "cheese"
 msgstr "Сыр"
 
-#: type_one/core/strings.py:18
+#: type_one/core/strings.py:21
 msgid "sausage"
 msgstr "Сосиски"
 
-#: type_one/core/strings.py:19
+#: type_one/core/strings.py:22
 msgid "burger"
 msgstr "Бургер"
 
-#: type_one/core/strings.py:20
+#: type_one/core/strings.py:23
 msgid "pork_boiled"
 msgstr "Вареная свинина"
 
-#: type_one/core/strings.py:21
+#: type_one/core/strings.py:24
 msgid "pork_fried"
 msgstr "Жареная свинина"
 
-#: type_one/core/strings.py:22
+#: type_one/core/strings.py:25
 msgid "beef_boiled"
 msgstr "Вареная говядина"
 
-#: type_one/core/strings.py:23
+#: type_one/core/strings.py:26
 msgid "beef_fried"
 msgstr "Жареная говядина"
 
-#: type_one/core/strings.py:24
+#: type_one/core/strings.py:27
 msgid "chicken_boiled"
 msgstr "Вареная курица"
 
-#: type_one/core/strings.py:25
+#: type_one/core/strings.py:28
 msgid "chicken_fried"
 msgstr "Жареная курица"
 
-#: type_one/core/strings.py:26
+#: type_one/core/strings.py:29
 msgid "egg"
 msgstr "Яйцо"
 
-#: type_one/core/strings.py:28
+#: type_one/core/strings.py:30
+msgid "omelette"
+msgstr "Омлет"
+
+#: type_one/core/strings.py:32
 msgid "morning_exercise"
 msgstr "Утренняя зарядка"
 
-#: type_one/core/strings.py:29
+#: type_one/core/strings.py:33
 msgid "warm_up"
 msgstr "Разминка"
 
-#: type_one/core/strings.py:30
+#: type_one/core/strings.py:34
 msgid "running"
 msgstr "Бег"
 
-#: type_one/core/strings.py:31
+#: type_one/core/strings.py:35
 msgid "swimming"
 msgstr "Плавание"
 
-#: type_one/core/strings.py:32
+#: type_one/core/strings.py:36
 msgid "walking"
 msgstr "Ходьба"
 
-#: type_one/core/strings.py:34
+#: type_one/core/strings.py:38
 msgid "mmol_l"
 msgstr "ммоль/л"
 
-#: type_one/core/strings.py:35
+#: type_one/core/strings.py:39
 msgid "mg_dl"
 msgstr "мг/дл"
+
+#~ msgid "tudjeo"
+#~ msgstr "Туджео"

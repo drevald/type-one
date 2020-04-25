@@ -2,7 +2,10 @@ from django.utils.translation import gettext as _
 
 string = {
     'apidra':_('apidra'),
-    'tujeo':_('tujeo'),
+    'tudjeo':_('tujeo'),
+    'humulin':_('humulin'),
+    'humalog':_('humalog'),
+    'lantus':_('lantus'),
 
     'sugar':_('sugar'),
     'milk':_('milk'),
@@ -24,6 +27,7 @@ string = {
     'chicken_boiled':_('chicken_boiled'),
     'chicken_fried':_('chicken_fried'),    
     'egg':_('egg'),
+    'omelette':_('omelette'),
 
     'morning_exercise':_('morning_exercise'),
     'warm_up':_('warm_up'),

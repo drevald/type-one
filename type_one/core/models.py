@@ -6,12 +6,12 @@ from .strings import string
 class Insulin(models.Model):
     code = models.CharField(max_length=100)
     def __str__(self):
-        return self.code
+        return string[self.code]
 
 class SugarLevelUnit(models.Model):
     code = models.CharField(max_length = 100)
     def __str__(self):
-        return self.code
+        return string[self.code]
 
 class User(AbstractUser):
     sugar_level_unit = models.ForeignKey(SugarLevelUnit, on_delete = models.SET_NULL, null=True)
@@ -59,7 +59,7 @@ class Ingredient(models.Model):
     proteinPer100g = models.IntegerField()
     energyKkalPer100g = models.IntegerField()
     def __str__(self):
-        return self.code
+        return string[self.code]
 
 class IngredientUnit(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
