@@ -1,0 +1,137 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-04-25 14:04+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || (n"
+"%100>=11 && n%100<=14)? 2 : 3);\n"
+
+#: type_one/core/strings.py:4
+msgid "apidra"
+msgstr "Апидра"
+
+#: type_one/core/strings.py:5
+msgid "tujeo"
+msgstr "Туджео"
+
+#: type_one/core/strings.py:7
+msgid "sugar"
+msgstr "Сахар"
+
+#: type_one/core/strings.py:8
+msgid "milk"
+msgstr "Молоко"
+
+#: type_one/core/strings.py:9
+msgid "ray_bread"
+msgstr "Черных хлеб"
+
+#: type_one/core/strings.py:10
+msgid "wheat_bread"
+msgstr "Белый хлеб"
+
+#: type_one/core/strings.py:11
+msgid "potato_boiled"
+msgstr "Вареный картофель"
+
+#: type_one/core/strings.py:12
+msgid "potato_fried"
+msgstr "Жареный картофель"
+
+#: type_one/core/strings.py:13
+msgid "spaghetti"
+msgstr "Спагетти"
+
+#: type_one/core/strings.py:14
+msgid "buckwheat"
+msgstr "Гречка"
+
+#: type_one/core/strings.py:15
+msgid "rice"
+msgstr "Рис"
+
+#: type_one/core/strings.py:16
+msgid "butter"
+msgstr "Сливочное масло"
+
+#: type_one/core/strings.py:17
+msgid "cheese"
+msgstr "Сыр"
+
+#: type_one/core/strings.py:18
+msgid "sausage"
+msgstr "Сосиски"
+
+#: type_one/core/strings.py:19
+msgid "burger"
+msgstr "Бургер"
+
+#: type_one/core/strings.py:20
+msgid "pork_boiled"
+msgstr "Вареная свинина"
+
+#: type_one/core/strings.py:21
+msgid "pork_fried"
+msgstr "Жареная свинина"
+
+#: type_one/core/strings.py:22
+msgid "beef_boiled"
+msgstr "Вареная говядина"
+
+#: type_one/core/strings.py:23
+msgid "beef_fried"
+msgstr "Жареная говядина"
+
+#: type_one/core/strings.py:24
+msgid "chicken_boiled"
+msgstr "Вареная курица"
+
+#: type_one/core/strings.py:25
+msgid "chicken_fried"
+msgstr "Жареная курица"
+
+#: type_one/core/strings.py:26
+msgid "egg"
+msgstr "Яйцо"
+
+#: type_one/core/strings.py:28
+msgid "morning_exercise"
+msgstr "Утренняя зарядка"
+
+#: type_one/core/strings.py:29
+msgid "warm_up"
+msgstr "Разминка"
+
+#: type_one/core/strings.py:30
+msgid "running"
+msgstr "Бег"
+
+#: type_one/core/strings.py:31
+msgid "swimming"
+msgstr "Плавание"
+
+#: type_one/core/strings.py:32
+msgid "walking"
+msgstr "Ходьба"
+
+#: type_one/core/strings.py:34
+msgid "mmol_l"
+msgstr "ммоль/л"
+
+#: type_one/core/strings.py:35
+msgid "mg_dl"
+msgstr "мг/дл"
