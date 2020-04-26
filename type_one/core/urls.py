@@ -10,5 +10,5 @@ urlpatterns = [
     # path('meal/update/', MealUpdateView.as_view(), name='meal_update'),
     path('mealingredient/create/<int:pk>', MealIngredientCreateView.as_view(), name='mealingredient_create'),
     path('spisok/', Spisok.as_view()),
-    path('/meal/update', mealupdate)
+    path('meal/update/', mealupdate)
 ]

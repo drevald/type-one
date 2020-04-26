@@ -2,6 +2,7 @@ from .models import SugarLevel, Insulin, Record, SugarLevelUnit, InsulinShot, Us
 from .forms import *
 from django.views.generic import TemplateView, ListView, CreateView, FormView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.shortcuts import render
 from django.http import HttpResponse
 from datetime import datetime
 from django import forms 
@@ -64,7 +65,7 @@ class MealIngredientCreateView (LoginRequiredMixin, TemplateView):
     success_url = '/'
 
 def mealupdate(request):
-    return render(request, 'meal_update.html');
+    return render(request = request, template_name = 'meal_update.html')
 
 def mealingredientadd(request):
-    return render(request, 'meal_update.html');
+    return render(request = request, template_name = 'meal_update.html')
