@@ -21,6 +21,7 @@
                     <th>Glucose level</th>
                     <th>Meal</th>
                     <th>Notes</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             {% for record in object_list %}
@@ -30,6 +31,10 @@
                 <td>{{ record.sugarLevel }}</td>
                 <td>{{ record.meal }}</td>
                 <td>{{ record.notes }}</td>
+                <td>
+                    <a href="{% url 'record_delete' record.pk %}" class="btn btn-danger  btn-sm">Delete</a>
+                    <a href="{% url 'record_update' record.pk %}" class="btn btn-primary  btn-sm">Update</a>
+                </td>    
             </tr>
             {% endfor %}
         </table>

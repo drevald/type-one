@@ -26,9 +26,9 @@ class InsulinShot(models.Model):
 
 class SugarLevel(models.Model):
     value = models.IntegerField()
-    sugarUnit = models.ForeignKey(SugarLevelUnit, on_delete = models.DO_NOTHING)
+    sugar_unit = models.ForeignKey(SugarLevelUnit, on_delete = models.DO_NOTHING)
     def __str__(self):
-        return str(self.value) + " " + self.sugarUnit.code
+        return str(self.value) + " " + self.sugar_unit.code
 
 class Activity(models.Model):
     code = models.CharField(max_length = 100)
@@ -40,8 +40,8 @@ class Activity(models.Model):
 class ActivityPeriod(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     activity = models.ForeignKey(Activity, on_delete = models.DO_NOTHING)
-    startTime = models.TimeField()
-    endTime = models.TimeField()
+    start_time = models.TimeField()
+    end_time = models.TimeField()
 
 class Unit(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -52,12 +52,12 @@ class Unit(models.Model):
 class Ingredient(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     code = models.CharField(max_length = 255)
-    breadUnitsPer100g = models.FloatField()
-    glycemicIndex = models.IntegerField()
-    fatPer100g = models.IntegerField()
-    carbohydratePer100g = models.IntegerField()
-    proteinPer100g = models.IntegerField()
-    energyKkalPer100g = models.IntegerField()
+    bread_units_per_100g = models.FloatField()
+    glycemic_index = models.IntegerField()
+    fat_per_100g = models.IntegerField()
+    carbohydrate_per_100g = models.IntegerField()
+    protein_per_100g = models.IntegerField()
+    energy_kKkal_per_100g = models.IntegerField()
     def __str__(self):
         return string[self.code]
 
@@ -65,7 +65,7 @@ class IngredientUnit(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     unit = models.ForeignKey(Unit, on_delete = models.DO_NOTHING)
     ingredient = models.ForeignKey(Ingredient, on_delete = models.DO_NOTHING)
-    gramsInUnit = models.FloatField()
+    grams_int_unit = models.FloatField()
     def __str__(self):
         return self.ingredient.code + "_" + self.unit.code
 
@@ -76,14 +76,15 @@ class Meal(models.Model):
 class MealIngredient(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     meal = models.ForeignKey(Meal, on_delete = models.DO_NOTHING)
-    indredientUnitId = models.ForeignKey(IngredientUnit, on_delete = models.DO_NOTHING)
-    ingredientWeightGrams = models.IntegerField()
+    indredient_unit = models.ForeignKey(IngredientUnit, on_delete = models.DO_NOTHING)
+    ingredient_units = models.FloatField()
+    ingredient_weight_grams = models.IntegerField()
 
 class Record(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     time = models.TimeField()
-    sugarLevel = models.ForeignKey(SugarLevel, on_delete = models.DO_NOTHING, null=True)
-    insulinShot = models.ForeignKey(InsulinShot, on_delete = models.DO_NOTHING, null=True)
+    sugar_level = models.ForeignKey(SugarLevel, on_delete = models.DO_NOTHING, null=True)
+    insulin_shot = models.ForeignKey(InsulinShot, on_delete = models.DO_NOTHING, null=True)
     meal = models.ForeignKey(Meal, on_delete = models.DO_NOTHING, null=True)
-    activityPeriod = models.ForeignKey(ActivityPeriod, on_delete = models.DO_NOTHING, null=True)
+    activity_period = models.ForeignKey(ActivityPeriod, on_delete = models.DO_NOTHING, null=True)
     notes = models.CharField(max_length = 1000, null=True)

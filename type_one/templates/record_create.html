@@ -26,7 +26,7 @@
         <tr>
             <td><input class="form-control input-sm" name="insulin" id="id_insulin" type="number"></td>
             <td><input class="form-control input-sm" name="sugar" id="id_sugar" type="number"></td>
-            <td><div class="controls">{{ form.meal }}<p class="help-text">{{ form.meal.help_text }} </p></div></td>            
+            <td>{{ request.session.meal }}<a href='/meal/update' class="btn btn-primary">Edit</a></td>            
             <td> <textarea class="form-control" rows="5" id="comment"></textarea></td>            
         </tr>
     </table>
