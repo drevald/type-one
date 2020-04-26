@@ -1,25 +1,20 @@
-
+<html>
+<head>
+{# Load the tag library #}
+{% load bootstrap4 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>Records</h1>
+        </div>
 {% block content %}
-{{user.sugar_level_unit}}
-<h1>New post</h1>
-<form action="" method="post">{% csrf_token %}
-{{ form.as_p }}
-<input type="submit" value="Save" />
-</form>
-{% endblock content %}
 
-
-{% block content %}
-<form action="" method="post">
-    {% csrf_token %}
-    <input type="text" name="sugar" required id="id_sugar" class="form-control>
-    <input type="text" name="insulin" required id="id_insulin" class="form-control>
-    <input type="submit">
-</form>
-{% endblock content %}
-
-<!-- <div class="container">
-<h1>New post</h1>
 <form action="" method="post">{% csrf_token %}
     <table class="table table-condensed">
         <tr>
@@ -29,12 +24,24 @@
             <th>Notes</th>
         </tr>
         <tr>
-            <td><input class="form-control input-sm" id="insulin" type="number"></td>
-            <td><input class="form-control input-sm" id="sugar" type="number"></td>
+            <td><input class="form-control input-sm" name="insulin" id="id_insulin" type="number"></td>
+            <td><input class="form-control input-sm" name="sugar" id="id_sugar" type="number"></td>
             <td><div class="controls">{{ form.meal }}<p class="help-text">{{ form.meal.help_text }} </p></div></td>            
             <td> <textarea class="form-control" rows="5" id="comment"></textarea></td>            
         </tr>
     </table>
 <input type="submit" value="Save"  class="btn btn-primary"/>
 </form>
-</div> -->
+
+
+<!-- <form action="" method="post">
+    {% csrf_token %}
+    <input type="text" name="sugar" required id="id_sugar" class="form-control">
+    <input type="text" name="insulin" required id="id_insulin" class="form-control">
+    <input type="submit">
+</form> -->
+{% endblock content %}
+</div>
+</body>
+</html>
+

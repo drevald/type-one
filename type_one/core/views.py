@@ -5,7 +5,7 @@ from django.views.generic import CreateView
 from django.views.generic import FormView
 from datetime import datetime
 from django import forms 
-from .models import SugarLevel, Insulin, Record, SugarLevelUnit, InsulinShot
+from .models import SugarLevel, Insulin, Record, SugarLevelUnit, InsulinShot, User
 from .forms import *
 
 class Home(TemplateView):
@@ -26,15 +26,17 @@ class RecordCreate(FormView):
     model = Record
     fields = '__all__'    
     def form_valid (self, form):
-        sugarLevel = SugarLevel(
-            value = form.cleaned_data['sugar'], 
-            sugarUnit = self.request.user.sugar_level_unit)
-        sugarLevel.save()
+        user = User(self.request.user)
         insulinShot = InsulinShot(
             amount_units = form.cleaned_data['insulin'],
-            insulin = self.request.user.rapid_acting_insulin
+            insulin = user.rapid_acting_insulin
         )
         insulinShot.save()
+        sugarLevel = SugarLevel(
+            value = form.cleaned_data['sugar'], 
+            sugarUnit = user.sugar_level_unit
+        )
+        sugarLevel.save()
         record = Record.objects.create(
             time = datetime.now(), 
             sugarLevel = sugarLevel,
