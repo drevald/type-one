@@ -5,8 +5,10 @@ from django.views.generic import CreateView
 from django.views.generic import FormView
 from datetime import datetime
 from django import forms 
-from .models import SugarLevel, Insulin, Record, SugarLevelUnit, InsulinShot
+from .models import SugarLevel, Insulin, Record, SugarLevelUnit, InsulinShot, User
 from .forms import *
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 
 class Home(TemplateView):
     template_name = 'index.html'
@@ -19,13 +21,14 @@ class Records(ListView):
     template_name = 'records.html'
     model = Record
 
-class RecordCreate(FormView):
+class RecordCreate(LoginRequiredMixin, FormView):
     template_name = 'record_create.html'
     success_url = '/'
     form_class = RecordForm
     model = Record
     fields = '__all__'    
     def form_valid (self, form):
+        #user = User(self.request.user)
         sugarLevel = SugarLevel(
             value = form.cleaned_data['sugar'], 
             sugarUnit = self.request.user.sugar_level_unit)
@@ -42,10 +45,3 @@ class RecordCreate(FormView):
         )
         return super().form_valid(form)
 
-    # user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
-    # time = models.TimeField()
-    # sugarLevel = models.ForeignKey(SugarLevel, on_delete = models.DO_NOTHING, null=True)
-    # insulinShot = models.ForeignKey(InsulinShot, on_delete = models.DO_NOTHING, null=True)
-    # meal = models.ForeignKey(Meal, on_delete = models.DO_NOTHING, null=True)
-    # activityPeriod = models.ForeignKey(ActivityPeriod, on_delete = models.DO_NOTHING, null=True)
-    # notes = models.CharField(max_length = 1000, null=True)
