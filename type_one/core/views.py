@@ -65,7 +65,11 @@ class MealIngredientCreateView (LoginRequiredMixin, TemplateView):
     success_url = '/'
 
 def mealupdate(request):
+    request.session['meal'] = Record()        
     return render(request = request, template_name = 'meal_update.html')
 
 def mealingredientadd(request):
+    record = request.session['meal']
+    mealIngredient = MealIngredient()
+    print(record)
     return render(request = request, template_name = 'meal_update.html')
