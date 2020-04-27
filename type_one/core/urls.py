@@ -5,6 +5,9 @@ from .views import *
 urlpatterns = [
     path('', Records.as_view()),
     path('create/', RecordCreate.as_view()),
+    path('record/<int:pk>/delete/', RecordDeleteView.as_view(), name='record_delete'),
+    path('record/<int:pk>/update/', RecordUpdateView.as_view(), name='record_update'),
     path('spisok/', Spisok.as_view()),
-
+    path('meal/update/', mealupdate, name='meal_update'),
+    path('mealingredient/add/', mealingredientadd, name='mealingredient_add')
 ]

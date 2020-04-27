@@ -26,22 +26,13 @@
         <tr>
             <td><input class="form-control input-sm" name="insulin" id="id_insulin" type="number"></td>
             <td><input class="form-control input-sm" name="sugar" id="id_sugar" type="number"></td>
-            <td>{{ request.session.meal }}<a href='/meal/update' class="btn btn-primary">Edit</a></td>            
+            <td><div class="controls">{{ form.meal }}<p class="help-text">{{ form.meal.help_text }} </p></div></td>            
             <td> <textarea class="form-control" rows="5" id="comment"></textarea></td>            
         </tr>
     </table>
 <input type="submit" value="Save"  class="btn btn-primary"/>
 </form>
-
-
-<!-- <form action="" method="post">
-    {% csrf_token %}
-    <input type="text" name="sugar" required id="id_sugar" class="form-control">
-    <input type="text" name="insulin" required id="id_insulin" class="form-control">
-    <input type="submit">
-</form> -->
 {% endblock content %}
 </div>
 </body>
 </html>
-
