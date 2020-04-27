@@ -77,3 +77,7 @@ STATIC_URL = STATIC_HOST + '/static/'
 STATIC_ROOT = os.path.join(BASE_LOC, 'staticfiles')
 
 CRISPY_TEMPLATE_PACK = 'uni_form'
+
+SESSION_SAVE_EVERY_REQUEST = True
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'

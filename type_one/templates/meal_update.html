@@ -12,6 +12,7 @@
     <div class="container">
         <div class="page-header">
             <h1>Ingredients</h1>
+            
         </div>
         <table class="table table-condensed">
             <thead>
@@ -22,14 +23,12 @@
                     <th>&nbsp;</th>
                 </tr>
             </thead>
-            {% for meal_ingedient in meal_ingedients %}
+            {% for meal_ingedient in request.session.meal_ingredients %}
             <tr>
                 <td>{{ meal_ingedient.ingredient_unit.ingredient }}</td>
                 <td>{{ meal_ingedient.ingredient_unit.unit }}</td>
-                <td>{{ meal_ingedient.ingredient_unit.unit }}</td>
+                <td>{{ meal_ingedient.ingredient_unit.units }}</td>
                  <td>
-                    <a href="{% url 'record_delete' meal_ingedient.pk %}" class="btn btn-danger  btn-sm">Delete</a>
-                    <a href="{% url 'record_update' meal_ingedient.pk %}" class="btn btn-primary  btn-sm">Update</a>
                 </td>    
             </tr>
             {% endfor %}

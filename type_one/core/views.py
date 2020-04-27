@@ -7,6 +7,7 @@ from django.http import HttpResponse
 from datetime import datetime
 from django import forms 
 from django.urls import reverse_lazy
+import json
 
 class Home(TemplateView):
     template_name = 'index.html'
@@ -65,11 +66,17 @@ class MealIngredientCreateView (LoginRequiredMixin, TemplateView):
     success_url = '/'
 
 def mealupdate(request):
-    request.session['meal'] = Record()        
+    request.session['meal'] = Meal()
     return render(request = request, template_name = 'meal_update.html')
 
 def mealingredientadd(request):
-    record = request.session['meal']
-    mealIngredient = MealIngredient()
-    print(record)
+    if 'meal_ingredients' not in request.session:
+        meal_ingredients = []
+    else:
+        meal_ingredients = request.session['meal_ingredients']
+    meal_ingredient = MealIngredient()
+    meal_ingredients.append(meal_ingredient)
+    request.session['meal_ingredients'] = meal_ingredients
+    if 'ingredient_unit'
+    print(meal_ingredients)
     return render(request = request, template_name = 'meal_update.html')
