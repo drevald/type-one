@@ -4,3 +4,5 @@ type_one/__pycache__/
 type_one/core/__pycache__/
 type_one/core/migrations/__pycache__/
 **/*.pyc
+**/*.mo
+staticfiles/
