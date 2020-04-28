@@ -77,7 +77,7 @@ class Meal(models.Model):
 class MealIngredient(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     meal = models.ForeignKey(Meal, on_delete = models.DO_NOTHING, related_name='meal_ingredients')
-    indredient_unit = models.ForeignKey(IngredientUnit, on_delete = models.DO_NOTHING)
+    ingredient_unit = models.ForeignKey(IngredientUnit, on_delete = models.DO_NOTHING)
     ingredient_units = models.FloatField()
     ingredient_weight_grams = models.IntegerField()
 

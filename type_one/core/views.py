@@ -1,4 +1,4 @@
-from .models import SugarLevel, Insulin, Record, SugarLevelUnit, InsulinShot, User, Meal, MealIngredient
+from .models import *
 from .forms import *
 from django.views.generic import TemplateView, ListView, CreateView, FormView, DeleteView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -74,9 +74,13 @@ def mealingredientadd(request):
         meal_ingredients = []
     else:
         meal_ingredients = request.session['meal_ingredients']
-    meal_ingredient = MealIngredient()
+    meal = request.session['meal']
+    meal_ingredient = MealIngredient(
+        user = request.user, 
+        meal = meal,
+        ingredient_unit = IngredientUnit.objects.first(),
+        ingredient_units = 1)
+    meal_ingredients.clear
     meal_ingredients.append(meal_ingredient)
     request.session['meal_ingredients'] = meal_ingredients
-    if 'ingredient_unit'
-    print(meal_ingredients)
     return render(request = request, template_name = 'meal_update.html')
