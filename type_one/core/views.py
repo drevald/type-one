@@ -60,6 +60,11 @@ class MealUpdateView (LoginRequiredMixin, TemplateView):
     template_name = 'meal_update.html'
     success_url = '/'
 
+class MealCreateView (LoginRequiredMixin, CreateView): 
+    model = Meal
+    template_name = 'meal_update.html'
+    success_url = '/'
+
 class MealIngredientCreateView (LoginRequiredMixin, TemplateView): 
     model = MealIngredient
     template_name = 'meal_update.html'
@@ -83,4 +88,8 @@ def mealingredientadd(request):
     meal_ingredients.clear
     meal_ingredients.append(meal_ingredient)
     request.session['meal_ingredients'] = meal_ingredients
+    return render(request = request, template_name = 'meal_update.html')
+
+def mealingredientdelete(request):
+    del request.session['meal_ingredients'][int(request.GET['index'])]
     return render(request = request, template_name = 'meal_update.html')

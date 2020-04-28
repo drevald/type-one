@@ -8,6 +8,8 @@ urlpatterns = [
     path('record/<int:pk>/delete/', RecordDeleteView.as_view(), name='record_delete'),
     path('record/<int:pk>/update/', RecordUpdateView.as_view(), name='record_update'),
     path('spisok/', Spisok.as_view()),
-    path('meal/update/', mealupdate, name='meal_update'),
-    path('mealingredient/add/', mealingredientadd, name='mealingredient_add')
+    path('meal/create/', MealCreateView.as_view(), name='meal_update'),
+    path('meal/update/', MealUpdateView.as_view(), name='meal_update'),
+    path('mealingredient/add/', mealingredientadd, name='mealingredient_add'),
+    path('mealingredient/delete/', mealingredientdelete)
 ]
