@@ -65,10 +65,11 @@ class MealCreateView (LoginRequiredMixin, CreateView):
     template_name = 'meal_update.html'
     success_url = '/'
 
-class MealIngredientCreateView (LoginRequiredMixin, TemplateView): 
+class MealIngredientAddView (LoginRequiredMixin, CreateView):
     model = MealIngredient
-    template_name = 'meal_update.html'
-    success_url = '/'
+    template_name = 'mealingredient_create.html'
+    form_class = MealIngredientForm
+    sucess_url = 'meal/update'
 
 def mealupdate(request):
     request.session['meal'] = Meal()

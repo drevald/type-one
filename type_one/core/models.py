@@ -89,3 +89,4 @@ class Record(models.Model):
     meal = models.ForeignKey(Meal, on_delete = models.DO_NOTHING, null=True)
     activity_period = models.ForeignKey(ActivityPeriod, on_delete = models.DO_NOTHING, null=True)
     notes = models.CharField(max_length = 1000, null=True)
+ 
