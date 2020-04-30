@@ -7,6 +7,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'core'
 ]
 
 MIDDLEWARE = [
@@ -24,7 +25,7 @@ ROOT_URLCONF = 'type_one.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        # "DIRS": ['/home/denis/PythonProjects/type-one/'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

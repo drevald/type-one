@@ -3,24 +3,19 @@ from django.db import models
 # Create your models here.
 
 class Insulin(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length = 32)
 
-class GlucoseUnit():
-    name = models.CharField()
+class GlucoseUnit(models.Model):
+    name = models.CharField(max_length = 32)
     ratio_to_mmol_l = models.FloatField()
 
 class Record(models.Model):
-    glucose_level = models.IntegerField()
-    glucose_level_unit = models.ForeignKey(GlucoseUnit, on_delete = models.SET_NULL)
-    insulin_amount = models.FloatField()
-    insulin_type = models.ForeignKey(Insulin, on_delete = models.SET_NULL)
-    notes = models.CharField()
-
-class MealIngredient(modelsModel):
-    record = models.ForeignKey(Record, on_delete = models.CASCADE)
-    ingredinet = models.ForeignKey(Ingredient, on_delete = models.CASCADE)
-    ingredient_unit = models.ForeignKey(IngredientUnit, on_delete = models.CASCADE)
-    quantity = models.FloatField()
+    time = models.DateTimeField()
+    glucose_level = models.IntegerField(null = True)
+    glucose_level_unit = models.ForeignKey(GlucoseUnit, on_delete = models.SET_NULL, null = True)
+    insulin_amount = models.FloatField(null = True)
+    insulin = models.ForeignKey(Insulin, on_delete = models.SET_NULL, null = True)
+    notes = models.CharField(max_length = 32)
 
 class Ingredient(models.Model):
     name = models.CharField(max_length = 255)
@@ -34,14 +29,25 @@ class Ingredient(models.Model):
         return self.name
 
 class WeightUnit(models.Model):
-    name = models.CharField()
+    name = models.CharField(max_length = 32)
     ratio_to_gramm = models.FloatField()
     def __str__(self):
-        return self.name    
+        return self.name  
 
 class IngredientUnit(models.Model):
     unit = models.ForeignKey(WeightUnit, on_delete = models.DO_NOTHING)
     ingredient = models.ForeignKey(Ingredient, on_delete = models.DO_NOTHING)
     grams_int_unit = models.FloatField()
     def __str__(self):
-        return self.ingredient.name + "_" + self.unit.name
+        return self.ingredient.name + "_" + self.unit.name   
+
+class MealIngredient(models.Model):
+    record = models.ForeignKey(Record, on_delete = models.CASCADE)
+    ingredinet = models.ForeignKey(Ingredient, on_delete = models.CASCADE)
+    ingredient_unit = models.ForeignKey(IngredientUnit, on_delete = models.CASCADE)
+    quantity = models.FloatField()
+
+
+  
+
+

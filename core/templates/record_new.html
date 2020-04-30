@@ -1,0 +1,13 @@
+<h1>Create record</h1>
+<form action="{% url 'create' %}" method="post">
+{% csrf_token %}
+Glucose<input name="glucose_level" value="{{ record.glucose_level }}"><br>
+Glucose<input name="insulin_amount" value="{{ record.insulin_amount }}"><br>
+Инсулин<select>
+{% for insulin in insulins %}
+<option>{{insulin.name}}</option>
+{% endfor %}
+</select><br>
+Notes<textarea name="notes">{{ record.notes }}</textarea><br>
+<input type="submit" value="Create">
+</form>

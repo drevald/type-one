@@ -1,3 +1,5 @@
 from django.contrib import admin
+from .models import GlucoseUnit, Insulin
 
-# Register your models here.
+admin.site.register(GlucoseUnit)
+admin.site.register(Insulin)
