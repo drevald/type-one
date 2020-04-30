@@ -8,4 +8,4 @@ class RecordForm(forms.Form):
     notes = forms.TextInput()
 
 class MealIngredientForm(forms.Form):
-    ingredients = forms.ModelMultipleChoiceField(queryset=Ingredient.objects.all())
+    ingredients = forms.CharField()

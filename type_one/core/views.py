@@ -55,7 +55,7 @@ class RecordCreate(LoginRequiredMixin, FormView):
         )
         return super().form_valid(form)
 
-class MealUpdateView (LoginRequiredMixin, TemplateView): 
+class MealUpdateView (LoginRequiredMixin, CreateView): 
     model = Meal
     template_name = 'meal_update.html'
     success_url = '/'
@@ -71,9 +71,9 @@ class MealIngredientAddView (LoginRequiredMixin, CreateView):
     form_class = MealIngredientForm
     sucess_url = 'meal/update'
 
-def mealupdate(request):
-    request.session['meal'] = Meal()
-    return render(request = request, template_name = 'meal_update.html')
+# def mealupdate(request):
+#     request.session['meal'] = Meal()
+#     return render(request = request, template_name = 'meal_update.html')
 
 def mealingredientadd(request):
     if 'meal_ingredients' not in request.session:
