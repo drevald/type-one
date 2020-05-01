@@ -1,0 +1,44 @@
+<html>
+<head>
+{# Load the tag library #}
+{% load bootstrap4 %}
+{# Load CSS and JavaScript #}
+{% bootstrap_css %}
+{% bootstrap_javascript jquery='full' %}
+{# Display django.contrib.messages as Bootstrap alerts #}
+{% bootstrap_messages %}
+</head>
+<body>
+    <div class="container">
+        <div class="page-header">
+            <h1>Records</h1>
+        </div>
+        <table class="table table-condensed">
+            <thead>
+                <tr>
+                    <th>Time</th>
+                    <th>Insulin shot</th>
+                    <th>Glucose level</th>
+                    <th>Meal</th>
+                    <th>Notes</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            {% for record in records_list %}
+            <tr>
+                <td>{{ record.time }}</td>
+                <td>{{ record.insulin_amount }}</td>
+                <td>{{ record.glucose_level }}</td>
+                <td>{{ record.meal }}</td>
+                <td>{{ record.notes }}</td>
+                <td>
+                    <a href="{% url 'delete' record.pk %}">Delete</a>
+                    <a href="{% url 'update' record.pk %}">Update</a>
+                </td>    
+            </tr>
+            {% endfor %}
+        </table>
+        <a href="{% url 'new' %}" class="btn btn-primary">Add record</a>
+    </div>
+</body>
+</html>

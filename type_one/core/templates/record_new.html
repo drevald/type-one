@@ -1,0 +1,38 @@
+ 
+<html>
+    <head>
+    {# Load the tag library #}
+    {% load bootstrap4 %}
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>Ingredients</h1>            
+            </div>
+            <form action="{% url 'create' %}" method="post">{% csrf_token %}
+                <table class="table table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Insulin shot</th>
+                            <th>Glucose level</th>
+                            <th>Meal</th>
+                            <th>Notes</th>
+                        </tr>
+                    </thead>
+                    <tr>
+                        <td><input class="form-control input-sm" name="insulin_amount" id="insulin_amount" type="number" value="{{record.insulin_amount}}"></td>
+                        <td><input class="form-control input-sm" name="glucose_level" type="number" value="{{record.glucose_level}}"></td>
+                        <td><a href='/meal/update' class="btn btn-primary">Edit</a></td>
+                        <td><textarea class="form-control" rows="5" id="comment" name="notes">999{{record.notes}}</textarea></td>
+                    </tr>
+                </table>
+                <input type="submit">
+            </form>                
+        </div>
+    </body>
+    </html>

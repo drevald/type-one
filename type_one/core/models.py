@@ -6,10 +6,14 @@ from datetime import datetime
 
 class Insulin(models.Model):
     name = models.CharField(max_length = 32)
+    def __str__(self): 
+        return self.name
 
 class GlucoseUnit(models.Model):
     name = models.CharField(max_length = 32)
     ratio_to_mmol_l = models.FloatField()
+    def __str__(self): 
+        return self.name
 
 class User(AbstractUser):
     glucose_level_unit = models.ForeignKey(GlucoseUnit, on_delete = models.SET_NULL, null = True)
@@ -18,11 +22,11 @@ class User(AbstractUser):
 
 class Record(models.Model):
     time = models.DateTimeField()
-    glucose_level = models.IntegerField(null = True)
+    glucose_level = models.IntegerField(null = True, default = 0)
     glucose_level_unit = models.ForeignKey(GlucoseUnit, on_delete = models.SET_NULL, null = True)
-    insulin_amount = models.FloatField(null = True)
+    insulin_amount = models.FloatField(null = True, default = 0)
     insulin = models.ForeignKey(Insulin, on_delete = models.SET_NULL, null = True)
-    notes = models.CharField(max_length = 32)
+    notes = models.CharField(max_length = 256, null = True)
 
 class Ingredient(models.Model):
     name = models.CharField(max_length = 255)

@@ -14,16 +14,29 @@ def records_list(request):
     return HttpResponse(template.render(context, request))
 
 def record_new(request):
-    template = loader.get_template('record_new.html')
     record = Record()
+    template = loader.get_template('record_new.html')
     context = {'record' : Record(), 'insulins':Insulin.objects.all()}
     return HttpResponse(template.render(context, request))
 
 def record_create(request):
     record = Record()
     record.time = datetime.now()
-    record.notes = request.POST.get('glucose_level')
-    record.notes = request.POST.get('insulin_amount')
+    record.glucose_level =  request.POST['glucose_level']
+    record.glucose_level_unit = request.user.glucose_level_unit
+    record.insulin_amount = request.POST['insulin_amount']
+    record.insulin = request.user.rapid_acting_insulin
     record.notes = request.POST.get('notes')
     record.save()    
     return HttpResponseRedirect(reverse('list'))
+
+def record_delete(request, pk):
+    record = Record.objects.get(id = pk)
+    record.delete()
+    return HttpResponseRedirect(reverse('list'))
+
+def record_update(request, pk):
+    record = Record.objects.get(id = pk)
+    template = loader.get_template('record_new.html')
+    context = {'record' : Record(), 'insulins':Insulin.objects.all()}
+    return HttpResponse(template.render(context, request))
