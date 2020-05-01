@@ -20,7 +20,10 @@ def record_new(request):
     return HttpResponse(template.render(context, request))
 
 def record_create(request):
-    record = Record()
+    if "cancel" in request.POST:
+        return HttpResponseRedirect(reverse('list'))
+    id = request.POST['id']
+    record = Record.objects.get(id=id) if id else Record()   
     record.time = datetime.now()
     record.glucose_level =  request.POST['glucose_level']
     record.glucose_level_unit = request.user.glucose_level_unit
@@ -38,5 +41,12 @@ def record_delete(request, pk):
 def record_update(request, pk):
     record = Record.objects.get(id = pk)
     template = loader.get_template('record_new.html')
-    context = {'record' : Record(), 'insulins':Insulin.objects.all()}
+    context = {'record' : record, 'insulins':Insulin.objects.all()}
+    return HttpResponse(template.render(context, request))
+
+def meal(request, pk = None):
+    if "cancel" in request.POST:
+        return HttpResponseRedirect(reverse('list'))    
+    template = loader.get_template('meal.html')
+    context = {'A':'B'}
     return HttpResponse(template.render(context, request))

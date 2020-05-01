@@ -1,0 +1,41 @@
+<html>
+    <head>
+    {# Load the tag library #}
+    {% load bootstrap4 %}
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>Meal</h1>
+            </div>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Unit</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                {% for mealingredient in mealingredients_list %}
+                <tr>
+                    <td>{{ mealingredient.ingredient.name }}</td>
+                    <td>{{ mealingredient.ingredient_unit.name }}</td>
+                    <td>{{ mealingredient.quantity }}</td>
+                    <td>
+                        <a href="{% url 'delete' mealingredient.pk %}">Delete</a>
+                        <a href="{% url 'update' mealingredient.pk %}">Update</a>
+                    </td>    
+                </tr>
+                {% endfor %}
+            </table>
+            <a href="{% url 'new' %}" class="btn btn-primary">Add ingredient</a>
+            <a href="{% url 'new' %}" class="btn">Cancel</a>
+        </div>
+    </body>
+</html>

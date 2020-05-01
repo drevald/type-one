@@ -8,6 +8,8 @@ urlpatterns = [
     path('new/', record_new, name="new"),
     path('update/<int:pk>', record_update, name="update"),
     path('delete/<int:pk>', record_delete, name="delete"),
+    path('meal/<int:pk>', meal, name="meal"),
+    path('meal', meal, name="meal"),
 ]
 
 
