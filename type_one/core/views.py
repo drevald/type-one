@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template import loader
 from django.urls import reverse
-from .models import Record, Insulin
+from .models import Record, Insulin, MealIngredient, IngredientUnit, Ingredient 
 from datetime import datetime
 
 def records_list(request):
@@ -50,3 +50,26 @@ def meal(request, pk = None):
     template = loader.get_template('meal.html')
     context = {'A':'B'}
     return HttpResponse(template.render(context, request))
+
+def meal_add(request):
+    if 'meal_ingredients' not in request.session:
+        meal_ingredients = []
+    else:
+        meal_ingredients = request.session['meal_ingredients']
+    meal_ingredient = MealIngredient(
+        ingredient = Ingredient.objects.first(),
+        ingredient_unit = IngredientUnit.objects.first(),
+        quantity = 0
+    )
+    print(meal_ingredient)
+    meal_ingredients.clear
+    meal_ingredients.append(meal_ingredient)
+    request.session['meal_ingredients'] = meal_ingredients
+    return render(request = request, template_name = 'meal.html')
+
+def meal_delete(request, pk):
+    del request.session['meal_ingredients'][pk-1]
+    return HttpResponseRedirect(reverse('meal'))
+
+def meal_update(request, pk):
+    return HttpResponseRedirect(reverse('meal'))

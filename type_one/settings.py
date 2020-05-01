@@ -66,3 +66,7 @@ SECRET_KEY = 'segretto'
 DEBUG = True
 
 AUTH_USER_MODEL = "core.User"
+
+SESSION_SAVE_EVERY_REQUEST = True
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'

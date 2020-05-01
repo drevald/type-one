@@ -41,20 +41,19 @@ class Ingredient(models.Model):
 
 class WeightUnit(models.Model):
     name = models.CharField(max_length = 32)
-    ratio_to_gramm = models.FloatField()
     def __str__(self):
         return self.name  
 
 class IngredientUnit(models.Model):
     unit = models.ForeignKey(WeightUnit, on_delete = models.DO_NOTHING)
     ingredient = models.ForeignKey(Ingredient, on_delete = models.DO_NOTHING)
-    grams_int_unit = models.FloatField()
+    grams_in_unit = models.FloatField()
     def __str__(self):
         return self.ingredient.name + "_" + self.unit.name   
 
 class MealIngredient(models.Model):
-    record = models.ForeignKey(Record, on_delete = models.CASCADE)
-    ingredinet = models.ForeignKey(Ingredient, on_delete = models.CASCADE)
+    record = models.ForeignKey(Record, on_delete = models.CASCADE, null = True)
+    ingredient = models.ForeignKey(Ingredient, on_delete = models.CASCADE)
     ingredient_unit = models.ForeignKey(IngredientUnit, on_delete = models.CASCADE)
     quantity = models.FloatField()
 
