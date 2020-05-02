@@ -30,7 +30,7 @@ class Record(models.Model):
 
 class Ingredient(models.Model):
     name = models.CharField(max_length = 255)
-    bread_units_per_100g = models.FloatField()
+    bread_units_per_100g = models.FloatField()##
     glycemic_index = models.IntegerField()
     fat_per_100g = models.IntegerField()
     carbohydrate_per_100g = models.IntegerField()

@@ -13,7 +13,8 @@
             <div class="page-header">
                 <h1>Ingredients</h1>            
             </div>
-            <form action="{% url 'create' %}" method="post">{% csrf_token %}
+            <form action="{% url 'create' %}" method="post">
+                {% csrf_token %}
                 {% if record.id %}
                 <input type="hidden" value="{{record.id}}" name="id">
                 {% endif %}                

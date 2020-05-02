@@ -10,7 +10,8 @@ urlpatterns = [
     path('delete/<int:pk>', record_delete, name="delete"),
     path('meal/<int:pk>', meal, name="meal"),
     path('meal', meal, name="meal"),
-    path('meal/add', meal_add, name="meal.add"),
+    path('meal/new', meal_new, name="meal.new"),
+    path('meal/update/store/', meal_update_store, name="meal.update.store"),
     path('meal/update/<int:pk>', meal_update, name="meal.update"),
     path('meal/delete/<int:pk>', meal_delete, name="meal.delete"),
 

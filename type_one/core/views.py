@@ -3,7 +3,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template import loader
 from django.urls import reverse
-from .models import Record, Insulin, MealIngredient, IngredientUnit, Ingredient 
+from .models import Record, Insulin, MealIngredient, IngredientUnit, Ingredient, WeightUnit
+from .forms import MealIngredientForm
 from datetime import datetime
 
 def records_list(request):
@@ -13,16 +14,10 @@ def records_list(request):
     context = {'records_list' : records_list}
     return HttpResponse(template.render(context, request))
 
-def record_new(request):
-    record = Record()
-    template = loader.get_template('record_new.html')
-    context = {'record' : Record(), 'insulins':Insulin.objects.all()}
-    return HttpResponse(template.render(context, request))
-
 def record_create(request):
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('list'))
-    id = request.POST['id']
+    id = request.POST.get('id', None)
     record = Record.objects.get(id=id) if id else Record()   
     record.time = datetime.now()
     record.glucose_level =  request.POST['glucose_level']
@@ -44,6 +39,12 @@ def record_update(request, pk):
     context = {'record' : record, 'insulins':Insulin.objects.all()}
     return HttpResponse(template.render(context, request))
 
+def record_new(request):
+    record = Record()
+    template = loader.get_template('record_new.html')
+    context = {'record' : Record(), 'insulins':Insulin.objects.all()}
+    return HttpResponse(template.render(context, request))
+
 def meal(request, pk = None):
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('list'))    
@@ -51,25 +52,41 @@ def meal(request, pk = None):
     context = {'A':'B'}
     return HttpResponse(template.render(context, request))
 
-def meal_add(request):
+def meal_update_store(request):
     if 'meal_ingredients' not in request.session:
         meal_ingredients = []
     else:
         meal_ingredients = request.session['meal_ingredients']
-    meal_ingredient = MealIngredient(
-        ingredient = Ingredient.objects.first(),
-        ingredient_unit = IngredientUnit.objects.first(),
-        quantity = 0
-    )
-    print(meal_ingredient)
+    pk = request.POST.get('pk', None)
+    ingredient = request.session['meal_ingredients'][int(pk)-1] if pk else MealIngredient()
+    ingredient.ingredient = Ingredient.objects.get(id=int(request.POST.get('ingredient_id')))
+    ingredient.ingredient_unit = IngredientUnit.objects.get(id=int(request.POST.get('unit_id')))
+    ingredient.quantity = request.POST.get('quantity')
     meal_ingredients.clear
-    meal_ingredients.append(meal_ingredient)
-    request.session['meal_ingredients'] = meal_ingredients
+    if pk:
+        meal_ingredients[int(pk)-1] = ingredient
+    else: 
+        meal_ingredients.append(ingredient)
     return render(request = request, template_name = 'meal.html')
 
 def meal_delete(request, pk):
     del request.session['meal_ingredients'][pk-1]
     return HttpResponseRedirect(reverse('meal'))
 
-def meal_update(request, pk):
-    return HttpResponseRedirect(reverse('meal'))
+def meal_update(request, pk=None):
+    template = loader.get_template('meal_ingredient.html')
+    ingredient = request.session['meal_ingredients'][pk-1]
+    units = IngredientUnit.objects.filter(ingredient = Ingredient.objects.first())
+    ingredients = Ingredient.objects.all
+    context = {'ingredient':ingredient, 'ingredients':ingredients, 'units':units, 'pk':pk}
+    return HttpResponse(template.render(context, request))    
+
+def meal_new(request):    
+    template = loader.get_template('meal_ingredient.html')
+    ingredient = MealIngredient()
+    ingredient.ingredient = Ingredient.objects.first()
+    ingredient.ingredient_unit = IngredientUnit.objects.filter(ingredient = ingredient.ingredient).first()
+    units = IngredientUnit.objects.filter(ingredient = Ingredient.objects.first())
+    ingredients = Ingredient.objects.all
+    context = {'ingredient':ingredient, 'ingredients':ingredients, 'units':units}
+    return HttpResponse(template.render(context, request))    
