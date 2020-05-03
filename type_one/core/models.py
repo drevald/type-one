@@ -22,6 +22,7 @@ class User(AbstractUser):
 
 class Record(models.Model):
     time = models.DateTimeField()
+    type = models.IntegerField(default=0)
     glucose_level = models.IntegerField(null = True, default = 0)
     glucose_level_unit = models.ForeignKey(GlucoseUnit, on_delete = models.SET_NULL, null = True)
     insulin_amount = models.FloatField(null = True, default = 0)

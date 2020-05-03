@@ -11,7 +11,7 @@
     <body>
         <div class="container">
             <div class="page-header">
-                <h1>Ingredients</h1>            
+                <h1>New record</h1>            
             </div>
             <form action="" method="post">
                 {% csrf_token %}
@@ -21,8 +21,8 @@
                 <table class="table table-condensed">
                     <thead>
                         <tr>
-                            <th>Insulin shot</th>
-                            <th>Glucose level</th>
+                            <th>{{request.user.rapid_acting_insulin.name}} shot, units</th>
+                            <th>Glucose level, {{request.user.glucose_level_unit.name}}</th>
                             <th>Bread units</th>
                             <th>Notes</th>
                         </tr>

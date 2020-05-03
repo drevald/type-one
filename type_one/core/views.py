@@ -14,51 +14,34 @@ def list(request):
     context = {'records_list' : records_list}
     return HttpResponse(template.render(context, request))
 
-# def store(request):
-#     print("storing")
-#     if "cancel" in request.POST:
-#         return HttpResponseRedirect(reverse('list'))
-#     id = request.POST.get('id')
-#     record = Record.objects.get(id=id) if id else Record()   
-#     record.time = datetime.now()
-#     record.glucose_level = float(request.POST['glucose_level'])
-#     record.glucose_level_unit = request.user.glucose_level_unit
-#     record.insulin_amount = request.POST['insulin_amount']
-#     record.insulin = request.user.rapid_acting_insulin
-#     record.notes = request.POST.get('notes')
-#     record.save()    
-#     return HttpResponseRedirect(reverse('list'))
-
 def delete(request, pk):
     record = Record.objects.get(id = pk)
     record.delete()
     return HttpResponseRedirect(reverse('list'))
 
 def details(request, pk):
-    record = Record.objects.get(id = pk)
-    template = loader.get_template('record_new.html')
-    context = {'record' : record, 'insulins':Insulin.objects.all()}
-    return HttpResponse(template.render(context, request))
-
-def create(request):    
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('list'))    
-    template = 'record_new.html'
-    record = Record(time = datetime.now(), insulin = request.user.rapid_acting_insulin, glucose_level_unit = request.user.glucose_level_unit)
-    form = RecordForm(request.POST or None, instance=record)
-    print(form)
+    record = Record.objects.get(id=pk)
+    template = 'record_new.html' if record.type == 0 else 'record_long.html'
+    form = RecordForm(request.POST or None, instance=record) if record.type == 0 else LongForm(request.POST or None, instance=record)
     if form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('list'))
     context = {"form": form}
     return render(request, template, context)
 
-def long(request): 
+def create(request, type=0):    
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('list'))    
-    template = 'record_long.html'
-    record = Record(time = datetime.now(), insulin = request.user.long_acting_insulin)
+    template = 'record_new.html'
+    record = Record(time = datetime.now(), insulin = request.user.rapid_acting_insulin, glucose_level_unit = request.user.glucose_level_unit)
+    if (type == 1):
+        template = 'record_long.html'
+        record.insulin = request.user.long_acting_insulin
+        record.type = 1
     form = RecordForm(request.POST or None, instance=record)
+    print(form)
     if form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('list'))

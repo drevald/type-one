@@ -27,9 +27,13 @@
                 {% for record in records_list %}
                 <tr>
                     <td>{{ record.time }}</td>
+                    {% if record.type == 0 %}
                     <td>{{ record.insulin_amount }} {{record.insulin.name}}</td>
                     <td>{{ record.glucose_level }}</td>
                     <td>{{ record.bread_units }}</td>
+                    {% else %}
+                    <td colspan=3>{{ record.insulin_amount }} {{record.insulin.name}}</td>
+                    {% endif %}
                     <td>{{ record.notes }}</td>
                     <td>
                         <a href="{% url 'delete' record.pk %}">Delete</a>
@@ -38,8 +42,8 @@
                 </tr>
                 {% endfor %}
             </table>
-            <a href="{% url 'create' %}" class="btn btn-primary">Add record</a>
-            <a href="{% url 'long' %}" class="btn btn-primary">Add long</a>
+            <a href="{% url 'create' 0 %}" class="btn btn-primary">Add record</a>
+            <a href="{% url 'create' 1 %}" class="btn btn-primary">Add long</a>
         </div>
     </body>
 </html>
