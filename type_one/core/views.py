@@ -9,7 +9,6 @@ from datetime import datetime
 
 def list(request):
     records_list = Record.objects.all()
-    print(records_list)
     template = loader.get_template('records_list.html')
     context = {'records_list' : records_list}
     return HttpResponse(template.render(context, request))
@@ -41,7 +40,6 @@ def create(request, type=0):
         record.insulin = request.user.long_acting_insulin
         record.type = 1
     form = RecordForm(request.POST or None, instance=record)
-    print(form)
     if form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('list'))
