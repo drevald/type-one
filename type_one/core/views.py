@@ -49,6 +49,7 @@ def meal(request, pk = None):
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('list'))    
     template = loader.get_template('meal.html')
+    request.session['record_id'] = pk
     context = {'A':'B'}
     return HttpResponse(template.render(context, request))
 
@@ -75,18 +76,33 @@ def meal_delete(request, pk):
 
 def meal_update(request, pk=None):
     template = loader.get_template('meal_ingredient.html')
-    ingredient = request.session['meal_ingredients'][pk-1]
+    meal_ingredient = request.session['meal_ingredients'][pk-1]
     units = IngredientUnit.objects.filter(ingredient = Ingredient.objects.first())
     ingredients = Ingredient.objects.all
-    context = {'ingredient':ingredient, 'ingredients':ingredients, 'units':units, 'pk':pk}
+    context = {'meal_ingredient':meal_ingredient, 'ingredients':ingredients, 'units':units, 'pk':pk}
     return HttpResponse(template.render(context, request))    
+
+def meal_update_reload(request, pk=None, sel=None):
+    template = loader.get_template('meal_ingredient.html')
+    meal_ingredient = request.session['meal_ingredients'][pk-1]
+    meal_ingredient.ingredient = Ingredient.objects.get(id=sel)
+    units = IngredientUnit.objects.filter(ingredient = meal_ingredient.ingredient)
+    ingredients = Ingredient.objects.all
+    context = {'meal_ingredient':meal_ingredient, 'ingredients':ingredients, 'units':units, 'pk':pk}
+    return HttpResponse(template.render(context, request))   
 
 def meal_new(request):    
     template = loader.get_template('meal_ingredient.html')
-    ingredient = MealIngredient()
-    ingredient.ingredient = Ingredient.objects.first()
-    ingredient.ingredient_unit = IngredientUnit.objects.filter(ingredient = ingredient.ingredient).first()
+    meal_ingredient = MealIngredient()
+    meal_ingredient.ingredient = Ingredient.objects.first()
+    meal_ingredient.ingredient_unit = IngredientUnit.objects.filter(ingredient = meal_ingredient.ingredient).first()
     units = IngredientUnit.objects.filter(ingredient = Ingredient.objects.first())
     ingredients = Ingredient.objects.all
-    context = {'ingredient':ingredient, 'ingredients':ingredients, 'units':units}
-    return HttpResponse(template.render(context, request))    
+    context = {'meal_ingredient':meal_ingredient, 'ingredients':ingredients, 'units':units}
+    return HttpResponse(template.render(context, request)) 
+
+def meal_save(request):
+    if 'record_id' not in request.session:
+        return HttpResponseRedirect(reverse('new'))
+    else:
+        return HttpResponseRedirect(reverse('new'))

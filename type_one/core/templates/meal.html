@@ -34,6 +34,7 @@
                 </tr>
                 {% endfor %}
             </table>
+            <a href="{% url 'meal.save' %}" class="btn btn-primary">Save</a>
             <a href="{% url 'meal.new' %}" class="btn btn-primary">Add ingredient</a>
             <a href="{% url 'new' %}" class="btn">Cancel</a>
         </div>

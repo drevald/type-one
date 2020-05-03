@@ -19,10 +19,10 @@
                 <input type="hidden" value="{{pk}}" name="pk">
                 {% endif %}       
                 <div class="form-group">
-                    <label>Ingredient:</label>
-                    <select class="form-control col-sm-4" name="ingredient_id">
+                    <label>Ingredient:{{meal_ingredient.id}}</label>
+                    <select class="form-control col-sm-4" name="ingredient_id" onchange="javascript:location.href='/meal/update/{{pk}}/reload/'+(this.options[selectedIndex].value)">
                     {% for i in ingredients %}    
-                        {% if i.id == ingredient.ingredient.id %}                        
+                        {% if i.id == meal_ingredient.ingredient.id %}                        
                         <option value="{{i.id}}" selected>{{i.name}}</option>
                         {% else %}
                         <option value="{{i.id}}">{{i.name}}</option>

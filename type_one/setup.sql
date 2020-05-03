@@ -27,6 +27,7 @@ insert into core_weightunit values (3, 'glass');
 insert into core_weightunit values (4, 'teaspoon');
 insert into core_weightunit values (5, 'spoon');
 insert into core_weightunit values (6, 'plate');
+insert into core_weightunit values (7, 'piece');
 
 insert into core_ingredientunit values (DEFAULT, 1, 0, 0);
 insert into core_ingredientunit values (DEFAULT, 1, 1, 0);
