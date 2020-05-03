@@ -13,7 +13,7 @@
             <div class="page-header">
                 <h1>Ingredients</h1>            
             </div>
-            <form action="{% url 'create' %}" method="post">
+            <form action="{% url 'store' %}" method="post">
                 {% csrf_token %}
                 {% if record.id %}
                 <input type="hidden" value="{{record.id}}" name="id">
@@ -23,25 +23,21 @@
                         <tr>
                             <th>Insulin shot</th>
                             <th>Glucose level</th>
-                            <th>Meal</th>
+                            <th>Bread units</th>
                             <th>Notes</th>
                         </tr>
                     </thead>
-                    <tr>
-                        <td><input class="form-control input-sm" name="insulin_amount" id="insulin_amount" type="number" value="{{record.insulin_amount}}"></td>
-                        <td><input class="form-control input-sm" name="glucose_level" type="number" value="{{record.glucose_level}}"></td>
-                        <td>
-                            {% if record.id %}
-                            <a href="{% url 'meal' record.pk %}">Edit</a>
-                            {% else %}
-                            <a href="{% url 'meal' %}">Edit</a>
-                            {% endif %}  
-                        </td>
-                        <td><textarea class="form-control" rows="5" id="comment" name="notes">{{record.glucose_level}}</textarea></td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td><input class="form-control input-sm" name="insulin_amount" id="insulin_amount" type="number" value="{{record.insulin_amount}}"></td>
+                            <td><input class="form-control input-sm" name="glucose_level" type="number" value="{{record.glucose_level}}"></td>
+                            <td><input class="form-control input-sm" name="glucose_level" type="number" value="{{record.bread_units}}"></td>
+                            <td><textarea name="notes" class="form-control input-sm">{{record.notes}}</textarea></td>
+                        </tr>  
+                    </tbody>
                 </table>
-                <input type="submit" vale="Create" class="btn btn-primary">
-                <input type="submit" name="cancel" value="Cancel"  class="btn btn-basic"/> 
+                <input type="submit" value="Save" class="btn btn-primary">
+                <input type="submit" value="Cancel" name="cancel" class="btn btn-basic"> 
             </form>                
         </div>
     </body>

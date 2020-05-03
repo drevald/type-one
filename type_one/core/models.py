@@ -26,6 +26,7 @@ class Record(models.Model):
     glucose_level_unit = models.ForeignKey(GlucoseUnit, on_delete = models.SET_NULL, null = True)
     insulin_amount = models.FloatField(null = True, default = 0)
     insulin = models.ForeignKey(Insulin, on_delete = models.SET_NULL, null = True)
+    bread_units = models.FloatField(null = True, default = 0)
     notes = models.CharField(max_length = 256, null = True)
 
 class Ingredient(models.Model):

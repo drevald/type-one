@@ -19,7 +19,7 @@
                         <th>Time</th>
                         <th>Insulin shot</th>
                         <th>Glucose level</th>
-                        <th>Meal</th>
+                        <th>Bread units</th>
                         <th>Notes</th>
                         <th>Actions</th>
                     </tr>
@@ -29,16 +29,16 @@
                     <td>{{ record.time }}</td>
                     <td>{{ record.insulin_amount }}</td>
                     <td>{{ record.glucose_level }}</td>
-                    <td>{{ record.meal }}</td>
+                    <td>{{ record.bread_units }}</td>
                     <td>{{ record.notes }}</td>
                     <td>
                         <a href="{% url 'delete' record.pk %}">Delete</a>
-                        <a href="{% url 'update' record.pk %}">Update</a>
+                        <a href="{% url 'details' record.pk %}">Update</a>
                     </td>    
                 </tr>
                 {% endfor %}
             </table>
-            <a href="{% url 'new' %}" class="btn btn-primary">Add record</a>
+            <a href="{% url 'create' %}" class="btn btn-primary">Add record</a>
         </div>
     </body>
 </html>

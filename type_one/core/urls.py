@@ -3,20 +3,13 @@ from django.urls import path
 from .views import *
 
 urlpatterns = [
-    path('', records_list, name="list"),
-    path('create/', record_create, name="create"),
-    path('new/', record_new, name="new"),
-    path('update/<int:pk>', record_update, name="update"),
-    path('delete/<int:pk>', record_delete, name="delete"),
-    path('meal/<int:pk>', meal, name="meal"),
-    path('meal', meal, name="meal"),
-    path('meal/new', meal_new, name="meal.new"),    
-    path('meal/update/store/', meal_update_store, name="meal.update.store"),
-    path('meal/update/<int:pk>', meal_update, name="meal.update"),
-    path('meal/delete/<int:pk>', meal_delete, name="meal.delete"),
-    path('meal/update/<int:pk>/reload/<int:sel>', meal_update_reload, name="meal.update.reload"),
-    path('meal/save', meal_save, name="meal.save"),
-
+    path('', list, name='list'),
+    path('records', list, name='list'),
+    path('records/create', create, name='create'),
+    path('records/long', long, name='long'),
+    path('records/store', store, name='store'),
+    path('records/<int:pk>/', details, name='details'),
+    path('records/<int:pk>/delete', delete, name='delete'),
 ]
 
 
