@@ -44,10 +44,10 @@ def create(request):
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('list'))    
     template = 'record_new.html'
-    record = Record(time = datetime.now(), insulin = request.user.rapid_acting_insulin)
+    record = Record(time = datetime.now(), insulin = request.user.rapid_acting_insulin, glucose_level_unit = request.user.glucose_level_unit)
     form = RecordForm(request.POST or None, instance=record)
+    print(form)
     if form.is_valid():
-        print("after")
         form.save()
         return HttpResponseRedirect(reverse('list'))
     context = {"form": form}
@@ -58,7 +58,7 @@ def long(request):
         return HttpResponseRedirect(reverse('list'))    
     template = 'record_long.html'
     record = Record(time = datetime.now(), insulin = request.user.long_acting_insulin)
-    form = LongForm(request.POST or None, instance=record)
+    form = RecordForm(request.POST or None, instance=record)
     if form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('list'))

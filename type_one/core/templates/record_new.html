@@ -15,13 +15,6 @@
             </div>
             <form action="" method="post">
                 {% csrf_token %}
-                {{ formset.management_form }}
-                {{ formset.errors }}
-                {{ formset.non_field_errors }}
-                {{ formset.non_form_errors }}
-                {% for error in formset.errors %}
-                {{ error }}<br/>
-                {% endfor %}
                 {% if record.id %}
                 <input type="hidden" value="{{record.id}}" name="id">
                 {% endif %}                
@@ -36,10 +29,10 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td><input class="form-control input-sm" name="insulin_amount" id="insulin_amount" type="number" value="{{record.insulin_amount}}"></td>
-                            <td><input class="form-control input-sm" name="glucose_level" type="number" value="{{record.glucose_level}}"></td>
-                            <td><input class="form-control input-sm" name="glucose_level" type="number" value="{{record.bread_units}}"></td>
-                            <td><textarea name="notes" class="form-control input-sm">{{record.notes}}</textarea></td>
+                            <td>{{form.insulin_amount}}</td>
+                            <td>{{form.glucose_level}}</td>
+                            <td>{{form.bread_units}}</td>
+                            <td>{{form.notes}}</td>
                         </tr>  
                     </tbody>
                 </table>

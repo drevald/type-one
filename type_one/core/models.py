@@ -57,8 +57,3 @@ class MealIngredient(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete = models.CASCADE)
     ingredient_unit = models.ForeignKey(IngredientUnit, on_delete = models.CASCADE)
     quantity = models.FloatField(default=0)
-
-
-  
-
-
