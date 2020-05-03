@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.template import loader
 from django.urls import reverse
 from .models import Record, Insulin, MealIngredient, IngredientUnit, Ingredient, WeightUnit
-from .forms import MealIngredientForm
+from .forms import MealIngredientForm, LongForm
 from datetime import datetime
 
 def list(request):
@@ -46,9 +46,15 @@ def create(request):
     context = {'record' : Record(), 'insulins':Insulin.objects.all()}
     return HttpResponse(template.render(context, request))
 
-def long(request):
+def long(request): 
+    if "cancel" in request.POST:
+        return HttpResponseRedirect(reverse('list'))    
+    template = 'record_long.html'
     record = Record()
-    record.insulin = request.user.long_acting_insulin
-    template = loader.get_template('record_new.html')
-    context = {'record' : Record(), 'insulins':Insulin.objects.all()}
-    return HttpResponse(template.render(context, request))
+    record = Record(time = datetime.now())
+    form = LongForm(request.POST or None, instance=record)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('create'))
+    context = {"form": form}
+    return render(request, template, context)
