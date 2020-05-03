@@ -51,10 +51,10 @@ def long(request):
         return HttpResponseRedirect(reverse('list'))    
     template = 'record_long.html'
     record = Record()
-    record = Record(time = datetime.now())
+    record = Record(time = datetime.now(), insulin = request.user.long_acting_insulin)
     form = LongForm(request.POST or None, instance=record)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('create'))
+        return HttpResponseRedirect(reverse('list'))
     context = {"form": form}
     return render(request, template, context)

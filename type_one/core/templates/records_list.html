@@ -27,7 +27,7 @@
                 {% for record in records_list %}
                 <tr>
                     <td>{{ record.time }}</td>
-                    <td>{{ record.insulin_amount }}</td>
+                    <td>{{ record.insulin_amount }} {{record.insulin.name}}</td>
                     <td>{{ record.glucose_level }}</td>
                     <td>{{ record.bread_units }}</td>
                     <td>{{ record.notes }}</td>
