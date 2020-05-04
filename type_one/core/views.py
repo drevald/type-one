@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template import loader
 from django.urls import reverse
-from .models import Record, Insulin, MealIngredient, IngredientUnit, Ingredient, WeightUnit
+from .models import Record, Insulin, Meal, IngredientUnit, Ingredient, WeightUnit
 from .forms import LongForm, RecordForm
 from datetime import datetime
 

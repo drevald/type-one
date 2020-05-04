@@ -1,5 +1,5 @@
 from django import forms
-from .models import MealIngredient, Record
+from .models import Meal, Record
 
 class LongForm (forms.ModelForm):
     insulin_amount = forms.CharField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}), initial=0)

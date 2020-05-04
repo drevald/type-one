@@ -53,7 +53,7 @@ class IngredientUnit(models.Model):
     def __str__(self):
         return self.ingredient.name + "_" + self.unit.name   
 
-class MealIngredient(models.Model):
+class Meal(models.Model):
     record = models.ForeignKey(Record, on_delete = models.CASCADE, null = True)
     ingredient = models.ForeignKey(Ingredient, on_delete = models.CASCADE)
     ingredient_unit = models.ForeignKey(IngredientUnit, on_delete = models.CASCADE)
