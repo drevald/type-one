@@ -21,7 +21,7 @@ class User(AbstractUser):
     rapid_acting_insulin = models.ForeignKey(Insulin, related_name='rapid', on_delete = models.SET_NULL, null=True)
 
 class Record(models.Model):
-    time = models.DateTimeField()
+    time = models.DateTimeField(auto_now=True)
     type = models.IntegerField(default=0)
     glucose_level = models.IntegerField(null = True, default = 0)
     glucose_level_unit = models.ForeignKey(GlucoseUnit, on_delete = models.SET_NULL, null = True)

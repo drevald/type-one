@@ -14,10 +14,7 @@
                 <h1>New record</h1>            
             </div>
             <form action="" method="post">
-                {% csrf_token %}
-                {% if record.id %}
-                <input type="hidden" value="{{record.id}}" name="id">
-                {% endif %}                
+                {% csrf_token %}             
                 <table class="table table-condensed">
                     <thead>
                         <tr>
@@ -31,7 +28,11 @@
                         <tr>
                             <td>{{form.insulin_amount}}</td>
                             <td>{{form.glucose_level}}</td>
-                            <td>{{form.bread_units}}</td>
+                            <td>{{form.bread_units}}
+                                {% if form.instance.id %}<br/>
+                                <a href="{% url 'meals' form.instance.id %}" class="btn btn-primary btn-sm">Meals</a>
+                                {% endif %}
+                            </td>
                             <td>{{form.notes}}</td>
                         </tr>  
                     </tbody>

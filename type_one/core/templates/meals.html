@@ -1,0 +1,39 @@
+<html>
+    <head>
+    {# Load the tag library #}
+    {% load bootstrap4 %}
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+    </head>
+    <body>
+        <div class="container">
+            <div class="page-header">
+                <h1>Meal</h1>
+            </div>
+            <table class="table table-condensed">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Unit</th>
+                        <th>Quantity</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                {% for meal in meals %}
+                <tr>
+                    <td>{{ meal.ingredient.name }}</td>
+                    <td>{{ meal.ingredient_unit.unit }}</td>
+                    <td>{{ meal.quantity }}</td>
+                    <td>
+
+                    </td>    
+                </tr>
+                {% endfor %}
+            </table>
+            <a href="create" class="btn btn-primary">Add meal</a>
+        </div>
+    </body>
+</html>

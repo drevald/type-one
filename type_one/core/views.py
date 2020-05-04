@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.template import loader
 from django.urls import reverse
 from .models import Record, Insulin, MealIngredient, IngredientUnit, Ingredient, WeightUnit
-from .forms import MealIngredientForm, LongForm, RecordForm
+from .forms import LongForm, RecordForm
 from datetime import datetime
 
 def list(request):
@@ -22,24 +22,19 @@ def details(request, pk):
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('list'))    
     record = Record.objects.get(id=pk)
-    template = 'record_new.html' if record.type == 0 else 'record_long.html'
-    form = RecordForm(request.POST or None, instance=record) if record.type == 0 else LongForm(request.POST or None, instance=record)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect(reverse('list'))
-    context = {"form": form}
-    return render(request, template, context)
+    return store(request, record)
 
 def create(request, type=0):    
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('list'))    
-    template = 'record_new.html'
-    record = Record(time = datetime.now(), insulin = request.user.rapid_acting_insulin, glucose_level_unit = request.user.glucose_level_unit)
-    if (type == 1):
-        template = 'record_long.html'
-        record.insulin = request.user.long_acting_insulin
-        record.type = 1
-    form = RecordForm(request.POST or None, instance=record)
+    record = Record(glucose_level_unit = request.user.glucose_level_unit)
+    record.insulin = request.user.rapid_acting_insulin if type==0 else request.user.long_acting_insulin
+    return store(request, record)
+
+def store(request, record):
+    template = 'record_new.html' if record.type == 0 else 'record_long.html'
+    form = RecordForm(request.POST or None) if record.type == 0 else LongForm(request.POST or None)
+    form.instance = record
     if form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('list'))
