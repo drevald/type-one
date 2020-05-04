@@ -3,6 +3,8 @@ from django.urls import path
 from django.conf.urls import include
 from .views import *
 
+app_name = 'core'
+
 urlpatterns = [
     path('', list, name='list'),
     path('records/', list, name='list'),
