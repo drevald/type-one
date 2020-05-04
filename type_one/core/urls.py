@@ -9,5 +9,5 @@ urlpatterns = [
     path('records/create/<int:type>', create, name='create'),
     path('records/<int:pk>/', details, name='details'),
     path('records/<int:pk>/delete', delete, name='delete'),
-    path('records/<int:pk>/meals/', include('type_one.core.meal.urls'))
+    path('records/<int:pk>/meals/', include('type_one.meal.urls'))
 ]

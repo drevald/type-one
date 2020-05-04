@@ -9,7 +9,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'type_one.core',
-    'type_one.core.meal'
+    'type_one.meal'
 ]
 
 MIDDLEWARE = [

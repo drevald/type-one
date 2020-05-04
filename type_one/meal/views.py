@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from type_one.core.models import Meal
+from .models import Meal
 from .forms import MealIngredientForm
 
 def list(request, pk):
