@@ -41,3 +41,30 @@ def store(request, record):
         return HttpResponseRedirect(reverse('list'))
     context = {"form": form}
     return render(request, template, context)
+
+def meals(request, pk):
+    meals = Meal.objects.all()
+    template = 'meals.html'
+    context = {'meals' : meals}
+    return render(request, template, context)
+
+def meals_create(request, pk):    
+    if "cancel" in request.POST:
+        return HttpResponseRedirect(reverse('meals', pk))    
+    meal = Meal()
+    template = 'meal_new.html'
+    form = MealIngredientForm(request.POST or None, instance=meal)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('meals', pk))
+    context = {"form": form}
+    return render(request, template, context)
+
+def meals_details(request, pk, meal_id):    
+    return HttpResponse("meal details")
+
+def meals_delete(request, pk, meal_id):    
+    return HttpResponse("meal delete")    
+
+def meals_reload(request, pk, meal_id, ingredient_id):    
+    return HttpResponse("meal reload")    

@@ -6,6 +6,5 @@ from .views import *
 app_name = 'meal'
 
 urlpatterns = [
-    path('', list, name='meals'),
-    path('create/', create, name='create'),
+    path('', ingredients, name='ingredients')
 ]

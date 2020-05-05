@@ -12,8 +12,8 @@ urlpatterns = [
     path('records/<int:pk>/', details, name='details'),
     path('records/<int:pk>/delete', delete, name='delete'),
     path('records/<int:pk>/meals/', meals, name='meals'),
-    path('records/<int:pk>/meals/create', meals, name='meals.create'),
-    path('records/<int:pk>/meals/<int:meal_id>/', meals, name='meals.details'),
-    path('records/<int:pk>/meals/<int:meal_id>/delete', meals, name='meals.delete'),
-    path('records/<int:pk>/meals/<int:meal_id>/reload/<int:ingredient_id>', meals, name='meals.reload'),    
+    path('records/<int:pk>/meals/create', meals_create, name='meals.create'),
+    path('records/<int:pk>/meals/<int:meal_id>/', meals_details, name='meals.details'),
+    path('records/<int:pk>/meals/<int:meal_id>/delete', meals_delete, name='meals.delete'),
+    path('records/<int:pk>/meals/<int:meal_id>/reload/<int:ingredient_id>', meals_reload, name='meals.reload')
 ]
