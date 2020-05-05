@@ -1,19 +1,18 @@
 from django.contrib import admin
 from django.urls import path
 from django.conf.urls import include
-from .views import *
+from . import views
 
 app_name = 'core'
 
 urlpatterns = [
-    path('', list, name='list'),
-    path('records/', list, name='list'),
-    path('records/create/<int:type>', create, name='create'),
-    path('records/<int:pk>/', details, name='details'),
-    path('records/<int:pk>/delete', delete, name='delete'),
-    path('records/<int:pk>/meals/', meals, name='meals'),
-    path('records/<int:pk>/meals/create', meals_create, name='meals.create'),
-    path('records/<int:pk>/meals/<int:meal_id>/', meals_details, name='meals.details'),
-    path('records/<int:pk>/meals/<int:meal_id>/delete', meals_delete, name='meals.delete'),
-    path('records/<int:pk>/meals/<int:meal_id>/reload/<int:ingredient_id>', meals_reload, name='meals.reload')
+    path('', views.records, name='list'),
+    path('create/<int:type>', views.create, name='create'),
+    path('<int:pk>/', views.details, name='details'),
+    path('<int:pk>/delete', views.delete, name='delete'),
+    path('<int:pk>/meals/', views.meals, name='meals'),
+    path('<int:pk>/meals/create', views.meals_create, name='meals.create'),
+    path('<int:pk>/meals/<int:meal_id>/', views.meals_details, name='meals.details'),
+    path('<int:pk>/meals/<int:meal_id>/delete', views.meals_delete, name='meals.delete'),
+    path('<int:pk>/meals/<int:meal_id>/reload/<int:ingredient_id>', views.meals_reload, name='meals.reload')
 ]

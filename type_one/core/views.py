@@ -7,7 +7,7 @@ from .models import Record, Insulin
 from .forms import LongForm, RecordForm
 from datetime import datetime
 
-def list(request):
+def records(request):
     records_list = Record.objects.all()
     template = loader.get_template('records_list.html')
     context = {'records_list' : records_list}
@@ -16,17 +16,17 @@ def list(request):
 def delete(request, pk):
     record = Record.objects.get(id = pk)
     record.delete()
-    return HttpResponseRedirect(reverse('list'))
+    return HttpResponseRedirect(reverse('core:list'))
 
 def details(request, pk):
     if "cancel" in request.POST:
-        return HttpResponseRedirect(reverse('list'))    
+        return HttpResponseRedirect(reverse('core:list'))    
     record = Record.objects.get(id=pk)
     return store(request, record)
 
 def create(request, type=0):    
     if "cancel" in request.POST:
-        return HttpResponseRedirect(reverse('list'))    
+        return HttpResponseRedirect(reverse('core:list'))    
     record = Record(glucose_level_unit = request.user.glucose_level_unit, type=type)
     record.insulin = request.user.rapid_acting_insulin if type==0 else request.user.long_acting_insulin
     return store(request, record)
@@ -38,7 +38,7 @@ def store(request, record):
     form.instance = record
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('list'))
+        return HttpResponseRedirect(reverse('core:list'))
     context = {"form": form}
     return render(request, template, context)
 
