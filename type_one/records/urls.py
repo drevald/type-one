@@ -3,7 +3,7 @@ from django.urls import path
 from django.conf.urls import include
 from . import views
 
-app_name = 'core'
+app_name = 'records'
 
 urlpatterns = [
     path('', views.records, name='list'),
@@ -11,8 +11,8 @@ urlpatterns = [
     path('<int:pk>/', views.details, name='details'),
     path('<int:pk>/delete', views.delete, name='delete'),
     path('<int:pk>/meals/', views.meals, name='meals'),
-    path('<int:pk>/meals/create', views.meals_create, name='meals.create'),
-    path('<int:pk>/meals/<int:meal_id>/', views.meals_details, name='meals.details'),
-    path('<int:pk>/meals/<int:meal_id>/delete', views.meals_delete, name='meals.delete'),
-    path('<int:pk>/meals/<int:meal_id>/reload/<int:ingredient_id>', views.meals_reload, name='meals.reload')
+    path('<int:pk>/meals/create', views.meals_create, name='meals_create'),
+    path('<int:pk>/meals/<int:meal_id>/', views.meals_details, name='meals_details'),
+    path('<int:pk>/meals/<int:meal_id>/delete', views.meals_delete, name='meals_delete'),
+    path('<int:pk>/meals/<int:meal_id>/reload/<int:ingredient_id>', views.meals_reload, name='meals_reload')
 ]

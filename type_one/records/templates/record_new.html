@@ -30,7 +30,7 @@
                             <td>{{form.glucose_level}}</td>
                             <td>{{form.bread_units}}
                                 {% if form.instance.id %}<br/>
-                                <a href="{% url 'meal:meals' form.instance.id %}" class="btn btn-primary btn-sm">Meals</a>
+                                <a href="{% url 'records:meals' form.instance.id %}" class="btn btn-primary btn-sm">Meals</a>
                                 {% endif %}
                             </td>
                             <td>{{form.notes}}</td>

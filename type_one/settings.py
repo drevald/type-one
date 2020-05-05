@@ -9,7 +9,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'bootstrap4',
     'type_one.core',
-    'type_one.meal',
+    'type_one.records',
+    'type_one.ingredients',
     'django_extensions'
 ]
 

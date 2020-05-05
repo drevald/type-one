@@ -1,5 +1,4 @@
 from django.db import models
-from type_one.core.models import Record
 
 class Ingredient(models.Model):
     name = models.CharField(max_length = 255)
@@ -24,8 +23,3 @@ class IngredientUnit(models.Model):
     def __str__(self):
         return self.ingredient.name + "_" + self.unit.name   
 
-class Meal(models.Model):
-    record = models.ForeignKey(Record, on_delete = models.CASCADE, null = True)
-    ingredient = models.ForeignKey(Ingredient, on_delete = models.CASCADE)
-    ingredient_unit = models.ForeignKey(IngredientUnit, on_delete = models.CASCADE)
-    quantity = models.FloatField(default=0)

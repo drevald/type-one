@@ -3,9 +3,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template import loader
 from django.urls import reverse
-from .models import Record, Insulin
-from .forms import LongForm, RecordForm
 from datetime import datetime
+from ..core.models import User, GlucoseUnit, Insulin
+from ..ingredients.models import Ingredient, IngredientUnit
+from .models import Record, Meal
+from .forms import LongForm, RecordForm, MealIngredientForm
 
 def records(request):
     records_list = Record.objects.all()
@@ -16,17 +18,17 @@ def records(request):
 def delete(request, pk):
     record = Record.objects.get(id = pk)
     record.delete()
-    return HttpResponseRedirect(reverse('core:list'))
+    return HttpResponseRedirect(reverse('records:list'))
 
 def details(request, pk):
     if "cancel" in request.POST:
-        return HttpResponseRedirect(reverse('core:list'))    
+        return HttpResponseRedirect(reverse('records:list'))    
     record = Record.objects.get(id=pk)
     return store(request, record)
 
 def create(request, type=0):    
     if "cancel" in request.POST:
-        return HttpResponseRedirect(reverse('core:list'))    
+        return HttpResponseRedirect(reverse('records:list'))    
     record = Record(glucose_level_unit = request.user.glucose_level_unit, type=type)
     record.insulin = request.user.rapid_acting_insulin if type==0 else request.user.long_acting_insulin
     return store(request, record)
@@ -38,14 +40,14 @@ def store(request, record):
     form.instance = record
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('core:list'))
+        return HttpResponseRedirect(reverse('records:list'))
     context = {"form": form}
     return render(request, template, context)
 
 def meals(request, pk):
     meals = Meal.objects.all()
     template = 'meals.html'
-    context = {'meals' : meals}
+    context = {'meals' : meals, 'pk' : pk}
     return render(request, template, context)
 
 def meals_create(request, pk):    

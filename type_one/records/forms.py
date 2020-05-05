@@ -1,5 +1,11 @@
 from django import forms
-from .models import Record
+from .models import Record, Meal, Ingredient
+
+class MealIngredientForm (forms.ModelForm):
+    ingredient = forms.Select()
+    class Meta:
+        model = Meal
+        fields = '__all__'
 
 class LongForm (forms.ModelForm):
     insulin_amount = forms.CharField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}), initial=0)
