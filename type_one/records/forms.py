@@ -1,11 +1,21 @@
 from django import forms
-from .models import Record, Meal, Ingredient
+from .models import Record, Meal, Ingredient, IngredientUnit
 
 class MealIngredientForm (forms.ModelForm):
-    ingredient = forms.Select()
+    ingredient = forms.ModelChoiceField(
+        label='Ingredient', 
+        queryset=Ingredient.objects.all(), 
+        widget=forms.Select(attrs={'class' : 'form-control input-sm'})
+    )
+    ingredient_unit = forms.ModelChoiceField(
+        label='Unit', 
+        queryset=IngredientUnit.objects.filter(ingredient=2), 
+        widget=forms.Select(attrs={'class' : 'form-control input-sm'})
+    )
+    quantity = forms.CharField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}))
     class Meta:
         model = Meal
-        fields = '__all__'
+        fields = ['ingredient', 'ingredient_unit', 'quantity']
 
 class LongForm (forms.ModelForm):
     insulin_amount = forms.CharField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}), initial=0)

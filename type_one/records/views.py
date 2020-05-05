@@ -52,13 +52,18 @@ def meals(request, pk):
 
 def meals_create(request, pk):    
     if "cancel" in request.POST:
-        return HttpResponseRedirect(reverse('meals', pk))    
-    meal = Meal()
+        return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))
+    meal = Meal(
+        record = Record(id=pk), 
+        ingredient=Ingredient.objects.get(id=4), 
+        ingredient_unit=IngredientUnit.objects.filter(ingredient=Ingredient.objects.get(id=4)).first(),
+        # ingredient_unit=IngredientUnit.objects.filter(ingredient=Ingredient.objects.first()).first()
+    )    
     template = 'meal_new.html'
     form = MealIngredientForm(request.POST or None, instance=meal)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('meals', pk))
+        return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))
     context = {"form": form}
     return render(request, template, context)
 
