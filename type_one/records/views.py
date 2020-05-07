@@ -39,13 +39,14 @@ def store(request, record):
     meals = Meal.objects.filter(record=record.id) if record.id else None
     breads = [meal.ingredient.bread_units_per_100g * meal.quantity * meal.ingredient_unit.grams_in_unit for meal in meals] if meals else None
     meal_details = [str(meal) for meal in meals] if meals else None
+    meal_details_str = ','.join(meal_details) if meal_details else None
     record.bread_units = sum(breads)/100 if meals else record.bread_units    
     form = RecordForm(request.POST or None, instance=record) if record.type == 0 else LongForm(request.POST or None, instance=record)        
     print(form)
     if form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('records:list'))
-    context = {"form": form, "meals":meals, "meal_details":','.join(meal_details)}
+    context = {"form": form, "meals":meals, "meal_details":meal_details_str}
     return render(request, template, context)
 
 def meals(request, pk):
@@ -57,10 +58,11 @@ def meals(request, pk):
 def meals_create(request, pk, ingredient_id=None):    
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))
+    sel_ingr = Ingredient.objects.get(id=ingredient_id) if ingredient_id else Ingredient.objects.first()
     meal = Meal(
         record = Record(id=pk), 
-        ingredient=Ingredient.objects.get(id=ingredient_id) if ingredient_id else Ingredient.objects.first(),
-        ingredient_unit=IngredientUnit.objects.filter(ingredient=Ingredient.objects.get(id=ingredient_id)).first() if ingredient_id else IngredientUnit.objects.filter(ingredient=Ingredient.objects.first()).first()
+        ingredient=sel_ingr,
+        ingredient_unit=IngredientUnit.objects.filter(ingredient=sel_ingr).first()
     )    
     template = 'meal_new.html'
     form = MealIngredientForm(pk, request.POST or None, instance=meal)
