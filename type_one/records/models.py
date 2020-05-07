@@ -19,3 +19,5 @@ class Meal(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete = models.CASCADE)
     ingredient_unit = models.ForeignKey(IngredientUnit, on_delete = models.CASCADE)
     quantity = models.FloatField(default=0)
+    def __str__(self):
+        return self.ingredient.name + " " + str(self.quantity) + " " + self.ingredient_unit.unit.name
