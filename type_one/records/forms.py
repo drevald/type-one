@@ -6,13 +6,22 @@ class MealIngredientForm (forms.ModelForm):
         super().__init__(*args, **kwargs)        
         self.fields['ingredient_unit'] = forms.ModelChoiceField(
             queryset = IngredientUnit.objects.filter(ingredient=self.instance.ingredient),
-            widget=forms.Select(attrs={'class' : 'form-control input-sm','onchange':'javascript:location.href="reload/"+form["ingredient"].value'})
-        )  
-    ingredient = forms.ModelChoiceField(
-        label='Ingredient', 
-        queryset=Ingredient.objects.all(), 
-        widget=forms.Select(attrs={'class' : 'form-control input-sm'})
-    )
+            widget=forms.Select(attrs={'class' : 'form-control input-sm'})
+        )
+        if self.instance.id:
+            self.fields['ingredient'] = forms.ModelChoiceField(
+                label='Ingredient', 
+                queryset=Ingredient.objects.all(), 
+                widget=forms.Select(attrs={'class' : 'form-control input-sm',
+                'onchange':'javascript:location.href="/records/' + str(1) + '/meals/' + str(self.instance.id) + '/reload/"+form["ingredient"].value'})
+            )
+        else:
+            self.fields['ingredient'] = forms.ModelChoiceField(
+                label='Ingredient', 
+                queryset=Ingredient.objects.all(), 
+                widget=forms.Select(attrs={'class' : 'form-control input-sm',
+                'onchange':'javascript:location.href="/records/' + str(1) + '/meals/reload/"+form["ingredient"].value'})
+            )                
     quantity = forms.CharField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}))
     class Meta:
         model = Meal

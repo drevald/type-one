@@ -71,6 +71,8 @@ def meals_details(request, pk, meal_id):
     template = 'meal_new.html'
     form = MealIngredientForm(request.POST or None, instance=meal)
     if form.is_valid():
+        print(form.instance.ingredient)
+        print(form.instance.ingredient_unit)
         form.save()
         return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))
     context = {"form": form}
@@ -81,5 +83,25 @@ def meals_delete(request, pk, meal_id):
     meal.delete()
     return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))
 
+def meals_reload_new(request, pk, ingredient_id):
+    meal = Meal(
+        record = Record(id=pk), 
+        ingredient=Ingredient.objects.get(id=ingredient_id),
+        ingredient_unit=IngredientUnit.objects.filter(ingredient=Ingredient.objects.get(id=ingredient_id)).first(),        
+    )
+    template = 'meal_new.html'
+    form = MealIngredientForm(request.POST or None, instance=meal)
+    print(form.instance.ingredient_unit)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))
+    context = {"form": form}
+    return render(request, template, context)    
+
 def meals_reload(request, pk, meal_id, ingredient_id):    
-    return HttpResponse("meal reload")    
+    meal = Meal.objects.get(id=meal_id)
+    meal.ingredient = Ingredient.objects.get(id=ingredient_id)
+    meal.ingredient_unit = IngredientUnit.objects.filter(ingredient=Ingredient.objects.get(id=ingredient_id)).first()
+    meal.save()
+    return HttpResponseRedirect(reverse('records:meals_details', kwargs={'pk':pk, 'meal_id':meal.id}))
+
