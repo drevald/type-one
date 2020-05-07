@@ -28,7 +28,8 @@
                     <td>{{ meal.ingredient_unit.unit }}</td>
                     <td>{{ meal.quantity }}</td>
                     <td>
-
+                        <a href="{% url 'records:meals_delete' pk meal.id %}">Delete</a>
+                        <a href="{% url 'records:meals_details' pk meal.id %}">Update</a>
                     </td>    
                 </tr>
                 {% endfor %}

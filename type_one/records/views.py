@@ -34,10 +34,10 @@ def create(request, type=0):
     return store(request, record)
 
 def store(request, record):
-    print(record.type)
+    print(record.glucose_level)
     template = 'record_new.html' if record.type == 0 else 'record_long.html'
-    form = RecordForm(request.POST or None) if record.type == 0 else LongForm(request.POST or None)
-    form.instance = record
+    form = RecordForm(request.POST or None, instance=record) if record.type == 0 else LongForm(request.POST or None, instance=record)
+    print(form)
     if form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('records:list'))
@@ -55,9 +55,8 @@ def meals_create(request, pk):
         return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))
     meal = Meal(
         record = Record(id=pk), 
-        ingredient=Ingredient.objects.get(id=4), 
-        ingredient_unit=IngredientUnit.objects.filter(ingredient=Ingredient.objects.get(id=4)).first(),
-        # ingredient_unit=IngredientUnit.objects.filter(ingredient=Ingredient.objects.first()).first()
+        ingredient=Ingredient.objects.first(), 
+        ingredient_unit=IngredientUnit.objects.filter(ingredient=Ingredient.objects.first()).first(),
     )    
     template = 'meal_new.html'
     form = MealIngredientForm(request.POST or None, instance=meal)
@@ -68,10 +67,19 @@ def meals_create(request, pk):
     return render(request, template, context)
 
 def meals_details(request, pk, meal_id):    
-    return HttpResponse("meal details")
+    meal = Meal.objects.get(id=meal_id)
+    template = 'meal_new.html'
+    form = MealIngredientForm(request.POST or None, instance=meal)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))
+    context = {"form": form}
+    return render(request, template, context)
 
-def meals_delete(request, pk, meal_id):    
-    return HttpResponse("meal delete")    
+def meals_delete(request, pk, meal_id):  
+    meal = Meal.objects.get(id=meal_id) 
+    meal.delete()
+    return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))
 
 def meals_reload(request, pk, meal_id, ingredient_id):    
     return HttpResponse("meal reload")    
