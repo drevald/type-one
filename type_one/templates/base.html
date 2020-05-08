@@ -1,0 +1,30 @@
+<html>
+    <head>
+    {# Load the tag library #}
+    {% load bootstrap4 %}
+    {# Load CSS and JavaScript #}
+    {% bootstrap_css %}
+    {% bootstrap_javascript jquery='full' %}
+    {# Display django.contrib.messages as Bootstrap alerts #}
+    {% bootstrap_messages %}
+    </head>
+    <body>
+        <div class="container">
+            <nav class="navbar navbar-dark bg-primary">
+                <a class="navbar-brand" href="#">Navbar</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <div class="navbar-nav">
+                    <a class="nav-item nav-link active" href="{% url 'records:list' %}">Records <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" href="{% url 'meal:ingredients' %}">Ingredients</a>
+                    <a class="nav-item nav-link" href="/admin">Admin</a>
+                    </div>
+                </div>
+                </nav>
+        <br>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>

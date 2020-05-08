@@ -1,37 +1,28 @@
-<html>
-    <head>
-    {# Load the tag library #}
-    {% load bootstrap4 %}
-    {# Load CSS and JavaScript #}
-    {% bootstrap_css %}
-    {% bootstrap_javascript jquery='full' %}
-    {# Display django.contrib.messages as Bootstrap alerts #}
-    {% bootstrap_messages %}
-    </head>
-    <body>
-        <div class="container">
-            <div class="page-header">
-                <h1>Meal</h1>
-            </div>
-            <table class="table table-condensed">
-                <thead>
-                    <tr>
-                        <th>Meal</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                {% for meal in meals %}
-                <tr>
-                    <td>{{ meal }}</td>
-                    <td>
-                        <a href="{% url 'records:meals_delete' pk meal.id %}">Delete</a>
-                        <a href="{% url 'records:meals_details' pk meal.id %}">Update</a>
-                    </td>    
-                </tr>
-                {% endfor %}
-            </table>
-            <a href="{% url 'records:meals_create' pk %}" class="btn btn-primary">Add meal</a>
-            <a href="{% url 'records:details' pk %}" class="btn btn-primary">Done</a>
-        </div>
-    </body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Meal</h1>
+    </div>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Meal</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        {% for meal in meals %}
+        <tr>
+            <td>{{ meal }}</td>
+            <td>
+                <a href="{% url 'records:meals_delete' pk meal.id %}">Delete</a>
+                <a href="{% url 'records:meals_details' pk meal.id %}">Update</a>
+            </td>    
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'records:meals_create' pk %}" class="btn btn-primary">Add meal</a>
+    <a href="{% url 'records:details' pk %}" class="btn btn-primary">Done</a>
+</div>
+{% endblock %}

@@ -1,24 +1,15 @@
-<html>
-    <head>
-    {# Load the tag library #}
-    {% load bootstrap4 %}
-    {# Load CSS and JavaScript #}
-    {% bootstrap_css %}
-    {% bootstrap_javascript jquery='full' %}
-    {# Display django.contrib.messages as Bootstrap alerts #}
-    {% bootstrap_messages %}
-    </head>
-    <body>
-        <div class="container">
-            <div class="page-header">
-                <h1>New record</h1>            
-            </div>
-            <form action="" method="post">
-                {% csrf_token %}             
-                {{ form.as_p }}
-                <input type="submit" value="Save" class="btn btn-primary">
-                <input type="submit" value="Cancel" name="cancel" class="btn btn-basic"> 
-            </form>                
-        </div>
-    </body>
-</html>
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>New record</h1>            
+    </div>
+    <form action="" method="post">
+        {% csrf_token %}             
+        {{ form.as_p }}
+        <input type="submit" value="Save" class="btn btn-primary">
+        <input type="submit" value="Cancel" name="cancel" class="btn btn-basic"> 
+    </form>                
+</div>
+{% endblock %}
