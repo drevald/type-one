@@ -22,7 +22,7 @@
                 </thead>
                 {% for meal in meals %}
                 <tr>
-                    <td>{{ meal.ingredient.name }}, {{ meal.quantity }} {{ meal.ingredient_unit.unit }}</td>
+                    <td>{{ meal }}</td>
                     <td>
                         <a href="{% url 'records:meals_delete' pk meal.id %}">Delete</a>
                         <a href="{% url 'records:meals_details' pk meal.id %}">Update</a>
@@ -30,7 +30,7 @@
                 </tr>
                 {% endfor %}
             </table>
-            <a href="{% url 'records:meals_create' pk 0 %}" class="btn btn-primary">Add meal</a>
+            <a href="{% url 'records:meals_create' pk %}" class="btn btn-primary">Add meal</a>
             <a href="{% url 'records:details' pk %}" class="btn btn-primary">Done</a>
         </div>
     </body>

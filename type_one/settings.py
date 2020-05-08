@@ -29,7 +29,7 @@ ROOT_URLCONF = 'type_one.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['type_one/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

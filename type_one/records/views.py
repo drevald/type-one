@@ -7,7 +7,7 @@ from datetime import datetime
 from ..core.models import User, GlucoseUnit, Insulin
 from ..ingredients.models import Ingredient, IngredientUnit
 from .models import Record, Meal
-from .forms import LongForm, RecordForm, MealIngredientForm
+from .forms import MealForm, RecordForm, LongForm
 
 def records(request):
     records_list = Record.objects.all()
@@ -37,9 +37,9 @@ def store(request, record):
     print(record.glucose_level)
     template = 'record_new.html' if record.type == 0 else 'record_long.html'
     meals = Meal.objects.filter(record=record.id) if record.id else None
-    breads = [meal.ingredient.bread_units_per_100g * meal.quantity * meal.ingredient_unit.grams_in_unit for meal in meals] if meals else None
     meal_details = [str(meal) for meal in meals] if meals else None
     meal_details_str = ','.join(meal_details) if meal_details else None
+    breads = [meal.quantity * meal.ingredient_unit.grams_in_unit * meal.ingredient_unit.ingredient.bread_units_per_100g for meal in meals] if meals else None
     record.bread_units = sum(breads)/100 if meals else record.bread_units    
     form = RecordForm(request.POST or None, instance=record) if record.type == 0 else LongForm(request.POST or None, instance=record)        
     print(form)
@@ -55,59 +55,30 @@ def meals(request, pk):
     context = {'meals' : meals, 'pk' : pk}
     return render(request, template, context)
 
-def meals_create(request, pk, ingredient_id=None):    
+def meals_create(request, pk):    
     if "cancel" in request.POST:
-        return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))
-    sel_ingr = Ingredient.objects.get(id=ingredient_id) if ingredient_id else Ingredient.objects.first()
-    meal = Meal(
-        record = Record(id=pk), 
-        ingredient=sel_ingr,
-        ingredient_unit=IngredientUnit.objects.filter(ingredient=sel_ingr).first()
-    )    
-    template = 'meal_new.html'
-    form = MealIngredientForm(pk, request.POST or None, instance=meal)
+        return HttpResponseRedirect(reverse('records:meals'))        
+    meal = Meal(record=Record.objects.get(id=pk), ingredient_unit=IngredientUnit.objects.first())
+    form = MealForm(request.POST or None, instance=meal)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))
-    context = {"form": form}
+        return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))
+    template = 'meal_new.html'
+    context = {'form':form}
     return render(request, template, context)
 
-def meals_details(request, pk, meal_id):    
-    meal = Meal.objects.get(id=meal_id)
-    template = 'meal_new.html'
-    form = MealIngredientForm(pk, request.POST or None, instance=meal)
+def meals_details(request, pk, meal_id):   
+    if "cancel" in request.POST:
+        return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))        
+    meal = Meal.objects.get(id=meal_id)    
+    form = MealForm(request.POST or None, instance=meal)
     if form.is_valid():
-        print(form.instance.ingredient)
-        print(form.instance.ingredient_unit)
         form.save()
-        return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))
-    context = {"form": form}
-    return render(request, template, context)
+        return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))
+    template = 'meal_new.html'
+    return render(request, template, {'form':form})
 
 def meals_delete(request, pk, meal_id):  
-    meal = Meal.objects.get(id=meal_id) 
+    meal = Meal.objects.get(id = meal_id)
     meal.delete()
-    return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))
-
-def meals_reload_new(request, pk, ingredient_id):
-    meal = Meal(
-        record = Record(id=pk), 
-        ingredient=Ingredient.objects.get(id=ingredient_id),
-        ingredient_unit=IngredientUnit.objects.filter(ingredient=Ingredient.objects.get(id=ingredient_id)).first(),        
-    )
-    template = 'meal_new.html'
-    form = MealIngredientForm(request.POST or None, instance=meal)
-    print(form.instance.ingredient_unit)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))
-    context = {"form": form}
-    return HttpResponseRedirect(reverse('records:meals_create', kwargs={'pk':pk, 'ingredient_id':ingredient_id}))
-
-def meals_reload(request, pk, meal_id, ingredient_id):    
-    meal = Meal.objects.get(id=meal_id)
-    meal.ingredient = Ingredient.objects.get(id=ingredient_id)
-    meal.ingredient_unit = IngredientUnit.objects.filter(ingredient=Ingredient.objects.get(id=ingredient_id)).first()
-    meal.save()
-    return HttpResponseRedirect(reverse('records:meals_details', kwargs={'pk':pk, 'meal_id':meal.id}))
-
+    return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))

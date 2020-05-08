@@ -21,5 +21,5 @@ class IngredientUnit(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete = models.DO_NOTHING)
     grams_in_unit = models.FloatField()
     def __str__(self):
-        return self.unit.name   
+        return self.ingredient.name + ", " + self.unit.name
 
