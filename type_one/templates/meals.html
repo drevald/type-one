@@ -23,6 +23,7 @@
         {% endfor %}
     </table>
     <a href="{% url 'records:meals_create' pk %}" class="btn btn-primary">Add meal</a>
+    <a href="{% url 'records:recent' pk %}" class="btn btn-primary">Import recent</a>    
     <a href="{% url 'records:details' pk %}" class="btn btn-primary">Done</a>
 </div>
 {% endblock %}

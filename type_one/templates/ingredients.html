@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-header">
+    <h1>Ingredients</h1>      
+</div>
+<table class="table table-condensed">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    {% for ingredient in list %}
+    <tr>
+        <td>{{ ingredient.name }}</td>
+        <td>
+            <a href="{% url 'ingredients:delete' ingredient.id %}">Delete</a>
+            <a href="{% url 'ingredients:details' ingredient.id %}">Update</a>
+        </td>    
+    </tr>
+    {% endfor %}
+</table>
+<a href="{% url 'ingredients:create' %}" class="btn btn-primary">Add ingredient</a>
+<a href="{% url 'ingredients:fetch' %}" class="btn btn-primary">Import ingredient</a>
+</div>
+{% endblock %}

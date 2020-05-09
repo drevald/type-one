@@ -57,7 +57,7 @@ def meals(request, pk):
 
 def meals_create(request, pk):    
     if "cancel" in request.POST:
-        return HttpResponseRedirect(reverse('records:meals'))        
+        return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))        
     meal = Meal(record=Record.objects.get(id=pk), ingredient_unit=IngredientUnit.objects.first())
     form = MealForm(request.POST or None, instance=meal)
     if form.is_valid():
@@ -81,4 +81,23 @@ def meals_details(request, pk, meal_id):
 def meals_delete(request, pk, meal_id):  
     meal = Meal.objects.get(id = meal_id)
     meal.delete()
+    return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))
+
+def recent(request, pk):    
+    list = Record.objects.exclude(id=pk)
+    template = "meals_recent.html"
+    context = {'pk':pk,'list':list}
+    return render(request, template, context) 
+
+def select(request, pk, record_id):   
+    print(record_id)
+    meals = Record.objects.get(id=record_id).meals.all()
+    record = Record.objects.get(id=pk)
+    for meal in meals:
+        imported_meal = Meal(
+            ingredient_unit=meal.ingredient_unit, 
+            quantity=meal.quantity,
+            record=record)
+        imported_meal.save()
+        print(imported_meal)
     return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))

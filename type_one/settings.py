@@ -11,7 +11,8 @@ INSTALLED_APPS = [
     'type_one.core',
     'type_one.records',
     'type_one.ingredients',
-    'django_extensions'
+    'django_extensions',
+    'debug_toolbar'
 ]
 
 MIDDLEWARE = [
@@ -22,6 +23,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware'
 ]
 
 ROOT_URLCONF = 'type_one.urls'

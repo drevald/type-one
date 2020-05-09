@@ -15,7 +15,7 @@ class Record(models.Model):
     notes = models.CharField(max_length = 256, null = True)
 
 class Meal(models.Model):
-    record = models.ForeignKey(Record, on_delete = models.CASCADE, null = True)
+    record = models.ForeignKey(Record, on_delete = models.CASCADE, related_name='meals', null = True)
     ingredient_unit = models.ForeignKey(IngredientUnit, on_delete = models.CASCADE)
     quantity = models.FloatField(default=1)
     def __str__(self):
