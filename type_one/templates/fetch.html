@@ -5,26 +5,34 @@
     <div class="page-header">
         <h1>Indredient</h1>            
     </div>
-    <form action="" method="post" width="50%">
+    <form action="" method="post">
         {% csrf_token %}             
         <div class="form-group row">
-          <label for="input" class="col-sm-2 col-form-label">Name</label>
-          <div class="col-sm-5"><input type="text" name="name" value="{{string}}" class="form-control input-sm" required id="id_name"></div>
-        </div>      
+          <label for="input" class="col-sm-1 col-form-label">Name</label>
+          <div class="col-sm"><input type="text" name="name" value="{{string}}" class="form-control input-sm" required id="id_name"></div>
+          <input type="submit" value="Search" class="btn btn-primary"><a href="{% url 'ingredients:list' %}" class="btn">Cancel</a>
+        </div>   
+    </form>           
         {% if records %}
-        SOME DATA
         <div class="form-group row">
-          <label for="input" class="col-sm-2 col-form-label">Results</label>
-          <div class="col-sm-5">
-             {% for record in records %} 
-             {{ record.fdcId }}
-             {{ record.description }}
-             {% endfor %}             
+          <label for="input" class="col-sm-1 col-form-label">Results</label>
+          <div class="col-sm">
+          <table class="table table-striped">
+              <tbody>
+                {% for record in records %} 
+                <tr>
+                    <td>             
+                      {{ record.description }}
+                   </td>
+                    <td>
+                      <a href="{% url 'ingredients:fetch_select' record.fdcId %}">Select</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+          </table>
           </div>
         </div>    
         {% endif %}  
-      <input type="submit" value="Save" class="btn btn-primary">
-      <a href="{% url 'ingredients:list' %}" class="btn btn-basic">Cancel</a>
-    </form>
 </div>
 {% endblock %}

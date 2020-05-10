@@ -40,7 +40,7 @@ def details(request, pk):
     return render(request, template, context)
 
 def delete(request, pk):
-    ingredient = Ingredient.objects.get(id=pk)
+    ingredient = models.Ingredient.objects.get(id=pk)
     ingredient.delete()
     return HttpResponseRedirect(reverse('ingredients:list'))
 
@@ -116,3 +116,29 @@ def fetch(request):
         return render(request, "fetch.html", context)    
     context = {"string":string}
     return render(request, "fetch.html", context)
+
+def fetch_select(request, id):
+    url = 'https://api.nal.usda.gov/fdc/v1/food/' + str(id) + '?api_key=IfJaYBICN1pUVdbsf7u9u1LaKYrYBKS5mqCqFCz7'
+    r = requests.get(url, params=request.GET)
+    data = json.loads(r.text)
+    records = data["foodNutrients"]
+    ingredient = models.Ingredient()
+    ingredient.name = data['description']
+    for record in records:
+        if record['nutrient']['id'] == 1008: # 1008 Energy 
+            ingredient.energy_kKkal_per_100g = int(record['amount'])
+        if record['nutrient']['id'] == 1003: # 1003 Protein
+            ingredient.protein_per_100g = int(record['amount'])
+        if record['nutrient']['id'] == 1004: # 1004 Total lipid (fat)
+            ingredient.fat_per_100g = int(record['amount'])
+        if record['nutrient']['id'] == 1005: # 1005 Carbohydrate, by difference
+            ingredient.carbohydrate_per_100g = int(record['amount'])
+            ingredient.bread_units_per_100g = round(record['amount']/12, 1)
+    form = forms.IngredientForm(request.POST or None, instance = ingredient)
+    print(form)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('ingredients:list'))
+    context = {"form":form}
+    template = "ingredient.html"
+    return render(request, template, context)
