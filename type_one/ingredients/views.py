@@ -56,7 +56,15 @@ def unit_add(request, pk):
     return render(request, template, context)
 
 def unit_details(request, pk, unit_id):
-    return HttpResponse("unit details")
+    unit = models.IngredientUnit.objects.get(id=unit_id)
+    form = forms.IngredientUnitForm(request.POST or None, instance=unit)
+    print(str(unit))
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('ingredients:details', kwargs={'pk':pk}))
+    context = {"form":form,"pk":pk,"unit_id":unit_id}
+    template = "unit_add.html"
+    return render(request, template, context)
 
 def unit_delete(request, pk, unit_id):
     unit = models.IngredientUnit.objects.get(id=unit_id)

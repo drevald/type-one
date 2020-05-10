@@ -2,7 +2,7 @@ from django import forms
 from . import models
 
 class IngredientUnitForm(forms.ModelForm):
-    ingredient = forms.ModelChoiceField(queryset=models.Ingredient.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm col-sm-2'}))
+    ingredient = forms.ModelChoiceField(queryset=models.Ingredient.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm col-sm-2'}), disabled=True)
     unit = forms.ModelChoiceField(queryset=models.WeightUnit.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm col-sm-2'}))
     grams_in_unit = forms.IntegerField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm col-sm-2'}))
     class Meta:
