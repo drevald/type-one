@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Indredient</h1>            
+    </div>
+    <form action="" method="post" width="50%">
+        {% csrf_token %}             
+        <div class="form-group row">
+          <label for="input" class="col-sm-2 col-form-label">Name</label>
+          <div class="col-sm-5"><input type="text" name="name" value="{{string}}" class="form-control input-sm" required id="id_name"></div>
+        </div>      
+        {% if records %}
+        SOME DATA
+        <div class="form-group row">
+          <label for="input" class="col-sm-2 col-form-label">Results</label>
+          <div class="col-sm-5">
+             {% for record in records %} 
+             {{ record.fdcId }}
+             {{ record.description }}
+             {% endfor %}             
+          </div>
+        </div>    
+        {% endif %}  
+      <input type="submit" value="Save" class="btn btn-primary">
+      <a href="{% url 'ingredients:list' %}" class="btn btn-basic">Cancel</a>
+    </form>
+</div>
+{% endblock %}

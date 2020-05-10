@@ -1,3 +1,5 @@
+import requests
+import json
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -23,9 +25,6 @@ def create(request):
     context = {"form":form}
     template = "ingredient.html"
     return render(request, template, context)
-
-def fetch(request):
-    return HttpResponse("fetch")
 
 def details(request, pk):
     if "cancel" in request.POST:
@@ -99,3 +98,21 @@ def unit_delete(request, unit_id):
     unit.delete()
     return HttpResponseRedirect(reverse('ingredients:units'))
 
+
+def fetch(request):
+    string = request.POST.get('name')
+    url = 'https://api.nal.usda.gov/fdc/v1/foods/search?query=' + str(string) + '&api_key=IfJaYBICN1pUVdbsf7u9u1LaKYrYBKS5mqCqFCz7&dataType=SR%20Legacy'
+    # 168191
+    r = requests.get(url, params=request.GET)
+    if r.status_code == 200:
+        data = json.loads(r.text)
+        print("--------------------")
+        print(url)
+        print("--------------------")
+        records = data["foods"]
+        for record in records:
+            print(str(record["fdcId"]) + " " + record["description"])    
+        context = {"string":string,"records":records}
+        return render(request, "fetch.html", context)    
+    context = {"string":string}
+    return render(request, "fetch.html", context)
