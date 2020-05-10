@@ -1,6 +1,12 @@
 from django import forms
 from . import models
 
+class WeightUnitForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-sm col-sm-4'}))
+    class Meta:
+        model = models.WeightUnit
+        fields = ['name']
+
 class IngredientUnitForm(forms.ModelForm):
     ingredient = forms.ModelChoiceField(queryset=models.Ingredient.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm col-sm-2'}), disabled=True)
     unit = forms.ModelChoiceField(queryset=models.WeightUnit.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm col-sm-2'}))

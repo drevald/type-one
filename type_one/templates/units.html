@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="page-header">
+        <h1>Weight Units</h1>
+    </div>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>Unit</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        {% for unit in units %}
+        <tr>
+            <td>{{ unit }}</td>
+            <td>
+                <a href="{% url 'ingredients:unit_delete' unit.id %}">Delete</a>
+                <a href="{% url 'ingredients:unit_details' unit.id %}">Update</a>
+            </td>    
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'ingredients:unit_create' %}" class="btn btn-primary">Add unit</a>
+</div>
+{% endblock %}

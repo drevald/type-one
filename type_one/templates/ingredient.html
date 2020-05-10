@@ -50,8 +50,8 @@
                     <td>{{unit.unit.name}}</td>
                     <td>{{unit.grams_in_unit}}</td>
                     <td>
-                      <a href="{% url 'ingredients:unit_delete' pk unit.id %}">Delete</a>
-                      <a href="{% url 'ingredients:unit_details' pk unit.id %}">Update</a>
+                      <a href="{% url 'ingredients:ingredient_unit_delete' pk unit.id %}">Delete</a>
+                      <a href="{% url 'ingredients:ingredient_unit_details' pk unit.id %}">Update</a>
                     </td>
                 </tr>
                 {% endfor %}

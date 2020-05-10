@@ -55,7 +55,7 @@ def unit_add(request, pk):
     template = "unit_add.html"
     return render(request, template, context)
 
-def unit_details(request, pk, unit_id):
+def ingredient_unit_details(request, pk, unit_id):
     unit = models.IngredientUnit.objects.get(id=unit_id)
     form = forms.IngredientUnitForm(request.POST or None, instance=unit)
     print(str(unit))
@@ -66,7 +66,36 @@ def unit_details(request, pk, unit_id):
     template = "unit_add.html"
     return render(request, template, context)
 
-def unit_delete(request, pk, unit_id):
+def ingredient_unit_delete(request, pk, unit_id):
     unit = models.IngredientUnit.objects.get(id=unit_id)
     unit.delete()
     return HttpResponseRedirect(reverse('ingredients:details', kwargs={'pk':pk}))
+
+def units(request):
+    units = models.WeightUnit.objects.all()
+    template = "units.html"
+    context = {"units":units}
+    return render(request, template, context)
+
+def unit_create(request):
+    unit = models.WeightUnit()
+    form = forms.WeightUnitForm(request.POST or None, instance=unit)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('ingredients:units'))
+    return render(request, "unit.html", {"form":form})
+
+def unit_details(request, unit_id):
+    unit = models.WeightUnit.objects.get(id=unit_id)
+    #unit = models.WeightUnit()
+    form = forms.WeightUnitForm(request.POST or None, instance=unit)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('ingredients:units'))
+    return render(request, "unit.html", {"form":form})
+
+def unit_delete(request, unit_id):
+    unit = models.WeightUnit.objects.filter(id=unit_id)
+    unit.delete()
+    return HttpResponseRedirect(reverse('ingredients:units'))
+
