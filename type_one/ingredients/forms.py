@@ -1,6 +1,14 @@
 from django import forms
 from . import models
 
+class IngredientUnitForm(forms.ModelForm):
+    ingredient = forms.ModelChoiceField(queryset=models.Ingredient.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm col-sm-2'}))
+    unit = forms.ModelChoiceField(queryset=models.WeightUnit.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm col-sm-2'}))
+    grams_in_unit = forms.IntegerField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm col-sm-2'}))
+    class Meta:
+        model = models.IngredientUnit
+        fields = ['ingredient','unit','grams_in_unit']
+    
 class IngredientForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'class' : 'form-control input-sm'}))
     bread_units_per_100g  = forms.FloatField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}))
