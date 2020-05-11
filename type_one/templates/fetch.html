@@ -3,19 +3,20 @@
 {% block content %}
 <div class="container">
     <div class="page-header">
-        <h1>Indredient</h1>            
+        <h1>{% trans "Ingredient" %}</h1>            
     </div>
     <form action="" method="post">
         {% csrf_token %}             
         <div class="form-group row">
-          <label for="input" class="col-sm-1 col-form-label">Name</label>
+          <label for="input" class="col-sm-1 col-form-label">{% trans "Name" %}</label>
           <div class="col-sm"><input type="text" name="name" value="{{string}}" class="form-control input-sm" required id="id_name"></div>
-          <input type="submit" value="Search" class="btn btn-primary"><a href="{% url 'ingredients:list' %}" class="btn">Cancel</a>
+          <input type="submit" value='{% trans "Search" %}' class="btn btn-primary">
+          <a href="{% url 'ingredients:list' %}" class="btn">{% trans "Cancel" %}</a>
         </div>   
     </form>           
         {% if records %}
         <div class="form-group row">
-          <label for="input" class="col-sm-1 col-form-label">Results</label>
+          <label for="input" class="col-sm-1 col-form-label">{% trans "Results" %}</label>
           <div class="col-sm">
           <table class="table table-striped">
               <tbody>
@@ -25,7 +26,7 @@
                       {{ record.description }}
                    </td>
                     <td>
-                      <a href="{% url 'ingredients:fetch_select' record.fdcId %}">Select</a>
+                      <a href="{% url 'ingredients:fetch_select' record.fdcId %}">{% trans "Select" %}</a>
                     </td>
                 </tr>
                 {% endfor %}

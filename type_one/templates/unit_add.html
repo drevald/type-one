@@ -3,13 +3,13 @@
 {% block content %}
 <div class="container">
     <div class="page-header">
-        <h1>Add unit</h1>            
+        <h1>{% trans "Add unit" %}</h1>            
     </div>
     <form action="" method="post">
         {% csrf_token %}             
         {{ form.as_p }}
-        <input type="submit" value="Save" class="btn btn-primary">
-        <a href="{% url 'ingredients:details' pk %}" class="btn btn-basic">Cancel</a>
+        <input type="submit" value="{% trans "Save" %}" class="btn btn-primary">
+        <a href="{% url 'ingredients:details' pk %}" class="btn btn-basic">{% trans "Cancel" %}</a>
     </form>                
 </div>
 {% endblock %}

@@ -2,14 +2,14 @@
 
 {% block content %}
 <div class="page-header">
-    <h1>Recent meals</h1>      
+    <h1>{% trans "Recent meals" %}</h1>      
 </div>
 <table class="table table-condensed">
     <thead>
         <tr>
-            <th>Time</th>
-            <th>Meal</th>
-            <th>Actions</th>
+            <th>{% trans "Time" %}</th>
+            <th>{% trans "Meal" %}</th>
+            <th>{% trans "Actions" %}</th>
         </tr>
     </thead>
     {% for record in list %}
@@ -17,11 +17,11 @@
         <td>{{ record.time }}</td>
         <td>{{ record.meals.all }}</td>
         <td>
-            <a href="{% url 'records:select' pk record.pk %}">Import</a>
+            <a href="{% url 'records:select' pk record.pk %}">{% trans "Import" %}</a>
         </td>    
     </tr>
     {% endfor %}
 </table>
-<a href="{% url 'records:meals' pk %}" class="btn btn-primary">Cancel</a>
+<a href="{% url 'records:meals' pk %}" class="btn btn-primary">{% trans "Cancel" %}</a>
 </div>
 {% endblock %}

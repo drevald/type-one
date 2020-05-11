@@ -1,5 +1,6 @@
 <html>
     <head>
+    {% load i18n %}
     {# Load the tag library #}
     {% load bootstrap4 %}
     {# Load CSS and JavaScript #}
@@ -17,10 +18,10 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="{% url 'records:list' %}">Records <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="{% url 'ingredients:list' %}">Ingredients</a>
-                    <a class="nav-item nav-link" href="{% url 'ingredients:units' %}">Units</a>
-                    <a class="nav-item nav-link" href="/admin">Admin</a>
+                    <a class="nav-item nav-link active" href="{% url 'records:list' %}">{% trans "Records" %} <span class="sr-only">(current)</span></a>
+                    <a class="nav-item nav-link" href="{% url 'ingredients:list' %}">{% trans "Ingredients" %}</a>
+                    <a class="nav-item nav-link" href="{% url 'ingredients:units' %}">{% trans "Units" %}</a>
+                    <a class="nav-item nav-link" href="/admin" target="new">{% trans "Admin" %}</a>
                     </div>
                 </div>
                 </nav>

@@ -98,7 +98,6 @@ def unit_delete(request, unit_id):
     unit.delete()
     return HttpResponseRedirect(reverse('ingredients:units'))
 
-
 def fetch(request):
     string = request.POST.get('name')
     url = 'https://api.nal.usda.gov/fdc/v1/foods/search?query=' + str(string) + '&api_key=IfJaYBICN1pUVdbsf7u9u1LaKYrYBKS5mqCqFCz7&dataType=SR%20Legacy'
@@ -106,12 +105,7 @@ def fetch(request):
     r = requests.get(url, params=request.GET)
     if r.status_code == 200:
         data = json.loads(r.text)
-        print("--------------------")
-        print(url)
-        print("--------------------")
         records = data["foods"]
-        for record in records:
-            print(str(record["fdcId"]) + " " + record["description"])    
         context = {"string":string,"records":records}
         return render(request, "fetch.html", context)    
     context = {"string":string}
@@ -147,7 +141,7 @@ def cook(request):
     ingredient = models.Ingredient()
     form = forms.CookForm(request.POST or None, instance=ingredient)
     if form.is_valid():
-        # form.save()
+
         ingredient = models.Ingredient(name=form.cleaned_data["name"])
         ingr_units = [i["ingredient"] for i in request.session['cooked_ingredients']]
         amounts = [i["quantity"] for i in request.session['cooked_ingredients']]
@@ -165,6 +159,7 @@ def cook(request):
 
         request.session['cooked_ingredients'].clear()
         return HttpResponseRedirect(reverse('ingredients:list'))
+
     template = "cook.html"
     context = {"form":form}
     return render(request, template, context)

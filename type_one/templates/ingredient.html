@@ -3,45 +3,45 @@
 {% block content %}
 <div class="container">
     <div class="page-header">
-        <h1>Indredient</h1>            
+        <h1>{% trans "Ingredient" %}</h1>            
     </div>
     <form action="" method="post" width="50%">
         {% csrf_token %}             
         <div class="form-group row">
-          <label for="input" class="col-sm-3 col-form-label">Name</label>
+          <label for="input" class="col-sm-3 col-form-label">{% trans "Name" %}</label>
           <div class="col-sm-5">{{form.name}}</div>
         </div>
         <div class="form-group row">
-            <label for="input" class="col-sm-3 col-form-label">Bread units, per 100g</label>
+            <label for="input" class="col-sm-3 col-form-label">{% trans "Bread units per 100g" %}</label>
             <div class="col-sm-5">{{form.bread_units_per_100g}}
             </div>
           </div>
           <div class="form-group row">
-            <label for="input" class="col-sm-3 col-form-label">Glycemic index</label>
+            <label for="input" class="col-sm-3 col-form-label">{% trans "Glycemic index" %}</label>
             <div class="col-sm-5" hint="35-70">{{form.glycemic_index}}</div>
           </div>
           <div class="form-group row">
-            <label for="input" class="col-sm-3 col-form-label">Fat per 100g</label>
+            <label for="input" class="col-sm-3 col-form-label">{% trans "Fat per 100g" %}</label>
             <div class="col-sm-5">{{form.fat_per_100g}}</div>
           </div>
           <div class="form-group row">
-            <label for="input" class="col-sm-3 col-form-label">Carbohydrate per 100g</label>
+            <label for="input" class="col-sm-3 col-form-label">{% trans "Carbohydrate per 100g" %}</label>
             <div class="col-sm-5">{{form.carbohydrate_per_100g}}</div>
           </div>
           <div class="form-group row">
-            <label for="input" class="col-sm-3 col-form-label">Protein per 100g</label>
+            <label for="input" class="col-sm-3 col-form-label">{% trans "Protein per 100g" %}</label>
             <div class="col-sm-5">{{form.protein_per_100g}}</div>
           </div>     
           <div class="form-group row">
-            <label for="input" class="col-sm-3 col-form-label">Energy, kkal per 100g</label>
+            <label for="input" class="col-sm-3 col-form-label">{% trans "Enegery ckal per 100g" %}</label>
             <div class="col-sm-5">{{form.energy_kKkal_per_100g}}</div>
           </div>
           {% if pk %}
-          <h1>Units</h1>
+          <h1>{% trans "Units" %}</h1>
           <table class="table table-striped" width="25%">
               <thead>
-                <th>Name</th>                    
-                <th>Grams per unit</th>                    
+                <th>{% trans "Name" %}</th>                    
+                <th>{% trans "Grams per unit" %}</th>                    
                 <th></th>   
               </thead>
               <tbody>
@@ -50,20 +50,20 @@
                     <td>{{unit.unit.name}}</td>
                     <td>{{unit.grams_in_unit}}</td>
                     <td>
-                      <a href="{% url 'ingredients:ingredient_unit_delete' pk unit.id %}">Delete</a>
-                      <a href="{% url 'ingredients:ingredient_unit_details' pk unit.id %}">Update</a>
+                      <a href="{% url 'ingredients:ingredient_unit_delete' pk unit.id %}">{% trans "Delete" %}</a>
+                      <a href="{% url 'ingredients:ingredient_unit_details' pk unit.id %}">{% trans "Details" %}</a>
                     </td>
                 </tr>
                 {% endfor %}
                   <tr>
-                      <td colspan=3><a href="{% url 'ingredients:unit_add' pk %}">Add unit</a></td>
+                      <td colspan=3><a href="{% url 'ingredients:unit_add' pk %}">{% trans "Add unit" %}</a></td>
                   </tr>
             </tbody>
           </table>
           {% endif %}
           <br>
-      <input type="submit" value="Save" class="btn btn-primary">
-      <a href="{% url 'ingredients:list' %}" class="btn btn-basic">Cancel</a>
+      <input type="submit" value='{% trans "Cancel" %}' class="btn btn-primary">
+      <a href="{% url 'ingredients:list' %}" class="btn btn-basic">{% trans "Cancel" %}</a>
     </form>
 </div>
 {% endblock %}

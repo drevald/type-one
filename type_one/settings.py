@@ -23,7 +23,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware'
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'django.middleware.locale.LocaleMiddleware'
 ]
 
 ROOT_URLCONF = 'type_one.urls'
@@ -81,3 +82,9 @@ ALLOWED_HOSTS = [
 ]
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+
+BASE_DIR = '/home/denis/PythonProjects/type-one/type_one/'
+
+LOCALE_PATHS = ( 
+    os.path.join(BASE_DIR, "locale"),
+)

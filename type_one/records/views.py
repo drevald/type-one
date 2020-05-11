@@ -11,7 +11,7 @@ from .forms import MealForm, RecordForm, LongForm
 
 def records(request):
     records_list = Record.objects.all()
-    template = loader.get_template('records_list.html')
+    template = loader.get_template('records.html')
     context = {'records_list' : records_list}
     return HttpResponse(template.render(context, request))
 

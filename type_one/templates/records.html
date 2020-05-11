@@ -1,18 +1,19 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% load i18n %}
     <div class="page-header">
-        <h1>Records</h1>      
+        <h1>{% trans "Records" %}</h1>      
     </div>
     <table class="table table-condensed">
         <thead>
             <tr>
-                <th>Time</th>
-                <th>Insulin shot</th>
-                <th>Glucose level</th>
-                <th>Bread units</th>
-                <th>Notes</th>
-                <th>Actions</th>
+                <th>{% trans "Time" %}</th>
+                <th>{% trans "Insulin shot" %}</th>
+                <th>{% trans "Glucose level" %}</th>
+                <th>{% trans "Bread units" %}</th>
+                <th>{% trans "Notes" %}</th>
+                <th>{% trans "Actions" %}</th>
             </tr>
         </thead>
         {% for record in records_list %}
@@ -27,13 +28,13 @@
             {% endif %}
             <td>{{ record.notes }}</td>
             <td>
-                <a href="{% url 'records:delete' record.pk %}">Delete</a>
-                <a href="{% url 'records:details' record.pk %}">Update</a>
+                <a href="{% url 'records:delete' record.pk %}">{% trans "Delete" %}</a>
+                <a href="{% url 'records:details' record.pk %}">{% trans "Update" %}</a>
             </td>    
         </tr>
         {% endfor %}
     </table>
-    <a href="{% url 'records:create' 0 %}" class="btn btn-primary">Add record</a>
-    <a href="{% url 'records:create' 1 %}" class="btn btn-primary">Add long</a>
+    <a href="{% url 'records:create' 0 %}" class="btn btn-primary">{% trans "Add record" %}</a>
+    <a href="{% url 'records:create' 1 %}" class="btn btn-primary">{% trans "Add prolongated" %}</a>
 </div>
 {% endblock %}

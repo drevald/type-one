@@ -3,19 +3,19 @@
 {% block content %}
 <div class="container">
     <div class="page-header">
-        <h1>Cook Meal</h1>           
+        <h1>{% trans "Cook meal" %}</h1>           
     </div>
     <form action="" method="post">
         {% csrf_token %}             
         <div class="form-group row">
-            <label for="input" class="col-sm-1 col-form-label">Name</label>
+            <label for="input" class="col-sm-1 col-form-label">{% trans "Name" %}</label>
             <div class="col-sm">{{form.name}}</div>
         </div>
-        <h2>Ingredients</h2>
+        <h2>{% trans "Ingredients" %}</h>
         <table class="table table-striped" width="25%">
             <thead>
-            <th>Ingredient</th>                    
-            <th>Quantity</th>                    
+            <th>{% trans "Ingredient" %}</th>                    
+            <th>{% trans "Quantity" %}</th>                    
             <th></th>   
             </thead>
             <tbody>
@@ -24,19 +24,19 @@
                 <td>{{ ingr.ingredient }}</td>
                 <td>{{ ingr.quantity }}</td>
                 <td>
-                    <a href="{% url 'ingredients:cooked_details' forloop.counter %}">Change </a>
-                    <a href="{% url 'ingredients:cooked_delete' forloop.counter %}">Remove </a>
+                    <a href="{% url 'ingredients:cooked_details' forloop.counter %}">{% trans "Change" %}</a>
+                    <a href="{% url 'ingredients:cooked_delete' forloop.counter %}">{% trans "Remove" %}</a>
                 </td>
             </tr>
             {% endfor %}
                 <tr>
-                    <td colspan=3><a href="{% url 'ingredients:cooked_add' %}">Add ingredient</a></td>
+                    <td colspan=3><a href="{% url 'ingredients:cooked_add' %}">{% trans "Add ingredient" %}</a></td>
                 </tr>
         </tbody>
         </table>
         <br>
-      <input type="submit" value="Save" class="btn btn-primary">
-      <a href="{% url 'ingredients:list' %}" class="btn btn-basic">Cancel</a>
+      <input type="submit" value='{% trans "Save" %}' class="btn btn-primary">
+      <a href="{% url 'ingredients:list' %}" class="btn btn-basic">{% trans "Cancel" %}</a>
     </form>
 </div>
 {% endblock %}

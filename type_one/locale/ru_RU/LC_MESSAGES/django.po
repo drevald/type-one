@@ -1,0 +1,241 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-12 01:11+0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: type_one/templates/base.html:20 type_one/templates/records.html:5
+msgid "Records"
+msgstr ""
+
+#: type_one/templates/base.html:21 type_one/templates/cook.html:14
+#: type_one/templates/ingredients.html:4
+msgid "Ingredients"
+msgstr ""
+
+#: type_one/templates/base.html:22 type_one/templates/ingredient.html:40
+msgid "Units"
+msgstr ""
+
+#: type_one/templates/base.html:23
+msgid "Admin"
+msgstr ""
+
+#: type_one/templates/cook.html:6
+msgid "Cook meal"
+msgstr ""
+
+#: type_one/templates/cook.html:11 type_one/templates/fetch.html:11
+#: type_one/templates/ingredient.html:11 type_one/templates/ingredient.html:43
+#: type_one/templates/ingredients.html:9
+msgid "Name"
+msgstr ""
+
+#: type_one/templates/cook.html:17 type_one/templates/fetch.html:6
+#: type_one/templates/ingredient.html:6
+msgid "Ingredient"
+msgstr ""
+
+#: type_one/templates/cook.html:18
+msgid "Quantity"
+msgstr ""
+
+#: type_one/templates/cook.html:27
+msgid "Change"
+msgstr ""
+
+#: type_one/templates/cook.html:28
+msgid "Remove"
+msgstr ""
+
+#: type_one/templates/cook.html:33 type_one/templates/cooked_add.html:6
+msgid "Add ingredient"
+msgstr ""
+
+#: type_one/templates/cook.html:38 type_one/templates/cooked_add.html:11
+#: type_one/templates/meal_new.html:11 type_one/templates/record_long.html:24
+#: type_one/templates/record_new.html:35 type_one/templates/unit.html:10
+#: type_one/templates/unit_add.html:11
+msgid "Save"
+msgstr ""
+
+#: type_one/templates/cook.html:39 type_one/templates/cooked_add.html:12
+#: type_one/templates/fetch.html:14 type_one/templates/ingredient.html:65
+#: type_one/templates/ingredient.html:66 type_one/templates/meal_new.html:12
+#: type_one/templates/meals_recent.html:25
+#: type_one/templates/record_long.html:25 type_one/templates/record_new.html:36
+#: type_one/templates/unit.html:11 type_one/templates/unit_add.html:12
+msgid "Cancel"
+msgstr ""
+
+#: type_one/templates/fetch.html:13
+msgid "Search"
+msgstr ""
+
+#: type_one/templates/fetch.html:19
+msgid "Results"
+msgstr ""
+
+#: type_one/templates/fetch.html:29
+msgid "Select"
+msgstr ""
+
+#: type_one/templates/ingredient.html:15
+msgid "Bread units per 100g"
+msgstr ""
+
+#: type_one/templates/ingredient.html:20
+msgid "Glycemic index"
+msgstr ""
+
+#: type_one/templates/ingredient.html:24
+msgid "Fat per 100g"
+msgstr ""
+
+#: type_one/templates/ingredient.html:28
+msgid "Carbohydrate per 100g"
+msgstr ""
+
+#: type_one/templates/ingredient.html:32
+msgid "Protein per 100g"
+msgstr ""
+
+#: type_one/templates/ingredient.html:36
+msgid "Enegery ckal per 100g"
+msgstr ""
+
+#: type_one/templates/ingredient.html:44
+msgid "Grams per unit"
+msgstr ""
+
+#: type_one/templates/ingredient.html:53 type_one/templates/ingredients.html:17
+#: type_one/templates/meals.html:19 type_one/templates/records.html:30
+#: type_one/templates/units.html:19
+msgid "Delete"
+msgstr ""
+
+#: type_one/templates/ingredient.html:54 type_one/templates/units.html:20
+msgid "Details"
+msgstr ""
+
+#: type_one/templates/ingredient.html:59 type_one/templates/unit_add.html:6
+#: type_one/templates/units.html:25
+msgid "Add unit"
+msgstr ""
+
+#: type_one/templates/ingredients.html:10 type_one/templates/meals.html:12
+#: type_one/templates/meals_recent.html:12 type_one/templates/records.html:15
+#: type_one/templates/units.html:12
+msgid "Actions"
+msgstr ""
+
+#: type_one/templates/ingredients.html:18 type_one/templates/meals.html:20
+#: type_one/templates/records.html:31
+msgid "Update"
+msgstr ""
+
+#: type_one/templates/ingredients.html:23
+msgid "Add ingedient"
+msgstr ""
+
+#: type_one/templates/ingredients.html:24
+msgid "Import ingredient"
+msgstr ""
+
+#: type_one/templates/ingredients.html:25
+msgid "Cook"
+msgstr ""
+
+#: type_one/templates/meal_new.html:6 type_one/templates/record_new.html:6
+msgid "New record"
+msgstr ""
+
+#: type_one/templates/meals.html:6
+msgid "Meals"
+msgstr ""
+
+#: type_one/templates/meals.html:11 type_one/templates/meals_recent.html:11
+msgid "Meal"
+msgstr ""
+
+#: type_one/templates/meals.html:25
+msgid "Add meal"
+msgstr ""
+
+#: type_one/templates/meals.html:26
+msgid "Import recent"
+msgstr ""
+
+#: type_one/templates/meals.html:27
+msgid "Done"
+msgstr ""
+
+#: type_one/templates/meals_recent.html:5
+msgid "Recent meals"
+msgstr ""
+
+#: type_one/templates/meals_recent.html:10 type_one/templates/records.html:10
+msgid "Time"
+msgstr ""
+
+#: type_one/templates/meals_recent.html:20
+msgid "Import"
+msgstr ""
+
+#: type_one/templates/record_long.html:6
+msgid "Prolongated shot"
+msgstr ""
+
+#: type_one/templates/record_long.html:13 type_one/templates/records.html:11
+msgid "Insulin shot"
+msgstr ""
+
+#: type_one/templates/record_long.html:14 type_one/templates/record_new.html:16
+#: type_one/templates/records.html:14
+msgid "Notes"
+msgstr ""
+
+#: type_one/templates/record_new.html:13
+msgid "shot, units"
+msgstr ""
+
+#: type_one/templates/record_new.html:14 type_one/templates/records.html:12
+msgid "Glucose level"
+msgstr ""
+
+#: type_one/templates/record_new.html:15 type_one/templates/records.html:13
+msgid "Bread units"
+msgstr ""
+
+#: type_one/templates/records.html:36
+msgid "Add record"
+msgstr ""
+
+#: type_one/templates/records.html:37
+msgid "Add prolongated"
+msgstr ""
+
+#: type_one/templates/unit.html:5
+msgid "Weight unit"
+msgstr ""
+
+#: type_one/templates/units.html:6
+msgid "Weight units"
+msgstr ""
+
+#: type_one/templates/units.html:11
+msgid "Unit"
+msgstr ""
