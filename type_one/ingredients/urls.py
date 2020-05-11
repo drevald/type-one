@@ -19,4 +19,8 @@ urlpatterns = [
     path('units/new', views.unit_create, name='unit_create'),
     path('units/<int:unit_id>/', views.unit_details, name='unit_details'),
     path('units/<int:unit_id>/delete', views.unit_delete, name='unit_delete'),
+    path('cook/', views.cook, name='cook'),
+    path('cook/add', views.cooked_add, name='cooked_add'),
+    path('cook/<int:id>', views.cooked_details, name='cooked_details'),
+    path('cook/<int:id>/delete', views.cooked_delete, name='cooked_delete'),
 ]

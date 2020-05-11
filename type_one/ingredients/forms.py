@@ -1,6 +1,18 @@
 from django import forms
 from . import models
 
+class CookedForm(forms.Form):
+    unit = forms.ModelChoiceField(queryset=models.IngredientUnit.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm col-sm-2'}))
+    quantity = forms.IntegerField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm col-sm-2'}))
+    class Meta:
+        fields = ['unit', 'quantity']
+
+class CookForm(forms.ModelForm):
+    name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-sm col-sm-4'}))
+    class Meta:
+        model = models.Ingredient
+        fields = ['name']
+
 class WeightUnitForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-sm col-sm-4'}))
     class Meta:

@@ -79,3 +79,5 @@ ALLOWED_HOSTS = [
     '127.0.0.1',
     'localhost'
 ]
+
+SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'

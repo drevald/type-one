@@ -17,8 +17,8 @@ class WeightUnit(models.Model):
         return self.name  
 
 class IngredientUnit(models.Model):
-    unit = models.ForeignKey(WeightUnit, on_delete = models.DO_NOTHING)
-    ingredient = models.ForeignKey(Ingredient, on_delete = models.DO_NOTHING)
+    unit = models.ForeignKey(WeightUnit, on_delete = models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, on_delete = models.CASCADE)
     grams_in_unit = models.FloatField()
     def __str__(self):
         return self.ingredient.name + ", " + self.unit.name

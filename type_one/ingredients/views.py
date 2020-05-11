@@ -142,3 +142,57 @@ def fetch_select(request, id):
     context = {"form":form}
     template = "ingredient.html"
     return render(request, template, context)
+
+def cook(request):
+    ingredient = models.Ingredient()
+    form = forms.CookForm(request.POST or None, instance=ingredient)
+    if form.is_valid():
+        # form.save()
+        ingredient = models.Ingredient(form.cleaned_data["name"])
+        ingredients = [i["ingredient"] for i in request.session['cooked_ingredients']]
+        print(ingredients)
+        print([i.ingredient.carbohydrate_per_100g for i in ingredients])
+        print([i.ingredient.carbohydrate_per_100g for i in ingredients])
+        print(sum([i.ingredient.carbohydrate_per_100g for i in ingredients]))
+        # return HttpResponseRedirect(reverse('ingredients:list'))
+    template = "cook.html"
+    context = {"form":form}
+    return render(request, template, context)
+
+def cooked_add(request):
+    form = forms.CookedForm(request.POST or None)
+    if form.is_valid():
+        print()
+        if 'cooked_ingredients' not in request.session:
+            request.session['cooked_ingredients'] = []
+        cooked_ingredients = request.session['cooked_ingredients']
+        cooked_ingredients.append({
+            "ingredient":form.cleaned_data["unit"],
+            "quantity":form.cleaned_data["quantity"]
+            })
+        return HttpResponseRedirect(reverse("ingredients:cook"))            
+    template='cooked_add.html'
+    context = {'form':form}
+    return render(request, template, context)
+
+def cooked_details(request, id):
+    unit = request.session['cooked_ingredients'][id-1]["ingredient"]
+    quantity = request.session['cooked_ingredients'][id-1]["quantity"]
+    form = forms.CookedForm(request.POST or None, initial={'unit':unit,'quantity':quantity})
+    if form.is_valid():
+        print()
+        if 'cooked_ingredients' not in request.session:
+            request.session['cooked_ingredients'] = []
+        cooked_ingredients = request.session['cooked_ingredients']
+        cooked_ingredients[id-1] = {
+            "ingredient":form.cleaned_data["unit"],
+            "quantity":form.cleaned_data["quantity"]
+            }
+        return HttpResponseRedirect(reverse("ingredients:cook"))            
+    template='cooked_add.html'
+    context = {'form':form}
+    return render(request, template, context)
+
+def cooked_delete(request, id):
+    request.session['cooked_ingredients'].pop(id-1)
+    return HttpResponseRedirect(reverse("ingredients:cook"))
