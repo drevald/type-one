@@ -3,7 +3,7 @@ from django.db import models
 class Ingredient(models.Model):
     name = models.CharField(max_length = 255)
     bread_units_per_100g = models.FloatField()##
-    glycemic_index = models.IntegerField(null=True)
+    glycemic_index = models.IntegerField(null=True, default=50)
     fat_per_100g = models.IntegerField()
     carbohydrate_per_100g = models.IntegerField()
     protein_per_100g = models.IntegerField()

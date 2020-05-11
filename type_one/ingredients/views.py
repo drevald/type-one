@@ -148,13 +148,23 @@ def cook(request):
     form = forms.CookForm(request.POST or None, instance=ingredient)
     if form.is_valid():
         # form.save()
-        ingredient = models.Ingredient(form.cleaned_data["name"])
-        ingredients = [i["ingredient"] for i in request.session['cooked_ingredients']]
-        print(ingredients)
-        print([i.ingredient.carbohydrate_per_100g for i in ingredients])
-        print([i.ingredient.carbohydrate_per_100g for i in ingredients])
-        print(sum([i.ingredient.carbohydrate_per_100g for i in ingredients]))
-        # return HttpResponseRedirect(reverse('ingredients:list'))
+        ingredient = models.Ingredient(name=form.cleaned_data["name"])
+        ingr_units = [i["ingredient"] for i in request.session['cooked_ingredients']]
+        amounts = [i["quantity"] for i in request.session['cooked_ingredients']]
+        unit_weights = [i.grams_in_unit for i in ingr_units]
+        ingrs = [i.ingredient for i in ingr_units]
+        total = sum([x*y for (x, y) in zip (amounts, unit_weights)])
+        
+        ingredient.carbohydrate_per_100g = sum([x*y*z for (x, y, z) in zip(amounts, unit_weights, [i.carbohydrate_per_100g for i in ingrs])])/total
+        ingredient.bread_units_per_100g = round(ingredient.carbohydrate_per_100g/12, 1)
+        ingredient.fat_per_100g = sum([x*y*z for (x, y, z) in zip(amounts, unit_weights, [i.fat_per_100g for i in ingrs])])/total
+        ingredient.protein_per_100g = sum([x*y*z for (x, y, z) in zip(amounts, unit_weights, [i.protein_per_100g for i in ingrs])])/total
+        ingredient.energy_kKkal_per_100g = sum([x*y*z for (x, y, z) in zip(amounts, unit_weights, [i.energy_kKkal_per_100g for i in ingrs])])/total
+        ingredient.glycemic_index = sum([x*y*z for (x, y, z) in zip(amounts, unit_weights, [i.glycemic_index for i in ingrs])])/total
+        ingredient.save()
+
+        request.session['cooked_ingredients'].clear()
+        return HttpResponseRedirect(reverse('ingredients:list'))
     template = "cook.html"
     context = {"form":form}
     return render(request, template, context)
