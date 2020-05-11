@@ -74,4 +74,8 @@ AUTH_USER_MODEL = "core.User"
 
 SESSION_SAVE_EVERY_REQUEST = True
 
-SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
+ALLOWED_HOSTS = [
+    '192.168.0.189',
+    '127.0.0.1',
+    'localhost'
+]
