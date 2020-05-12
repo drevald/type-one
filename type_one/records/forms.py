@@ -3,7 +3,7 @@ from .models import Record, Meal, Ingredient, IngredientUnit
 
 class MealForm (forms.ModelForm):    
     ingredient_unit = forms.ModelChoiceField(queryset=IngredientUnit.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm'}))
-    quantity = forms.CharField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}))
+    quantity = forms.FloatField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}))
     class Meta:
         model = Meal
         fields = ['ingredient_unit','quantity']

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+{% load i18n %}
 <div class="container">
     <div class="page-header">
         <h1>{% trans "Ingredient" %}</h1>            
@@ -62,7 +63,7 @@
           </table>
           {% endif %}
           <br>
-      <input type="submit" value='{% trans "Cancel" %}' class="btn btn-primary">
+      <input type="submit" value='{% trans "Save" %}' class="btn btn-primary">
       <a href="{% url 'ingredients:list' %}" class="btn btn-basic">{% trans "Cancel" %}</a>
     </form>
 </div>

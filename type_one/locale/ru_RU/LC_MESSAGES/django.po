@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-12 01:11+0300\n"
+"POT-Creation-Date: 2020-05-12 15:18+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,225 +17,224 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: type_one/templates/base.html:20 type_one/templates/records.html:5
+#: type_one/templates/base.html:21 type_one/templates/records.html:6
 msgid "Records"
-msgstr ""
+msgstr "Записи"
 
-#: type_one/templates/base.html:21 type_one/templates/cook.html:14
-#: type_one/templates/ingredients.html:4
+#: type_one/templates/base.html:22 type_one/templates/cook.html:15
+#: type_one/templates/ingredients.html:5
 msgid "Ingredients"
-msgstr ""
+msgstr "Ингредиенты"
 
-#: type_one/templates/base.html:22 type_one/templates/ingredient.html:40
+#: type_one/templates/base.html:23 type_one/templates/ingredient.html:41
 msgid "Units"
-msgstr ""
+msgstr "Единицы"
 
-#: type_one/templates/base.html:23
+#: type_one/templates/base.html:24
 msgid "Admin"
-msgstr ""
+msgstr "Админ"
 
-#: type_one/templates/cook.html:6
+#: type_one/templates/cook.html:7
 msgid "Cook meal"
-msgstr ""
+msgstr "Приготовить блюдо"
 
-#: type_one/templates/cook.html:11 type_one/templates/fetch.html:11
-#: type_one/templates/ingredient.html:11 type_one/templates/ingredient.html:43
-#: type_one/templates/ingredients.html:9
+#: type_one/templates/cook.html:12 type_one/templates/fetch.html:12
+#: type_one/templates/ingredient.html:12 type_one/templates/ingredient.html:44
+#: type_one/templates/ingredients.html:10
 msgid "Name"
-msgstr ""
+msgstr "Название"
 
-#: type_one/templates/cook.html:17 type_one/templates/fetch.html:6
-#: type_one/templates/ingredient.html:6
+#: type_one/templates/cook.html:18 type_one/templates/fetch.html:7
+#: type_one/templates/ingredient.html:7
 msgid "Ingredient"
-msgstr ""
+msgstr "Ингредиент"
 
-#: type_one/templates/cook.html:18
+#: type_one/templates/cook.html:19
 msgid "Quantity"
-msgstr ""
-
-#: type_one/templates/cook.html:27
-msgid "Change"
-msgstr ""
+msgstr "Количество"
 
 #: type_one/templates/cook.html:28
+msgid "Change"
+msgstr "Изменить"
+
+#: type_one/templates/cook.html:29
 msgid "Remove"
-msgstr ""
+msgstr "Убрать"
 
-#: type_one/templates/cook.html:33 type_one/templates/cooked_add.html:6
+#: type_one/templates/cook.html:34 type_one/templates/cooked_add.html:7
 msgid "Add ingredient"
-msgstr ""
-
-#: type_one/templates/cook.html:38 type_one/templates/cooked_add.html:11
-#: type_one/templates/meal_new.html:11 type_one/templates/record_long.html:24
-#: type_one/templates/record_new.html:35 type_one/templates/unit.html:10
-#: type_one/templates/unit_add.html:11
-msgid "Save"
-msgstr ""
+msgstr "Добавить ингредиент"
 
 #: type_one/templates/cook.html:39 type_one/templates/cooked_add.html:12
-#: type_one/templates/fetch.html:14 type_one/templates/ingredient.html:65
 #: type_one/templates/ingredient.html:66 type_one/templates/meal_new.html:12
-#: type_one/templates/meals_recent.html:25
 #: type_one/templates/record_long.html:25 type_one/templates/record_new.html:36
 #: type_one/templates/unit.html:11 type_one/templates/unit_add.html:12
+msgid "Save"
+msgstr "Сохранить"
+
+#: type_one/templates/cook.html:40 type_one/templates/cooked_add.html:13
+#: type_one/templates/fetch.html:15 type_one/templates/ingredient.html:67
+#: type_one/templates/meal_new.html:13 type_one/templates/meals_recent.html:26
+#: type_one/templates/record_long.html:26 type_one/templates/record_new.html:37
+#: type_one/templates/unit.html:12 type_one/templates/unit_add.html:13
 msgid "Cancel"
-msgstr ""
+msgstr "Отменить"
 
-#: type_one/templates/fetch.html:13
+#: type_one/templates/fetch.html:14
 msgid "Search"
-msgstr ""
+msgstr "Поиск"
 
-#: type_one/templates/fetch.html:19
+#: type_one/templates/fetch.html:20
 msgid "Results"
-msgstr ""
+msgstr "Результаты"
 
-#: type_one/templates/fetch.html:29
+#: type_one/templates/fetch.html:30
 msgid "Select"
-msgstr ""
+msgstr "Выбрать"
 
-#: type_one/templates/ingredient.html:15
+#: type_one/templates/ingredient.html:16
 msgid "Bread units per 100g"
-msgstr ""
+msgstr "Хлебных единиц на 100г"
 
-#: type_one/templates/ingredient.html:20
+#: type_one/templates/ingredient.html:21
 msgid "Glycemic index"
-msgstr ""
+msgstr "Гликемический индекс"
 
-#: type_one/templates/ingredient.html:24
+#: type_one/templates/ingredient.html:25
 msgid "Fat per 100g"
-msgstr ""
+msgstr "Жиров на 100г"
 
-#: type_one/templates/ingredient.html:28
+#: type_one/templates/ingredient.html:29
 msgid "Carbohydrate per 100g"
-msgstr ""
+msgstr "Углеводов на 100г"
 
-#: type_one/templates/ingredient.html:32
+#: type_one/templates/ingredient.html:33
 msgid "Protein per 100g"
-msgstr ""
+msgstr "Белков на 100г"
 
-#: type_one/templates/ingredient.html:36
+#: type_one/templates/ingredient.html:37
 msgid "Enegery ckal per 100g"
-msgstr ""
+msgstr "Килокалорий на 100г"
 
-#: type_one/templates/ingredient.html:44
+#: type_one/templates/ingredient.html:45
 msgid "Grams per unit"
-msgstr ""
+msgstr "Граммов в единице"
 
-#: type_one/templates/ingredient.html:53 type_one/templates/ingredients.html:17
-#: type_one/templates/meals.html:19 type_one/templates/records.html:30
-#: type_one/templates/units.html:19
+#: type_one/templates/ingredient.html:54 type_one/templates/ingredients.html:18
+#: type_one/templates/meals.html:20 type_one/templates/records.html:31
+#: type_one/templates/units.html:20
 msgid "Delete"
-msgstr ""
+msgstr "Удалить"
 
-#: type_one/templates/ingredient.html:54 type_one/templates/units.html:20
+#: type_one/templates/ingredient.html:55 type_one/templates/units.html:21
 msgid "Details"
-msgstr ""
+msgstr "Детали"
 
-#: type_one/templates/ingredient.html:59 type_one/templates/unit_add.html:6
-#: type_one/templates/units.html:25
+#: type_one/templates/ingredient.html:60 type_one/templates/unit_add.html:7
+#: type_one/templates/units.html:26
 msgid "Add unit"
-msgstr ""
+msgstr "Добавить единицу измерения"
 
-#: type_one/templates/ingredients.html:10 type_one/templates/meals.html:12
-#: type_one/templates/meals_recent.html:12 type_one/templates/records.html:15
-#: type_one/templates/units.html:12
+#: type_one/templates/ingredients.html:11 type_one/templates/meals.html:13
+#: type_one/templates/meals_recent.html:13 type_one/templates/records.html:16
+#: type_one/templates/units.html:13
 msgid "Actions"
-msgstr ""
+msgstr "Действия"
 
-#: type_one/templates/ingredients.html:18 type_one/templates/meals.html:20
-#: type_one/templates/records.html:31
+#: type_one/templates/ingredients.html:19 type_one/templates/meals.html:21
+#: type_one/templates/records.html:32
 msgid "Update"
-msgstr ""
-
-#: type_one/templates/ingredients.html:23
-msgid "Add ingedient"
-msgstr ""
+msgstr "Обновить"
 
 #: type_one/templates/ingredients.html:24
-msgid "Import ingredient"
-msgstr ""
+msgid "Add ingedient"
+msgstr "Добавить ингредиент"
 
 #: type_one/templates/ingredients.html:25
+msgid "Import ingredient"
+msgstr "Импортировать"
+
+#: type_one/templates/ingredients.html:26
 msgid "Cook"
-msgstr ""
+msgstr "Приготовить"
 
-#: type_one/templates/meal_new.html:6 type_one/templates/record_new.html:6
+#: type_one/templates/meal_new.html:7 type_one/templates/record_new.html:7
 msgid "New record"
-msgstr ""
+msgstr "Новая запись"
 
-#: type_one/templates/meals.html:6
+#: type_one/templates/meals.html:7
 msgid "Meals"
-msgstr ""
+msgstr "Еда"
 
-#: type_one/templates/meals.html:11 type_one/templates/meals_recent.html:11
+#: type_one/templates/meals.html:12 type_one/templates/meals_recent.html:12
 msgid "Meal"
-msgstr ""
-
-#: type_one/templates/meals.html:25
-msgid "Add meal"
-msgstr ""
+msgstr "Еда"
 
 #: type_one/templates/meals.html:26
-msgid "Import recent"
-msgstr ""
+msgid "Add meal"
+msgstr "Добавить еду"
 
 #: type_one/templates/meals.html:27
+msgid "Import recent"
+msgstr "Добавить из недавних"
+
+#: type_one/templates/meals.html:28
 msgid "Done"
-msgstr ""
+msgstr "Готово"
 
-#: type_one/templates/meals_recent.html:5
+#: type_one/templates/meals_recent.html:6
 msgid "Recent meals"
-msgstr ""
+msgstr "Недавние блюда"
 
-#: type_one/templates/meals_recent.html:10 type_one/templates/records.html:10
+#: type_one/templates/meals_recent.html:11 type_one/templates/records.html:11
 msgid "Time"
-msgstr ""
+msgstr "Время"
 
-#: type_one/templates/meals_recent.html:20
+#: type_one/templates/meals_recent.html:21
 msgid "Import"
-msgstr ""
+msgstr "Импортировать"
 
-#: type_one/templates/record_long.html:6
+#: type_one/templates/record_long.html:7
 msgid "Prolongated shot"
-msgstr ""
+msgstr "Длинный инсулин"
 
-#: type_one/templates/record_long.html:13 type_one/templates/records.html:11
+#: type_one/templates/record_long.html:14 type_one/templates/records.html:12
 msgid "Insulin shot"
-msgstr ""
+msgstr "Подкол инсулина"
 
-#: type_one/templates/record_long.html:14 type_one/templates/record_new.html:16
-#: type_one/templates/records.html:14
+#: type_one/templates/record_long.html:15 type_one/templates/record_new.html:17
+#: type_one/templates/records.html:15
 msgid "Notes"
-msgstr ""
+msgstr "Заметки"
 
-#: type_one/templates/record_new.html:13
+#: type_one/templates/record_new.html:14
 msgid "shot, units"
-msgstr ""
-
-#: type_one/templates/record_new.html:14 type_one/templates/records.html:12
-msgid "Glucose level"
-msgstr ""
+msgstr "укол, единиц"
 
 #: type_one/templates/record_new.html:15 type_one/templates/records.html:13
-msgid "Bread units"
-msgstr ""
+msgid "Glucose level"
+msgstr "Глюкоза"
 
-#: type_one/templates/records.html:36
-msgid "Add record"
-msgstr ""
+#: type_one/templates/record_new.html:16 type_one/templates/records.html:14
+msgid "Bread units"
+msgstr "Хлебных единиц"
 
 #: type_one/templates/records.html:37
+msgid "Add record"
+msgstr "Добавить запись"
+
+#: type_one/templates/records.html:38
 msgid "Add prolongated"
-msgstr ""
+msgstr "Добавить длинный"
 
-#: type_one/templates/unit.html:5
+#: type_one/templates/unit.html:6
 msgid "Weight unit"
-msgstr ""
+msgstr "Мера веса"
 
-#: type_one/templates/units.html:6
+#: type_one/templates/units.html:7
 msgid "Weight units"
-msgstr ""
+msgstr "Меры веса"
 
-#: type_one/templates/units.html:11
+#: type_one/templates/units.html:12
 msgid "Unit"
-msgstr ""
+msgstr "Единица"
