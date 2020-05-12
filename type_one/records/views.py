@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -9,23 +10,34 @@ from ..ingredients.models import Ingredient, IngredientUnit
 from .models import Record, Meal
 from .forms import MealForm, RecordForm, LongForm
 
+@login_required
+def default(request):
+    records_list = Record.objects.all()
+    template = loader.get_template('records.html')
+    context = {'records_list' : records_list}
+    return HttpResponse(template.render(context, request))
+
+@login_required
 def records(request):
     records_list = Record.objects.all()
     template = loader.get_template('records.html')
     context = {'records_list' : records_list}
     return HttpResponse(template.render(context, request))
 
+@login_required
 def delete(request, pk):
     record = Record.objects.get(id = pk)
     record.delete()
     return HttpResponseRedirect(reverse('records:list'))
 
+@login_required
 def details(request, pk):
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('records:list'))    
     record = Record.objects.get(id=pk)    
     return store(request, record)
 
+@login_required
 def create(request, type=0):    
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('records:list'))    
@@ -33,6 +45,7 @@ def create(request, type=0):
     record.insulin = request.user.rapid_acting_insulin if type==0 else request.user.long_acting_insulin
     return store(request, record)
 
+@login_required
 def store(request, record):
     print(record.glucose_level)
     template = 'record_new.html' if record.type == 0 else 'record_long.html'
@@ -49,12 +62,14 @@ def store(request, record):
     context = {"form": form, "meals":meals, "meal_details":meal_details_str}
     return render(request, template, context)
 
+@login_required
 def meals(request, pk):
     meals = Meal.objects.filter(record=Record.objects.get(id=pk))
     template = 'meals.html'
     context = {'meals' : meals, 'pk' : pk}
     return render(request, template, context)
 
+@login_required
 def meals_create(request, pk):    
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))        
@@ -67,6 +82,7 @@ def meals_create(request, pk):
     context = {'form':form}
     return render(request, template, context)
 
+@login_required
 def meals_details(request, pk, meal_id):   
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))        
@@ -78,17 +94,20 @@ def meals_details(request, pk, meal_id):
     template = 'meal_new.html'
     return render(request, template, {'form':form})
 
+@login_required
 def meals_delete(request, pk, meal_id):  
     meal = Meal.objects.get(id = meal_id)
     meal.delete()
     return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))
 
+@login_required
 def recent(request, pk):    
     list = Record.objects.exclude(id=pk)
     template = "meals_recent.html"
     context = {'pk':pk,'list':list}
     return render(request, template, context) 
 
+@login_required
 def select(request, pk, record_id):   
     print(record_id)
     meals = Record.objects.get(id=record_id).meals.all()
