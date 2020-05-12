@@ -5,6 +5,7 @@ from ..core.models import User, GlucoseUnit, Insulin
 from ..ingredients.models import Ingredient, IngredientUnit
 
 class Record(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
     time = models.DateTimeField(auto_now=True)
     type = models.IntegerField(default=0)
     glucose_level = models.IntegerField(null = True, default = 0)
@@ -15,6 +16,7 @@ class Record(models.Model):
     notes = models.CharField(max_length = 256, null = True)
 
 class Meal(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE)
     record = models.ForeignKey(Record, on_delete = models.CASCADE, related_name='meals', null = True)
     ingredient_unit = models.ForeignKey(IngredientUnit, on_delete = models.CASCADE)
     quantity = models.FloatField(default=1)

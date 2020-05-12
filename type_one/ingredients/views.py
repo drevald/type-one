@@ -10,7 +10,7 @@ from . import forms
 
 @login_required
 def list(request):
-    list = models.Ingredient.objects.all()
+    list = models.Ingredient.objects.filter(user=request.user)
     template = 'ingredients.html'
     context = {'list':list}
     return render(request, template, context)
@@ -19,7 +19,7 @@ def list(request):
 def create(request):
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('ingredients:list'))
-    ingredient = models.Ingredient()
+    ingredient = models.Ingredient(user=request.user)
     form = forms.IngredientForm(request.POST or None, instance=ingredient)
     if form.is_valid():
         print(form.instance.id)
@@ -33,7 +33,7 @@ def create(request):
 def details(request, pk):
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('ingredients:list'))
-    ingredient = models.Ingredient.objects.get(id=pk)
+    ingredient = models.Ingredient.objects.get(id=pk, user=request.user)
     units = models.IngredientUnit.objects.filter(ingredient=ingredient)
     form = forms.IngredientForm(request.POST or None, instance=ingredient)
     if form.is_valid():
@@ -45,13 +45,13 @@ def details(request, pk):
 
 @login_required
 def delete(request, pk):
-    ingredient = models.Ingredient.objects.get(id=pk)
+    ingredient = models.Ingredient.objects.get(id=pk, user=request.user)
     ingredient.delete()
     return HttpResponseRedirect(reverse('ingredients:list'))
 
 @login_required
 def unit_add(request, pk):
-    unit = models.IngredientUnit(ingredient=models.Ingredient.objects.get(id=pk))
+    unit = models.IngredientUnit(ingredient=models.Ingredient.objects.get(id=pk),user=request.user)
     form = forms.IngredientUnitForm(request.POST or None, instance=unit)
     if form.is_valid():
         form.save()
@@ -62,7 +62,7 @@ def unit_add(request, pk):
 
 @login_required
 def ingredient_unit_details(request, pk, unit_id):
-    unit = models.IngredientUnit.objects.get(id=unit_id)
+    unit = models.IngredientUnit.objects.get(id=unit_id,user=request.user)
     form = forms.IngredientUnitForm(request.POST or None, instance=unit)
     print(str(unit))
     if form.is_valid():
@@ -74,20 +74,20 @@ def ingredient_unit_details(request, pk, unit_id):
 
 @login_required
 def ingredient_unit_delete(request, pk, unit_id):
-    unit = models.IngredientUnit.objects.get(id=unit_id)
+    unit = models.IngredientUnit.objects.get(id=unit_id,user=request.user)
     unit.delete()
     return HttpResponseRedirect(reverse('ingredients:details', kwargs={'pk':pk}))
 
 @login_required
 def units(request):
-    units = models.WeightUnit.objects.all()
+    units = models.WeightUnit.objects.filter(user=request.user)
     template = "units.html"
     context = {"units":units}
     return render(request, template, context)
 
 @login_required
 def unit_create(request):
-    unit = models.WeightUnit()
+    unit = models.WeightUnit(user=request.userv)
     form = forms.WeightUnitForm(request.POST or None, instance=unit)
     if form.is_valid():
         form.save()
@@ -96,7 +96,7 @@ def unit_create(request):
 
 @login_required
 def unit_details(request, unit_id):
-    unit = models.WeightUnit.objects.get(id=unit_id)
+    unit = models.WeightUnit.objects.get(id=unit_id,user=request.user)
     #unit = models.WeightUnit()
     form = forms.WeightUnitForm(request.POST or None, instance=unit)
     if form.is_valid():
@@ -106,7 +106,7 @@ def unit_details(request, unit_id):
 
 @login_required
 def unit_delete(request, unit_id):
-    unit = models.WeightUnit.objects.filter(id=unit_id)
+    unit = models.WeightUnit.objects.filter(id=unit_id,user=request.user)
     unit.delete()
     return HttpResponseRedirect(reverse('ingredients:units'))
 
@@ -130,7 +130,7 @@ def fetch_select(request, id):
     r = requests.get(url, params=request.GET)
     data = json.loads(r.text)
     records = data["foodNutrients"]
-    ingredient = models.Ingredient()
+    ingredient = models.Ingredient(user=request.user)
     ingredient.name = data['description']
     for record in records:
         if record['nutrient']['id'] == 1008: # 1008 Energy 
@@ -153,11 +153,11 @@ def fetch_select(request, id):
 
 @login_required
 def cook(request):
-    ingredient = models.Ingredient()
+    ingredient = models.Ingredient(user=request.user)
     form = forms.CookForm(request.POST or None, instance=ingredient)
     if form.is_valid():
 
-        ingredient = models.Ingredient(name=form.cleaned_data["name"])
+        ingredient = models.Ingredient(name=form.cleaned_data["name"], user=request.user)
         ingr_units = [i["ingredient"] for i in request.session['cooked_ingredients']]
         amounts = [i["quantity"] for i in request.session['cooked_ingredients']]
         unit_weights = [i.grams_in_unit for i in ingr_units]
