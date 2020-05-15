@@ -90,7 +90,8 @@ SESSION_SAVE_EVERY_REQUEST = True
 ALLOWED_HOSTS = [
     '192.168.0.189',
     '127.0.0.1',
-    'localhost'
+    'localhost',
+    'type-one.herokuapp.com'
 ]
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'

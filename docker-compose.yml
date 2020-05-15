@@ -9,10 +9,11 @@ services:
     ports:
     - 5432:5432
   web:
-    build: .
+    image: typeone
+    # build: .
     environment:
       - PORT=8000
-    command: gunicorn type_one.wsgi:application
+    command: gunicorn type_one.wsgi:application --bind 0.0.0.0:$PORT --log-file -
     volumes:
       - .:/code
     ports:
