@@ -5,10 +5,20 @@ services:
     volumes:
     - data:/var/lib/postgresql/data
     environment:
-    - POSTGRES_USER=postgres
-    - POSTGRES_PASSWORD=password
-    - POSTGRES_DB=type_one
+    - URI=postgres://postgres:password@postgres:5432/type_one
     ports:
     - 5432:5432
+  web:
+    build: .
+    environment:
+      - PORT=8000
+    command: gunicorn type_one.wsgi:application
+    volumes:
+      - .:/code
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
 volumes:
   data:
+

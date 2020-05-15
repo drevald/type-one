@@ -1,4 +1,15 @@
 import os
+import environ
+
+env = environ.Env()
+
+#BASE_DIR = '/home/denis/PythonProjects/type-one/type_one/'
+
+BASE_DIR = environ.Path(__file__) - 2
+
+dot_env = str(BASE_DIR.path(".env"))
+if os.path.exists(dot_env):
+    env.read_env(dot_env)
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -55,14 +66,15 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'type_one',
-        'USER': 'postgres',
-        'PASSWORD': 'password',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }    
+    "default": env.db()
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': 'type_one',
+    #     'USER': 'postgres',
+    #     'PASSWORD': 'password',
+    #     'HOST': 'postgres',
+    #     'PORT': '5432',
+    # }    
 }
 
 STATIC_URL = '/static/'
@@ -83,8 +95,6 @@ ALLOWED_HOSTS = [
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
-BASE_DIR = '/home/denis/PythonProjects/type-one/type_one/'
-
 LOCALE_PATHS = ( 
-    os.path.join(BASE_DIR, "locale"),
+    os.path.join(str(BASE_DIR), "locale"),
 )
