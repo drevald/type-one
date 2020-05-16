@@ -87,7 +87,7 @@ def units(request):
 
 @login_required
 def unit_create(request):
-    unit = models.WeightUnit(user=request.userv)
+    unit = models.WeightUnit(user=request.user)
     form = forms.WeightUnitForm(request.POST or None, instance=unit)
     if form.is_valid():
         form.save()
