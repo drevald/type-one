@@ -58,6 +58,7 @@ def store(request, record):
     print(form)
     if form.is_valid():
         form.save()
+        print("Returning to " + reverse('records:list'))
         return HttpResponseRedirect(reverse('records:list'))
     context = {"form": form, "meals":meals, "meal_details":meal_details_str}
     return render(request, template, context)

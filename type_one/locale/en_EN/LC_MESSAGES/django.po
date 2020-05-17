@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-12 15:18+0300\n"
+"POT-Creation-Date: 2020-05-17 18:51+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -31,6 +31,10 @@ msgid "Units"
 msgstr ""
 
 #: type_one/templates/base.html:24
+msgid "Sign out"
+msgstr ""
+
+#: type_one/templates/base.html:25
 msgid "Admin"
 msgstr ""
 
@@ -66,9 +70,10 @@ msgid "Add ingredient"
 msgstr ""
 
 #: type_one/templates/cook.html:39 type_one/templates/cooked_add.html:12
-#: type_one/templates/ingredient.html:66 type_one/templates/meal_new.html:12
-#: type_one/templates/record_long.html:25 type_one/templates/record_new.html:36
-#: type_one/templates/unit.html:11 type_one/templates/unit_add.html:12
+#: type_one/templates/ingredient.html:66 type_one/templates/login.html:19
+#: type_one/templates/meal_new.html:12 type_one/templates/record_long.html:25
+#: type_one/templates/record_new.html:36 type_one/templates/unit.html:11
+#: type_one/templates/unit_add.html:12
 msgid "Save"
 msgstr ""
 
@@ -156,6 +161,18 @@ msgstr ""
 
 #: type_one/templates/ingredients.html:26
 msgid "Cook"
+msgstr ""
+
+#: type_one/templates/login.html:7
+msgid "Sign in"
+msgstr ""
+
+#: type_one/templates/login.html:12
+msgid "Username"
+msgstr ""
+
+#: type_one/templates/login.html:16
+msgid "Password"
 msgstr ""
 
 #: type_one/templates/meal_new.html:7 type_one/templates/record_new.html:7
