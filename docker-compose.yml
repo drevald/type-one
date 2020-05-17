@@ -4,13 +4,12 @@ services:
     image: postgres:12-alpine
     volumes:
     - data:/var/lib/postgresql/data
-    environment:
-    - DATABASE_URL=postgres://postgres:password@postgres:5432/type_one
     ports:
     - 5432:5432
   web:
     build: .
     environment:
+      - DATABASE_URL=postgres://postgres:password@postgres:5432/type_one
       - PORT=8000
     command: gunicorn type_one.wsgi:application --bind 0.0.0.0:$PORT --log-file -
     volumes:

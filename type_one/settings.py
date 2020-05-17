@@ -1,3 +1,4 @@
+from django.utils.translation import gettext_lazy as _
 import os
 import environ
 
@@ -23,7 +24,10 @@ INSTALLED_APPS = [
     'type_one.records',
     'type_one.ingredients',
     'django_extensions',
-    'debug_toolbar'
+    'debug_toolbar',
+    'locale',
+    'whitenoise.runserver_nostatic',
+    'django.contrib.staticfiles',
 ]
 
 MIDDLEWARE = [
@@ -35,7 +39,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
-    'django.middleware.locale.LocaleMiddleware'
+    'django.middleware.locale.LocaleMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware'
 ]
 
 ROOT_URLCONF = 'type_one.urls'
@@ -67,14 +72,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 DATABASES = {
     "default": env.db()
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql',
-    #     'NAME': 'type_one',
-    #     'USER': 'postgres',
-    #     'PASSWORD': 'password',
-    #     'HOST': 'postgres',
-    #     'PORT': '5432',
-    # }    
 }
 
 STATIC_URL = '/static/'
@@ -99,3 +96,16 @@ SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 LOCALE_PATHS = ( 
     os.path.join(str(BASE_DIR), "locale"),
 )
+
+USE_I18N = True
+
+LANGUAGES = [
+  ('en', _('English')),
+  ('ru', _('Russian'))
+]
+
+STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
+
+STATIC_URL = STATIC_HOST + '/static/'
+
+STATIC_ROOT = os.path.join(str(BASE_DIR), 'staticfiles')
