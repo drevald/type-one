@@ -4,8 +4,6 @@ import environ
 
 env = environ.Env()
 
-#BASE_DIR = '/home/denis/PythonProjects/type-one/type_one/'
-
 BASE_DIR = environ.Path(__file__) - 2
 
 dot_env = str(BASE_DIR.path(".env"))
@@ -18,7 +16,6 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
     'bootstrap4',
     'type_one.core',
     'type_one.records',
@@ -73,8 +70,6 @@ AUTH_PASSWORD_VALIDATORS = [
 DATABASES = {
     "default": env.db()
 }
-
-STATIC_URL = '/static/'
 
 SECRET_KEY = 'segretto'
 
