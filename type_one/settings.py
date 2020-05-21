@@ -89,7 +89,7 @@ ALLOWED_HOSTS = [
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
 LOCALE_PATHS = ( 
-    os.path.join(str(BASE_DIR), "locale"),
+    os.path.join(str(BASE_DIR), "type_one", "locale"),
 )
 
 USE_I18N = True
