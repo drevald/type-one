@@ -3,7 +3,7 @@ from . import models
 
 class CookedForm(forms.Form):
     unit = forms.ModelChoiceField(queryset=models.IngredientUnit.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm col-sm-2'}))
-    quantity = forms.IntegerField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm col-sm-2'}))
+    quantity = forms.FloatField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm col-sm-2'}))
     class Meta:
         fields = ['unit', 'quantity']
 
@@ -22,7 +22,7 @@ class WeightUnitForm(forms.ModelForm):
 class IngredientUnitForm(forms.ModelForm):
     ingredient = forms.ModelChoiceField(queryset=models.Ingredient.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm col-sm-2'}), disabled=True)
     unit = forms.ModelChoiceField(queryset=models.WeightUnit.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm col-sm-2'}))
-    grams_in_unit = forms.IntegerField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm col-sm-2'}))
+    grams_in_unit = forms.FloatField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm col-sm-2'}))
     class Meta:
         model = models.IngredientUnit
         fields = ['ingredient','unit','grams_in_unit']

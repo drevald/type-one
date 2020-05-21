@@ -53,10 +53,12 @@ def store(request, record):
     meal_details = [str(meal) for meal in meals] if meals else None
     meal_details_str = ','.join(meal_details) if meal_details else None
     breads = [meal.quantity * meal.ingredient_unit.grams_in_unit * meal.ingredient_unit.ingredient.bread_units_per_100g for meal in meals] if meals else None
-    record.bread_units = sum(breads)/100 if meals else record.bread_units    
+    record.bread_units = sum(breads)/100 if meals else record.bread_units 
+    record.bread_units = round(record.bread_units, 1)
     form = RecordForm(request.POST or None, instance=record) if record.type == 0 else LongForm(request.POST or None, instance=record)        
     print(form)
     if form.is_valid():
+        form.instance.bread_units = round(form.cleaned_data['bread_units'], 1)
         form.save()
         print("Returning to " + reverse('records:list'))
         return HttpResponseRedirect(reverse('records:list'))

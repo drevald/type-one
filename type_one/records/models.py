@@ -6,7 +6,7 @@ from ..ingredients.models import Ingredient, IngredientUnit
 
 class Record(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
-    time = models.DateTimeField(auto_now=True)
+    time = models.DateTimeField(auto_now_add=True)
     type = models.IntegerField(default=0)
     glucose_level = models.FloatField(null = True, default = 0)
     glucose_level_unit = models.ForeignKey(GlucoseUnit, on_delete = models.SET_NULL, null = True)
