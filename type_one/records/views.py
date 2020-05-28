@@ -58,7 +58,7 @@ def store(request, record):
     form = RecordForm(request.POST or None, instance=record) if record.type == 0 else LongForm(request.POST or None, instance=record)        
     print(form)
     if form.is_valid():
-        form.instance.bread_units = round(form.cleaned_data['bread_units'], 1)
+        form.instance.bread_units = round(form.cleaned_data['bread_units'], 1) if record.type == 0 else 0
         form.save()
         print("Returning to " + reverse('records:list'))
         return HttpResponseRedirect(reverse('records:list'))
