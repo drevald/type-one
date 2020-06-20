@@ -12,14 +12,14 @@ from .forms import MealForm, RecordForm, LongForm
 
 @login_required
 def default(request):
-    records_list = Record.objects.filter(user=request.user)
+    records_list = Record.objects.filter(user=request.user).order_by('-time')
     template = loader.get_template('records.html')
     context = {'records_list' : records_list}
     return HttpResponse(template.render(context, request))
 
 @login_required
 def records(request):
-    records_list = Record.objects.filter(user=request.user)
+    records_list = Record.objects.filter(user=request.user).order_by('-time')
     template = loader.get_template('records.html')
     context = {'records_list' : records_list}
     return HttpResponse(template.render(context, request))
