@@ -1,0 +1,11 @@
+model: type_one.ingredients.models.WeightUnit
+pk: 1
+fields:
+    user:
+    name: gram
+
+model: type_one.ingredients.models.WeightUnit
+pk: 2
+fields:
+    user:
+    name: ml

@@ -83,6 +83,7 @@ ALLOWED_HOSTS = [
     '192.168.0.189',
     '127.0.0.1',
     'localhost',
+    '0.0.0.0',
     'type-one.herokuapp.com'
 ]
 
