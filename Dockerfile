@@ -9,5 +9,7 @@ COPY type_one /code/type_one
 RUN pip install -r requirements.txt
 RUN apt-get update
 RUN apt-get -y install gettext
+RUN apt-get -y install dos2unix
 COPY boot.sh /code/
-CMD ./boot.sh
+RUN dos2unix /code/boot.sh
+CMD /code/boot.sh
