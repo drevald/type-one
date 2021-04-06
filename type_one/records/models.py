@@ -1,4 +1,4 @@
-ыудусеfrom django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from datetime import datetime
 from ..core.models import User, GlucoseUnit, Insulin
