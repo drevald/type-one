@@ -1,0 +1,9 @@
+INSTALLATION
+
+1. build environment:
+    > python3 -m venv .venv
+2. activate environment:
+    > source .venv - Linux
+    > .venv\Scripts\activate.bat - Windows
+3. restore required add-ons:
+    > pip install -r requirements.txt
