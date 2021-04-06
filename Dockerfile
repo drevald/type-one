@@ -5,11 +5,9 @@ WORKDIR /code
 COPY manage.py /code/
 COPY requirements.txt /code/
 COPY type_one /code/type_one
-#COPY staticfiles /code/
-RUN pip install -r requirements.txt
 RUN apt-get update
-RUN apt-get -y install gettext
-RUN apt-get -y install dos2unix
+RUN apt-get -y install gettext dos2unix
+RUN pip install -r requirements.txt
 COPY boot.sh /code/
-RUN dos2unix /code/boot.sh
+RUN dos2unix -o /code/boot.sh
 CMD /code/boot.sh
