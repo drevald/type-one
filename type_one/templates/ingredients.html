@@ -13,10 +13,12 @@
     </thead>
     {% for ingredient in list %}
     <tr>
-        <td>{{ ingredient.name }}</td>
+        <td>{% trans ingredient.name %}</td>
         <td>
+            {% if ingredient.user is not None %}
             <a href="{% url 'ingredients:delete' ingredient.id %}">{% trans "Delete" %}</a>
             <a href="{% url 'ingredients:details' ingredient.id %}">{% trans "Update" %}</a>
+            {% endif %}
         </td>    
     </tr>
     {% endfor %}

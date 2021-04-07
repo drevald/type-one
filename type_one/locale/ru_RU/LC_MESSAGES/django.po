@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-17 18:55+0300\n"
+"POT-Creation-Date: 2021-04-07 17:15+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,241 +17,381 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: type_one/templates/base.html:21 type_one/templates/records.html:6
+#: .\type_one\core\strings.py:5
+msgid "apidra"
+msgstr "Апидра"
+
+#: .\type_one\core\strings.py:6
+msgid "tujeo"
+msgstr "Туджео"
+
+#: .\type_one\core\strings.py:8
+msgid "sugar"
+msgstr "Сахар"
+
+#: .\type_one\core\strings.py:9
+msgid "milk"
+msgstr "Молоко"
+
+#: .\type_one\core\strings.py:10
+msgid "ray_bread"
+msgstr "Черный хлеб"
+
+#: .\type_one\core\strings.py:11
+msgid "wheat_bread"
+msgstr "Белый хлеб"
+
+#: .\type_one\core\strings.py:12
+msgid "potato_boiled"
+msgstr "Картофель отварной"
+
+#: .\type_one\core\strings.py:13
+msgid "potato_fried"
+msgstr "Картофель жареный"
+
+#: .\type_one\core\strings.py:14
+msgid "spaghetti"
+msgstr "Спагетти"
+
+#: .\type_one\core\strings.py:15
+msgid "buckwheat"
+msgstr "Гречка"
+
+#: .\type_one\core\strings.py:16
+msgid "rice"
+msgstr "Рис"
+
+#: .\type_one\core\strings.py:17
+msgid "butter"
+msgstr "Масло сливочное"
+
+#: .\type_one\core\strings.py:18
+msgid "cheese"
+msgstr "Сыр"
+
+#: .\type_one\core\strings.py:19
+msgid "sausage"
+msgstr "Сосиски"
+
+#: .\type_one\core\strings.py:20
+msgid "burger"
+msgstr "Гамбургер"
+
+#: .\type_one\core\strings.py:21
+msgid "pork_boiled"
+msgstr "Свинина отварная"
+
+#: .\type_one\core\strings.py:22
+msgid "pork_fried"
+msgstr "Свинина жареная"
+
+#: .\type_one\core\strings.py:23
+msgid "beef_boiled"
+msgstr "Говядина отварная"
+
+#: .\type_one\core\strings.py:24
+msgid "beef_fried"
+msgstr "Говядина жареная"
+
+#: .\type_one\core\strings.py:25
+msgid "chicken_boiled"
+msgstr "Курица отварная"
+
+#: .\type_one\core\strings.py:26
+msgid "chicken_fried"
+msgstr "Курица жареная"
+
+#: .\type_one\core\strings.py:27
+msgid "egg"
+msgstr "Яйцо"
+
+#: .\type_one\core\strings.py:28
+#, fuzzy
+#| msgid "Delete"
+msgid "omelette"
+msgstr "Омлет"
+
+#: .\type_one\core\strings.py:29
+msgid "test"
+msgstr ""
+
+#: .\type_one\core\strings.py:31
+msgid "morning_exercise"
+msgstr "Утренняя зарядка"
+
+#: .\type_one\core\strings.py:32
+msgid "warm_up"
+msgstr "Разминка"
+
+#: .\type_one\core\strings.py:33
+msgid "running"
+msgstr "Бег"
+
+#: .\type_one\core\strings.py:34
+msgid "swimming"
+msgstr "Плаванье"
+
+#: .\type_one\core\strings.py:35
+msgid "walking"
+msgstr "Ходьба"
+
+#: .\type_one\core\strings.py:37
+msgid "mmol_l"
+msgstr "ммоль/л"
+
+#: .\type_one\core\strings.py:38
+msgid "mg_dl"
+msgstr "мг/дл"
+
+#: .\type_one\settings.py:99
+msgid "English"
+msgstr "Английский"
+
+#: .\type_one\settings.py:100
+msgid "Russian"
+msgstr "Русский"
+
+#: .\type_one\templates\base.html:21 .\type_one\templates\records.html:6
 msgid "Records"
 msgstr "Записи"
 
-#: type_one/templates/base.html:22 type_one/templates/cook.html:15
-#: type_one/templates/ingredients.html:5
+#: .\type_one\templates\base.html:22 .\type_one\templates\cook.html:15
+#: .\type_one\templates\ingredients.html:5
 msgid "Ingredients"
 msgstr "Ингредиенты"
 
-#: type_one/templates/base.html:23 type_one/templates/ingredient.html:41
+#: .\type_one\templates\base.html:23 .\type_one\templates\ingredient.html:41
 msgid "Units"
 msgstr "Единицы"
 
-#: type_one/templates/base.html:24
+#: .\type_one\templates\base.html:24
 msgid "Sign out"
 msgstr "Выйти"
 
-#: type_one/templates/base.html:25
+#: .\type_one\templates\base.html:25
 msgid "Admin"
 msgstr "Админ"
 
-#: type_one/templates/cook.html:7
+#: .\type_one\templates\cook.html:7
 msgid "Cook meal"
 msgstr "Приготовить блюдо"
 
-#: type_one/templates/cook.html:12 type_one/templates/fetch.html:12
-#: type_one/templates/ingredient.html:12 type_one/templates/ingredient.html:44
-#: type_one/templates/ingredients.html:10
+#: .\type_one\templates\cook.html:12 .\type_one\templates\fetch.html:12
+#: .\type_one\templates\ingredient.html:12
+#: .\type_one\templates\ingredient.html:44
+#: .\type_one\templates\ingredients.html:10
 msgid "Name"
 msgstr "Название"
 
-#: type_one/templates/cook.html:18 type_one/templates/fetch.html:7
-#: type_one/templates/ingredient.html:7
+#: .\type_one\templates\cook.html:18 .\type_one\templates\fetch.html:7
+#: .\type_one\templates\ingredient.html:7
 msgid "Ingredient"
 msgstr "Ингредиент"
 
-#: type_one/templates/cook.html:19
+#: .\type_one\templates\cook.html:19
 msgid "Quantity"
 msgstr "Количество"
 
-#: type_one/templates/cook.html:28
+#: .\type_one\templates\cook.html:28
 msgid "Change"
 msgstr "Изменить"
 
-#: type_one/templates/cook.html:29
+#: .\type_one\templates\cook.html:29
 msgid "Remove"
 msgstr "Убрать"
 
-#: type_one/templates/cook.html:34 type_one/templates/cooked_add.html:7
+#: .\type_one\templates\cook.html:34 .\type_one\templates\cooked_add.html:7
 msgid "Add ingredient"
 msgstr "Добавить ингредиент"
 
-#: type_one/templates/cook.html:39 type_one/templates/cooked_add.html:12
-#: type_one/templates/ingredient.html:66 type_one/templates/login.html:19
-#: type_one/templates/meal_new.html:12 type_one/templates/record_long.html:25
-#: type_one/templates/record_new.html:36 type_one/templates/unit.html:11
-#: type_one/templates/unit_add.html:12
+#: .\type_one\templates\cook.html:39 .\type_one\templates\cooked_add.html:12
+#: .\type_one\templates\ingredient.html:66 .\type_one\templates\login.html:19
+#: .\type_one\templates\meal_new.html:12
+#: .\type_one\templates\record_long.html:25
+#: .\type_one\templates\record_new.html:36 .\type_one\templates\unit.html:11
+#: .\type_one\templates\unit_add.html:12
 msgid "Save"
 msgstr "Сохранить"
 
-#: type_one/templates/cook.html:40 type_one/templates/cooked_add.html:13
-#: type_one/templates/fetch.html:15 type_one/templates/ingredient.html:67
-#: type_one/templates/meal_new.html:13 type_one/templates/meals_recent.html:26
-#: type_one/templates/record_long.html:26 type_one/templates/record_new.html:37
-#: type_one/templates/unit.html:12 type_one/templates/unit_add.html:13
+#: .\type_one\templates\cook.html:40 .\type_one\templates\cooked_add.html:13
+#: .\type_one\templates\fetch.html:15 .\type_one\templates\ingredient.html:67
+#: .\type_one\templates\meal_new.html:13
+#: .\type_one\templates\meals_recent.html:26
+#: .\type_one\templates\record_long.html:26
+#: .\type_one\templates\record_new.html:37 .\type_one\templates\unit.html:12
+#: .\type_one\templates\unit_add.html:13
 msgid "Cancel"
 msgstr "Отменить"
 
-#: type_one/templates/fetch.html:14
+#: .\type_one\templates\fetch.html:14
 msgid "Search"
 msgstr "Поиск"
 
-#: type_one/templates/fetch.html:20
+#: .\type_one\templates\fetch.html:20
 msgid "Results"
 msgstr "Результаты"
 
-#: type_one/templates/fetch.html:30
+#: .\type_one\templates\fetch.html:30
 msgid "Select"
 msgstr "Выбрать"
 
-#: type_one/templates/ingredient.html:16
+#: .\type_one\templates\ingredient.html:16
 msgid "Bread units per 100g"
 msgstr "Хлебных единиц на 100г"
 
-#: type_one/templates/ingredient.html:21
+#: .\type_one\templates\ingredient.html:21
 msgid "Glycemic index"
 msgstr "Гликемический индекс"
 
-#: type_one/templates/ingredient.html:25
+#: .\type_one\templates\ingredient.html:25
 msgid "Fat per 100g"
 msgstr "Жиров на 100г"
 
-#: type_one/templates/ingredient.html:29
+#: .\type_one\templates\ingredient.html:29
 msgid "Carbohydrate per 100g"
 msgstr "Углеводов на 100г"
 
-#: type_one/templates/ingredient.html:33
+#: .\type_one\templates\ingredient.html:33
 msgid "Protein per 100g"
 msgstr "Белков на 100г"
 
-#: type_one/templates/ingredient.html:37
+#: .\type_one\templates\ingredient.html:37
 msgid "Enegery ckal per 100g"
 msgstr "Килокалорий на 100г"
 
-#: type_one/templates/ingredient.html:45
+#: .\type_one\templates\ingredient.html:45
 msgid "Grams per unit"
 msgstr "Граммов в единице"
 
-#: type_one/templates/ingredient.html:54 type_one/templates/ingredients.html:18
-#: type_one/templates/meals.html:20 type_one/templates/records.html:31
-#: type_one/templates/units.html:20
+#: .\type_one\templates\ingredient.html:54
+#: .\type_one\templates\ingredients.html:19 .\type_one\templates\meals.html:20
+#: .\type_one\templates\records.html:31 .\type_one\templates\units.html:20
 msgid "Delete"
 msgstr "Удалить"
 
-#: type_one/templates/ingredient.html:55 type_one/templates/units.html:21
+#: .\type_one\templates\ingredient.html:55 .\type_one\templates\units.html:21
 msgid "Details"
 msgstr "Детали"
 
-#: type_one/templates/ingredient.html:60 type_one/templates/unit_add.html:7
-#: type_one/templates/units.html:26
+#: .\type_one\templates\ingredient.html:60 .\type_one\templates\unit_add.html:7
+#: .\type_one\templates\units.html:26
 msgid "Add unit"
 msgstr "Добавить единицу измерения"
 
-#: type_one/templates/ingredients.html:11 type_one/templates/meals.html:13
-#: type_one/templates/meals_recent.html:13 type_one/templates/records.html:16
-#: type_one/templates/units.html:13
+#: .\type_one\templates\ingredients.html:11 .\type_one\templates\meals.html:13
+#: .\type_one\templates\meals_recent.html:13
+#: .\type_one\templates\records.html:16 .\type_one\templates\units.html:13
 msgid "Actions"
 msgstr "Действия"
 
-#: type_one/templates/ingredients.html:19 type_one/templates/meals.html:21
-#: type_one/templates/records.html:32
+#: .\type_one\templates\ingredients.html:20 .\type_one\templates\meals.html:21
+#: .\type_one\templates\records.html:32
 msgid "Update"
 msgstr "Обновить"
 
-#: type_one/templates/ingredients.html:24
+#: .\type_one\templates\ingredients.html:26
 msgid "Add ingedient"
 msgstr "Добавить ингредиент"
 
-#: type_one/templates/ingredients.html:25
+#: .\type_one\templates\ingredients.html:27
 msgid "Import ingredient"
 msgstr "Импортировать"
 
-#: type_one/templates/ingredients.html:26
+#: .\type_one\templates\ingredients.html:28
 msgid "Cook"
 msgstr "Приготовить"
 
-#: type_one/templates/login.html:7
+#: .\type_one\templates\login.html:7
 msgid "Sign in"
 msgstr "Вход"
 
-#: type_one/templates/login.html:12
+#: .\type_one\templates\login.html:12
 msgid "Username"
 msgstr "Логин"
 
-#: type_one/templates/login.html:16
+#: .\type_one\templates\login.html:16
 msgid "Password"
 msgstr "Пароль"
 
-#: type_one/templates/meal_new.html:7 type_one/templates/record_new.html:7
+#: .\type_one\templates\meal_new.html:7 .\type_one\templates\record_new.html:7
 msgid "New record"
 msgstr "Новая запись"
 
-#: type_one/templates/meals.html:7
+#: .\type_one\templates\meals.html:7
 msgid "Meals"
 msgstr "Еда"
 
-#: type_one/templates/meals.html:12 type_one/templates/meals_recent.html:12
+#: .\type_one\templates\meals.html:12 .\type_one\templates\meals_recent.html:12
 msgid "Meal"
 msgstr "Еда"
 
-#: type_one/templates/meals.html:26
+#: .\type_one\templates\meals.html:26
 msgid "Add meal"
 msgstr "Добавить еду"
 
-#: type_one/templates/meals.html:27
+#: .\type_one\templates\meals.html:27
 msgid "Import recent"
 msgstr "Добавить из недавних"
 
-#: type_one/templates/meals.html:28
+#: .\type_one\templates\meals.html:28
 msgid "Done"
 msgstr "Готово"
 
-#: type_one/templates/meals_recent.html:6
+#: .\type_one\templates\meals_recent.html:6
 msgid "Recent meals"
 msgstr "Недавние блюда"
 
-#: type_one/templates/meals_recent.html:11 type_one/templates/records.html:11
+#: .\type_one\templates\meals_recent.html:11
+#: .\type_one\templates\records.html:11
 msgid "Time"
 msgstr "Время"
 
-#: type_one/templates/meals_recent.html:21
+#: .\type_one\templates\meals_recent.html:21
 msgid "Import"
 msgstr "Импортировать"
 
-#: type_one/templates/record_long.html:7
+#: .\type_one\templates\record_long.html:7
 msgid "Prolongated shot"
 msgstr "Длинный инсулин"
 
-#: type_one/templates/record_long.html:14 type_one/templates/records.html:12
+#: .\type_one\templates\record_long.html:14
+#: .\type_one\templates\records.html:12
 msgid "Insulin shot"
 msgstr "Подкол инсулина"
 
-#: type_one/templates/record_long.html:15 type_one/templates/record_new.html:17
-#: type_one/templates/records.html:15
+#: .\type_one\templates\record_long.html:15
+#: .\type_one\templates\record_new.html:17 .\type_one\templates\records.html:15
 msgid "Notes"
 msgstr "Заметки"
 
-#: type_one/templates/record_new.html:14
+#: .\type_one\templates\record_new.html:14
 msgid "shot, units"
 msgstr "укол, единиц"
 
-#: type_one/templates/record_new.html:15 type_one/templates/records.html:13
+#: .\type_one\templates\record_new.html:15 .\type_one\templates\records.html:13
 msgid "Glucose level"
 msgstr "Глюкоза"
 
-#: type_one/templates/record_new.html:16 type_one/templates/records.html:14
+#: .\type_one\templates\record_new.html:16 .\type_one\templates\records.html:14
 msgid "Bread units"
 msgstr "Хлебных единиц"
 
-#: type_one/templates/records.html:37
+#: .\type_one\templates\records.html:40
 msgid "Add record"
 msgstr "Добавить запись"
 
-#: type_one/templates/records.html:38
+#: .\type_one\templates\records.html:41
 msgid "Add prolongated"
 msgstr "Добавить длинный"
 
-#: type_one/templates/unit.html:6
+#: .\type_one\templates\unit.html:6
 msgid "Weight unit"
 msgstr "Мера веса"
 
-#: type_one/templates/units.html:7
+#: .\type_one\templates\units.html:7
 msgid "Weight units"
 msgstr "Меры веса"
 
-#: type_one/templates/units.html:12
+#: .\type_one\templates\units.html:12
 msgid "Unit"
 msgstr "Единица"

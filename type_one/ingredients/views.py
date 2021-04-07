@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 import requests
 import json
 from django.http import HttpResponse
@@ -10,9 +11,10 @@ from . import forms
 
 @login_required
 def list(request):
-    list = models.Ingredient.objects.filter(user=request.user)
-    template = 'ingredients.html'
-    context = {'list':list}
+    ls = models.Ingredient.objects.filter(Q(user=request.user)|Q(user__isnull=True))
+    template = "ingredients.html"
+    print(list(ls))
+    context = {'list':ls}
     return render(request, template, context)
 
 @login_required
