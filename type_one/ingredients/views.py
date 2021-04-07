@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.utils.translation import gettext as _
 from django.db.models import Q
 import requests
 import json
@@ -10,10 +11,10 @@ from . import models
 from . import forms
 
 @login_required
-def list(request):
-    ls = models.Ingredient.objects.filter(Q(user=request.user)|Q(user__isnull=True))
+def all(request):
+    ls = list(models.Ingredient.objects.filter(Q(user=request.user)|Q(user__isnull=True)))
     template = "ingredients.html"
-    print(list(ls))
+    ls.sort(key=lambda x: _(x.name))
     context = {'list':ls}
     return render(request, template, context)
 

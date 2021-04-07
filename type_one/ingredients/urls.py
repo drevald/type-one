@@ -6,7 +6,7 @@ from . import views
 app_name = 'ingredients'
 
 urlpatterns = [
-    path('', views.list, name='list'),
+    path('', views.all, name='list'),
     path('create/', views.create, name='create'),
     path('fetch/', views.fetch, name='fetch'),
     path('fetch/<int:id>/select', views.fetch_select, name='fetch_select'),

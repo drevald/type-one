@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-07 17:15+0300\n"
+"POT-Creation-Date: 2021-04-07 20:22+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,91 +19,91 @@ msgstr ""
 
 #: .\type_one\core\strings.py:5
 msgid "apidra"
-msgstr ""
+msgstr "Apidra"
 
 #: .\type_one\core\strings.py:6
 msgid "tujeo"
-msgstr ""
+msgstr "Tujeo"
 
 #: .\type_one\core\strings.py:8
 msgid "sugar"
-msgstr ""
+msgstr "Sugar"
 
 #: .\type_one\core\strings.py:9
 msgid "milk"
-msgstr ""
+msgstr "Milk"
 
 #: .\type_one\core\strings.py:10
 msgid "ray_bread"
-msgstr ""
+msgstr "Ray bread"
 
 #: .\type_one\core\strings.py:11
 msgid "wheat_bread"
-msgstr ""
+msgstr "Wheat bread"
 
 #: .\type_one\core\strings.py:12
 msgid "potato_boiled"
-msgstr ""
+msgstr "Potato boiled"
 
 #: .\type_one\core\strings.py:13
 msgid "potato_fried"
-msgstr ""
+msgstr "Potato fried"
 
 #: .\type_one\core\strings.py:14
 msgid "spaghetti"
-msgstr ""
+msgstr "Spaghetti"
 
 #: .\type_one\core\strings.py:15
 msgid "buckwheat"
-msgstr ""
+msgstr "Buckwheat"
 
 #: .\type_one\core\strings.py:16
 msgid "rice"
-msgstr ""
+msgstr "Rice"
 
 #: .\type_one\core\strings.py:17
 msgid "butter"
-msgstr ""
+msgstr "Butter"
 
 #: .\type_one\core\strings.py:18
 msgid "cheese"
-msgstr ""
+msgstr "Cheese"
 
 #: .\type_one\core\strings.py:19
 msgid "sausage"
-msgstr ""
+msgstr "Sausage"
 
 #: .\type_one\core\strings.py:20
 msgid "burger"
-msgstr ""
+msgstr "Burger"
 
 #: .\type_one\core\strings.py:21
 msgid "pork_boiled"
-msgstr ""
+msgstr "Pork boiled"
 
 #: .\type_one\core\strings.py:22
 msgid "pork_fried"
-msgstr ""
+msgstr "Pork fried"
 
 #: .\type_one\core\strings.py:23
 msgid "beef_boiled"
-msgstr ""
+msgstr "Beef boiled"
 
 #: .\type_one\core\strings.py:24
 msgid "beef_fried"
-msgstr ""
+msgstr "Beef fried"
 
 #: .\type_one\core\strings.py:25
 msgid "chicken_boiled"
-msgstr ""
+msgstr "Chicken boiled"
 
 #: .\type_one\core\strings.py:26
 msgid "chicken_fried"
-msgstr ""
+msgstr "Chicken fried"
 
 #: .\type_one\core\strings.py:27
 msgid "egg"
-msgstr ""
+msgstr "Egg"
 
 #: .\type_one\core\strings.py:28
 msgid "omelette"
@@ -115,52 +115,52 @@ msgstr ""
 
 #: .\type_one\core\strings.py:31
 msgid "morning_exercise"
-msgstr ""
+msgstr "Morning exercise"
 
 #: .\type_one\core\strings.py:32
 msgid "warm_up"
-msgstr ""
+msgstr "Warm up"
 
 #: .\type_one\core\strings.py:33
 msgid "running"
-msgstr ""
+msgstr "Running"
 
 #: .\type_one\core\strings.py:34
 msgid "swimming"
-msgstr ""
+msgstr "Swimming"
 
 #: .\type_one\core\strings.py:35
 msgid "walking"
-msgstr ""
+msgstr "Walking"
 
 #: .\type_one\core\strings.py:37
 msgid "mmol_l"
-msgstr ""
+msgstr "mmol/l"
 
 #: .\type_one\core\strings.py:38
 msgid "mg_dl"
-msgstr ""
+msgstr "mg/dl"
 
 #: .\type_one\settings.py:99
 msgid "English"
-msgstr ""
+msgstr "English"
 
 #: .\type_one\settings.py:100
 msgid "Russian"
-msgstr ""
+msgstr "Russian"
 
 #: .\type_one\templates\base.html:21 .\type_one\templates\records.html:6
 msgid "Records"
-msgstr ""
+msgstr "Records"
 
 #: .\type_one\templates\base.html:22 .\type_one\templates\cook.html:15
 #: .\type_one\templates\ingredients.html:5
 msgid "Ingredients"
-msgstr ""
+msgstr "Ingredients"
 
 #: .\type_one\templates\base.html:23 .\type_one\templates\ingredient.html:41
 msgid "Units"
-msgstr ""
+msgstr "Units"
 
 #: .\type_one\templates\base.html:24
 msgid "Sign out"
