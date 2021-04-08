@@ -7,12 +7,15 @@
     </div>
     <form action="" method="post">
         {% csrf_token %}             
-        <table class="table table-condensed">
+        <table class="table">
             <thead>
                 <tr>
                     <th>{{request.user.rapid_acting_insulin.name}} {% trans "shot, units" %}</th>
                     <th>{% trans "Glucose level" %}, {{request.user.glucose_level_unit.name}}</th>
                     <th>{% trans "Bread units" %}</th>
+                    {% if photos %}
+                    <th>{% trans "Photos" %}</th>
+                    {% endif %}
                     <th>{% trans "Notes" %}</th>
                 </tr>
             </thead>
@@ -30,8 +33,15 @@
                         {% if form.instance.id %}<br/>
                         <a href="{% url 'records:meals' form.instance.id %}" class="btn btn-primary btn-sm">{% trans "Meals" %}</a><br><br>
                         <a href="{% url 'records:photo' form.instance.id %}" class="btn btn-primary btn-sm">{% trans "Photo" %}</a>                
-                        {% endif %}
+                        {% endif %}                        
                     </td>
+                    <td>
+                        {% if photos %}
+                            {% for photo in photos %}
+                            <img src="data:image/jpg;base64,{{ photo.data }}"> <br>
+                            {% endfor %}
+                        {% endif %}
+                    </td>                    
                     <td>{{form.notes}}</td>
                 </tr>  
             </tbody>

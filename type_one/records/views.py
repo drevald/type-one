@@ -59,44 +59,6 @@ def handle_uploaded_file(f):
     data = base64.b64encode(memstr.read()).decode('utf-8') 
     return data    
 
-# def object_photo(request, pk, new_id):
-#     if request.method == 'POST':
-#         form = forms.UploadFileForm(request.POST, request.FILES)
-#         if form.is_valid():
-#             if request.POST.get('save') is not None and new_id != 0:
-#                 photo = models.Photo.objects.get(id=new_id)    
-#                 object = models.ShowObject.objects.get(id=pk)
-#                 if object.photo is not None and object.photo.id != photo.id:
-#                     object.photo.delete() 
-#                 object.photo = photo
-#                 object.save()
-#                 return HttpResponseRedirect(reverse('core:object_edit', kwargs={'pk':pk}))
-#             elif request.POST.get('save') is not None or request.POST.get('cancel') is not None:
-#                 return HttpResponseRedirect(reverse('core:object_edit', kwargs={'pk':pk}))
-#             else:
-#                 data = handle_uploaded_file(request.FILES['file'])
-#                 photo = models.Photo(md5 = hash, thumbnail=data)
-#                 photo.save()
-#                 return HttpResponseRedirect(reverse('core:object_photo', kwargs={'pk':pk,'new_id':photo.id}))
-#         else:
-#             print(form._errors)
-#     else:
-#         form = forms.UploadFileForm()
-#         show_object = models.ShowObject.objects.get(id=pk)
-#         if new_id != 0:
-#             photo = models.Photo.objects.get(id=new_id)
-#             image_data = photo.thumbnail       
-#             context = {"image":image_data}
-#             return render(request, 'object_photo.html', {'form': form,'pk':pk, 'image':image_data,'new_id':photo.id})
-#         elif show_object.photo is not None:
-#             photo = show_object.photo
-#             image_data = photo.thumbnail       
-#             context = {"image":image_data}
-#             return render(request, 'object_photo.html', {'form': form,'pk':pk, 'image':image_data,'new_id':photo.id})
-#         else:
-#             return render(request, 'object_photo.html', {'form': form,'pk':pk, 'new_id':0})
-
-
 @login_required
 def details(request, pk):
     if "cancel" in request.POST:
@@ -117,6 +79,7 @@ def store(request, record):
     print(record.glucose_level)
     template = 'record_new.html' if record.type == 0 else 'record_long.html'
     meals = Meal.objects.filter(record=record.id) if record.id else None
+    photos = Photo.objects.filter(record=record.id) if record.id else None
     meal_details = [str(meal) for meal in meals] if meals else None
     meal_details_str = ','.join(meal_details) if meal_details else None
     breads = [meal.quantity * meal.ingredient_unit.grams_in_unit * meal.ingredient_unit.ingredient.bread_units_per_100g for meal in meals] if meals else None
@@ -129,7 +92,7 @@ def store(request, record):
         form.save()
         print("Returning to " + reverse('records:list'))
         return HttpResponseRedirect(reverse('records:list'))
-    context = {"form": form, "meals":meals, "meal_details":meal_details_str}
+    context = {"form":form, "meals":meals, "photos":photos, "meal_details":meal_details_str}
     return render(request, template, context)
 
 @login_required
