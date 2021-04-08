@@ -80,7 +80,7 @@ AUTH_USER_MODEL = "core.User"
 SESSION_SAVE_EVERY_REQUEST = True
 
 ALLOWED_HOSTS = [
-    '192.168.0.189',
+    '192.168.0.191',
     '127.0.0.1',
     'localhost',
     '0.0.0.0',

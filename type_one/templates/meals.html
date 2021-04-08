@@ -15,7 +15,7 @@
         </thead>
         {% for meal in meals %}
         <tr>
-            <td>{{ meal }}</td>
+            <td>{% trans meal.ingredient_unit.ingredient.name %}, {% trans meal.ingredient_unit.unit.name %}, {{meal.quantity}}</td>
             <td>
                 <a href="{% url 'records:meals_delete' pk meal.id %}">{% trans "Delete" %}</a>
                 <a href="{% url 'records:meals_details' pk meal.id %}">{% trans "Update" %}</a>

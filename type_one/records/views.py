@@ -8,7 +8,11 @@ from datetime import datetime
 from ..core.models import User, GlucoseUnit, Insulin
 from ..ingredients.models import Ingredient, IngredientUnit
 from .models import Record, Meal
-from .forms import MealForm, RecordForm, LongForm
+from .forms import MealForm, RecordForm, LongForm, UploadFileForm, Photo
+from PIL import Image, ImageFilter
+
+import io
+import base64
 
 @login_required
 def default(request):
@@ -29,6 +33,69 @@ def delete(request, pk):
     record = Record.objects.get(id = pk,user=request.user)
     record.delete()
     return HttpResponseRedirect(reverse('records:list'))
+
+@login_required
+def photo(request, pk):
+    record = Record.objects.get(id = pk,user=request.user) 
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            data = handle_uploaded_file(request.FILES['file'])
+            photo = Photo(record=record, data=data)
+            photo.save()
+            print("valid")
+            return HttpResponseRedirect(reverse("records:details", kwargs={'pk':pk}))
+    else:
+        form = UploadFileForm()
+        return render(request, 'photo.html', {'form': form,'pk':pk})
+
+def handle_uploaded_file(f):
+    im = Image.open(f)        
+    size = (360, 240)
+    im.thumbnail(size)
+    memstr = io.BytesIO()
+    im.save(memstr, 'JPEG')
+    memstr.seek(0)
+    data = base64.b64encode(memstr.read()).decode('utf-8') 
+    return data    
+
+# def object_photo(request, pk, new_id):
+#     if request.method == 'POST':
+#         form = forms.UploadFileForm(request.POST, request.FILES)
+#         if form.is_valid():
+#             if request.POST.get('save') is not None and new_id != 0:
+#                 photo = models.Photo.objects.get(id=new_id)    
+#                 object = models.ShowObject.objects.get(id=pk)
+#                 if object.photo is not None and object.photo.id != photo.id:
+#                     object.photo.delete() 
+#                 object.photo = photo
+#                 object.save()
+#                 return HttpResponseRedirect(reverse('core:object_edit', kwargs={'pk':pk}))
+#             elif request.POST.get('save') is not None or request.POST.get('cancel') is not None:
+#                 return HttpResponseRedirect(reverse('core:object_edit', kwargs={'pk':pk}))
+#             else:
+#                 data = handle_uploaded_file(request.FILES['file'])
+#                 photo = models.Photo(md5 = hash, thumbnail=data)
+#                 photo.save()
+#                 return HttpResponseRedirect(reverse('core:object_photo', kwargs={'pk':pk,'new_id':photo.id}))
+#         else:
+#             print(form._errors)
+#     else:
+#         form = forms.UploadFileForm()
+#         show_object = models.ShowObject.objects.get(id=pk)
+#         if new_id != 0:
+#             photo = models.Photo.objects.get(id=new_id)
+#             image_data = photo.thumbnail       
+#             context = {"image":image_data}
+#             return render(request, 'object_photo.html', {'form': form,'pk':pk, 'image':image_data,'new_id':photo.id})
+#         elif show_object.photo is not None:
+#             photo = show_object.photo
+#             image_data = photo.thumbnail       
+#             context = {"image":image_data}
+#             return render(request, 'object_photo.html', {'form': form,'pk':pk, 'image':image_data,'new_id':photo.id})
+#         else:
+#             return render(request, 'object_photo.html', {'form': form,'pk':pk, 'new_id':0})
+
 
 @login_required
 def details(request, pk):
@@ -119,7 +186,8 @@ def select(request, pk, record_id):
         imported_meal = Meal(
             ingredient_unit=meal.ingredient_unit, 
             quantity=meal.quantity,
-            record=record)
+            record=record,
+            user=request.user)
         imported_meal.save()
         print(imported_meal)
     return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))

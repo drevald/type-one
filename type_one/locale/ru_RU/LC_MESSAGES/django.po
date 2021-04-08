@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-07 20:22+0300\n"
+"POT-Creation-Date: 2021-04-08 16:09+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,10 +109,6 @@ msgstr "Яйцо"
 msgid "omelette"
 msgstr "Омлет"
 
-#: .\type_one\core\strings.py:29
-msgid "test"
-msgstr ""
-
 #: .\type_one\core\strings.py:31
 msgid "morning_exercise"
 msgstr "Утренняя зарядка"
@@ -140,6 +136,40 @@ msgstr "ммоль/л"
 #: .\type_one\core\strings.py:38
 msgid "mg_dl"
 msgstr "мг/дл"
+
+#: .\type_one\core\strings.py:40
+msgid "gramm"
+msgstr "грамм"
+
+#: .\type_one\core\strings.py:41
+#, fuzzy
+#| msgid "milk"
+msgid "ml"
+msgstr "Молоко"
+
+#: .\type_one\core\strings.py:42
+msgid "slice"
+msgstr "ломтик"
+
+#: .\type_one\core\strings.py:43
+msgid "glass"
+msgstr "стакан"
+
+#: .\type_one\core\strings.py:44
+msgid "teaspoon"
+msgstr "чайная ложка"
+
+#: .\type_one\core\strings.py:45
+msgid "spoon"
+msgstr "столовая ложка"
+
+#: .\type_one\core\strings.py:46
+msgid "plate"
+msgstr "тарелка"
+
+#: .\type_one\core\strings.py:47
+msgid "piece"
+msgstr "штука"
 
 #: .\type_one\settings.py:99
 msgid "English"
@@ -204,7 +234,7 @@ msgstr "Добавить ингредиент"
 
 #: .\type_one\templates\cook.html:39 .\type_one\templates\cooked_add.html:12
 #: .\type_one\templates\ingredient.html:66 .\type_one\templates\login.html:19
-#: .\type_one\templates\meal_new.html:12
+#: .\type_one\templates\meal_new.html:12 .\type_one\templates\photo.html:16
 #: .\type_one\templates\record_long.html:25
 #: .\type_one\templates\record_new.html:36 .\type_one\templates\unit.html:11
 #: .\type_one\templates\unit_add.html:12
@@ -214,7 +244,7 @@ msgstr "Сохранить"
 #: .\type_one\templates\cook.html:40 .\type_one\templates\cooked_add.html:13
 #: .\type_one\templates\fetch.html:15 .\type_one\templates\ingredient.html:67
 #: .\type_one\templates\meal_new.html:13
-#: .\type_one\templates\meals_recent.html:26
+#: .\type_one\templates\meals_recent.html:26 .\type_one\templates\photo.html:17
 #: .\type_one\templates\record_long.html:26
 #: .\type_one\templates\record_new.html:37 .\type_one\templates\unit.html:12
 #: .\type_one\templates\unit_add.html:13
@@ -311,7 +341,8 @@ msgstr "Логин"
 msgid "Password"
 msgstr "Пароль"
 
-#: .\type_one\templates\meal_new.html:7 .\type_one\templates\record_new.html:7
+#: .\type_one\templates\meal_new.html:7 .\type_one\templates\photo.html:11
+#: .\type_one\templates\record_new.html:7
 msgid "New record"
 msgstr "Новая запись"
 
@@ -373,6 +404,10 @@ msgstr "Глюкоза"
 #: .\type_one\templates\record_new.html:16 .\type_one\templates\records.html:14
 msgid "Bread units"
 msgstr "Хлебных единиц"
+
+#: .\type_one\templates\records.html:33
+msgid "Photo"
+msgstr ""
 
 #: .\type_one\templates\records.html:40
 msgid "Add record"

@@ -26,7 +26,6 @@ string = {
     'chicken_fried':_('chicken_fried'),    
     'egg':_('egg'),
     'omelette':_('omelette'),
-    'test':_('test'),
 
     'morning_exercise':_('morning_exercise'),
     'warm_up':_('warm_up'),
@@ -35,6 +34,15 @@ string = {
     'walking':_('walking'),
 
     'mmol_l':_('mmol_l'),
-    'mg_dl':_('mg_dl')
+    'mg_dl':_('mg_dl'),
+
+    'gramm':_('gramm'),
+    'ml':_('ml'),
+    'slice':_('slice'),
+    'glass':_('glass'),
+    'teaspoon':_('teaspoon'),
+    'spoon':_('spoon'),
+    'plate':_('plate'),
+    'piece':_('piece')
 
 } 

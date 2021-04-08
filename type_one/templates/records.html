@@ -30,15 +30,12 @@
             <td>
                 <a href="{% url 'records:delete' record.pk %}">{% trans "Delete" %}</a>
                 <a href="{% url 'records:details' record.pk %}">{% trans "Update" %}</a>
+                <a href="{% url 'records:photo' record.pk %}">{% trans "Photo" %}</a>                
             </td>    
         </tr>
         {% endfor %}
     </table>
-    <a href="{% url 'records:create' 0 %}" class="btn btn-primary">Add record</a>
-    <a href="{% url 'records:create' 1 %}" class="btn btn-primary">Add prolongated</a>
-    <!--
     <a href="{% url 'records:create' 0 %}" class="btn btn-primary">{% trans "Add record" %}</a>
     <a href="{% url 'records:create' 1 %}" class="btn btn-primary">{% trans "Add prolongated" %}</a>
-    -->
 </div>
 {% endblock %}

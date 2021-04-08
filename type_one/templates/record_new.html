@@ -1,5 +1,4 @@
 {% extends 'base.html' %}
-
 {% block content %}
 {% load i18n %}
 <div class="container">
@@ -21,12 +20,16 @@
                 <tr>
                     <td>{{form.insulin_amount}}</td>
                     <td>{{form.glucose_level}}</td>
-                    <td>{{form.bread_units}}
+                    <td>{{form.bread_units}}                        
                         {% if meals %}
-                        <br> {{ meal_details }} <br>
+                        <br><b>{% trans "Meal details" %}</b><br>
+                            {% for meal in meals %}
+                                {% trans meal.ingredient_unit.ingredient.name %}, {% trans meal.ingredient_unit.unit.name %}, {{meal.quantity}} <br>
+                            {% endfor %}
                         {% endif %}
                         {% if form.instance.id %}<br/>
-                        <a href="{% url 'records:meals' form.instance.id %}" class="btn btn-primary btn-sm">Meals</a>
+                        <a href="{% url 'records:meals' form.instance.id %}" class="btn btn-primary btn-sm">{% trans "Meals" %}</a><br><br>
+                        <a href="{% url 'records:photo' form.instance.id %}" class="btn btn-primary btn-sm">{% trans "Photo" %}</a>                
                         {% endif %}
                     </td>
                     <td>{{form.notes}}</td>

@@ -22,3 +22,8 @@ class Meal(models.Model):
     quantity = models.FloatField(default=1)
     def __str__(self):
         return self.ingredient_unit.ingredient.name + " " + str(self.quantity) + " " + self.ingredient_unit.unit.name
+
+class Photo(models.Model):
+    record = models.ForeignKey(Record, on_delete = models.CASCADE, related_name='photos', null = True)
+    data = models.TextField(null=False)
+    

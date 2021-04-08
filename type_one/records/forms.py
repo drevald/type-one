@@ -1,5 +1,5 @@
 from django import forms
-from .models import Record, Meal, Ingredient, IngredientUnit
+from .models import Record, Meal, Ingredient, IngredientUnit, Photo
 
 class MealForm (forms.ModelForm):    
     ingredient_unit = forms.ModelChoiceField(queryset=IngredientUnit.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm'}))
@@ -23,3 +23,9 @@ class RecordForm (forms.ModelForm):
     class Meta:
         model = Record
         fields = ['insulin_amount','glucose_level','bread_units','notes']
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField(required=False, widget=forms.FileInput(attrs={'onchange':'preview(this.form)'}))    
+    class Meta:
+        model = Photo
+        fileds = ['data']
