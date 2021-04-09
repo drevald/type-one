@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load i18n %}
+<script>
+    function preview(form) {
+        form.submit();
+    }
+</script>
+<div class="container">
+    <div class="page-header">
+        <h1>{% trans "Add photo" %}</h1>            
+    </div>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}     
+        {{ form }} 
+        <input type="submit" value='{% trans "Save" %}' class="btn btn-primary">
+        <input type="submit" value='{% trans "Cancel" %}' name="cancel" class="btn btn-basic"> 
+    </form>                
+</div>
+{% endblock %}
