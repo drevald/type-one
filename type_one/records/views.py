@@ -154,3 +154,16 @@ def select(request, pk, record_id):
         imported_meal.save()
         print(imported_meal)
     return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))
+
+@login_required
+def photo_edit(request, pk, photo_id):
+    template = "photo_edit.html"
+    photo = Photo.objects.filter(id=photo_id).first()
+    context = {'pk':pk,'photo':photo}
+    return render(request, template, context)
+
+@login_required
+def photo_delete(request, pk, photo_id):
+    photo = Photo.objects.filter(id=photo_id).first()
+    photo.delete()
+    return HttpResponseRedirect(reverse("records:details", kwargs={'pk':pk}))

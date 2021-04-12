@@ -25,7 +25,7 @@ class RecordForm (forms.ModelForm):
         fields = ['insulin_amount','glucose_level','bread_units','notes']
 
 class UploadFileForm(forms.Form):
-    file = forms.FileField(required=False, widget=forms.FileInput(attrs={'onchange':'preview(this.form)'}))    
+    file = forms.FileField(required=False, widget=forms.FileInput(attrs={'onchange':'preview(this.form)','capture':'camera'}))    
     class Meta:
         model = Photo
         fileds = ['data']

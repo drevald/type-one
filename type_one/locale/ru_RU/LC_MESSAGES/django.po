@@ -395,7 +395,7 @@ msgstr "Заметки"
 
 #: .\type_one\templates\record_new.html:14
 msgid "shot, units"
-msgstr "укол, единиц"
+msgstr "Укол, единиц"
 
 #: .\type_one\templates\record_new.html:15 .\type_one\templates\records.html:13
 msgid "Glucose level"

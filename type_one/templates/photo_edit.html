@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load i18n %}
+<script>
+    function preview(form) {
+        form.submit();
+    }
+</script>
+<div class="container">
+    <div class="page-header">
+        <h1>{% trans "Edit photo" %}</h1>            
+    </div>
+    <img src="data:image/jpg;base64,{{ photo.data }}"><br><br>
+    <a class="btn btn-danger" href="{% url 'records:photo_delete' pk photo.id %}">{% trans "Delete" %}</a>
+    <a class="btn btn-secondary" href="{% url 'records:details' pk %}">{% trans "Cancel" %}</a>
+
+</div>
+{% endblock %}
