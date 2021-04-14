@@ -11,6 +11,10 @@ from ..ingredients.models import Ingredient, IngredientUnit
 from .models import Record, Meal
 from .forms import MealForm, RecordForm, LongForm, UploadFileForm, Photo
 from PIL import Image, ImageFilter
+from django.views.generic.edit import DeleteView
+from . import models
+from django.urls import reverse_lazy
+from django.utils.decorators import method_decorator
 
 import io
 import base64
@@ -34,6 +38,12 @@ def delete(request, pk):
     record = Record.objects.get(id = pk,user=request.user)
     record.delete()
     return HttpResponseRedirect(reverse('records:list'))
+
+@method_decorator(login_required, name='delete')
+class RecordDeleteView(DeleteView):
+    model = models.Record
+    template_name = 'record_delete.html'
+    success_url = reverse_lazy('records:list')    
 
 @login_required
 def photo(request, pk):
@@ -110,7 +120,8 @@ def meals_create(request, pk):
     meal = Meal(record=Record.objects.get(id=pk), ingredient_unit=IngredientUnit.objects.first(),user=request.user)
     form = MealForm(request.POST or None, instance=meal)
     if form.is_valid():
-        form.save()
+        meal.ingredient_unit = IngredientUnit.objects.get(id=27)
+        meal.save()
         return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))
     template = 'meal_new.html'
     context = {'form':form}

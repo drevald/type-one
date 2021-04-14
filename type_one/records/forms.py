@@ -3,11 +3,14 @@ from django import forms
 from .models import Record, Meal, Ingredient, IngredientUnit, Photo
 
 class MealForm (forms.ModelForm):    
-    ingredient_unit = forms.ModelChoiceField(queryset=IngredientUnit.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm'}))    
+    #ingredient_unit = forms.ModelChoiceField(queryset=IngredientUnit.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm'}))    
     quantity = forms.FloatField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}))
     def __init__(self, *args, **kwargs):
         super(MealForm, self).__init__(*args, **kwargs)
         self.fields['ingredient_unit'] = forms.ChoiceField(choices=[ (o.id, _(str(o.ingredient.name)) + ',  ' + _(str(o.unit.name))) for o in IngredientUnit.objects.all()])
+    def is_valid(self):
+        self.instance.ingredient_unit=IngredientUnit.objects.get(id=27)
+        return super().is_valid()
     class Meta:
         model = Meal
         fields = ['ingredient_unit','quantity']
