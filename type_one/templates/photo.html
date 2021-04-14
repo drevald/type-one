@@ -13,9 +13,9 @@
     </div>
     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}     
-        {{ form }} 
+        {{ form }} <br>
         <input type="submit" value='{% trans "Save" %}' class="btn btn-primary">
-        <input type="submit" value='{% trans "Cancel" %}' name="cancel" class="btn btn-basic"> 
+        <a class="btn btn-secondary" href="{% url 'records:details' pk %}">{% trans "Cancel" %}</a>
     </form>                
 </div>
 {% endblock %}

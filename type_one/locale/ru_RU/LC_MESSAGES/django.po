@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-08 16:09+0300\n"
+"POT-Creation-Date: 2021-04-13 15:39+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,65 +109,65 @@ msgstr "Яйцо"
 msgid "omelette"
 msgstr "Омлет"
 
-#: .\type_one\core\strings.py:31
+#: .\type_one\core\strings.py:30
 msgid "morning_exercise"
 msgstr "Утренняя зарядка"
 
-#: .\type_one\core\strings.py:32
+#: .\type_one\core\strings.py:31
 msgid "warm_up"
 msgstr "Разминка"
 
-#: .\type_one\core\strings.py:33
+#: .\type_one\core\strings.py:32
 msgid "running"
 msgstr "Бег"
 
-#: .\type_one\core\strings.py:34
+#: .\type_one\core\strings.py:33
 msgid "swimming"
 msgstr "Плаванье"
 
-#: .\type_one\core\strings.py:35
+#: .\type_one\core\strings.py:34
 msgid "walking"
 msgstr "Ходьба"
 
-#: .\type_one\core\strings.py:37
+#: .\type_one\core\strings.py:36
 msgid "mmol_l"
 msgstr "ммоль/л"
 
-#: .\type_one\core\strings.py:38
+#: .\type_one\core\strings.py:37
 msgid "mg_dl"
 msgstr "мг/дл"
 
-#: .\type_one\core\strings.py:40
+#: .\type_one\core\strings.py:39
 msgid "gramm"
 msgstr "грамм"
 
-#: .\type_one\core\strings.py:41
+#: .\type_one\core\strings.py:40
 #, fuzzy
 #| msgid "milk"
 msgid "ml"
-msgstr "Молоко"
+msgstr "мл"
 
-#: .\type_one\core\strings.py:42
+#: .\type_one\core\strings.py:41
 msgid "slice"
 msgstr "ломтик"
 
-#: .\type_one\core\strings.py:43
+#: .\type_one\core\strings.py:42
 msgid "glass"
 msgstr "стакан"
 
-#: .\type_one\core\strings.py:44
+#: .\type_one\core\strings.py:43
 msgid "teaspoon"
 msgstr "чайная ложка"
 
-#: .\type_one\core\strings.py:45
+#: .\type_one\core\strings.py:44
 msgid "spoon"
 msgstr "столовая ложка"
 
-#: .\type_one\core\strings.py:46
+#: .\type_one\core\strings.py:45
 msgid "plate"
 msgstr "тарелка"
 
-#: .\type_one\core\strings.py:47
+#: .\type_one\core\strings.py:46
 msgid "piece"
 msgstr "штука"
 
@@ -179,24 +179,24 @@ msgstr "Английский"
 msgid "Russian"
 msgstr "Русский"
 
-#: .\type_one\templates\base.html:21 .\type_one\templates\records.html:6
+#: .\type_one\templates\base.html:22 .\type_one\templates\records.html:8
 msgid "Records"
 msgstr "Записи"
 
-#: .\type_one\templates\base.html:22 .\type_one\templates\cook.html:15
+#: .\type_one\templates\base.html:23 .\type_one\templates\cook.html:15
 #: .\type_one\templates\ingredients.html:5
 msgid "Ingredients"
 msgstr "Ингредиенты"
 
-#: .\type_one\templates\base.html:23 .\type_one\templates\ingredient.html:41
+#: .\type_one\templates\base.html:24 .\type_one\templates\ingredient.html:41
 msgid "Units"
 msgstr "Единицы"
 
-#: .\type_one\templates\base.html:24
+#: .\type_one\templates\base.html:25
 msgid "Sign out"
 msgstr "Выйти"
 
-#: .\type_one\templates\base.html:25
+#: .\type_one\templates\base.html:26
 msgid "Admin"
 msgstr "Админ"
 
@@ -234,9 +234,9 @@ msgstr "Добавить ингредиент"
 
 #: .\type_one\templates\cook.html:39 .\type_one\templates\cooked_add.html:12
 #: .\type_one\templates\ingredient.html:66 .\type_one\templates\login.html:19
-#: .\type_one\templates\meal_new.html:12 .\type_one\templates\photo.html:16
+#: .\type_one\templates\meal_new.html:12 .\type_one\templates\photo.html:17
 #: .\type_one\templates\record_long.html:25
-#: .\type_one\templates\record_new.html:36 .\type_one\templates\unit.html:11
+#: .\type_one\templates\record_new.html:48 .\type_one\templates\unit.html:11
 #: .\type_one\templates\unit_add.html:12
 msgid "Save"
 msgstr "Сохранить"
@@ -244,9 +244,10 @@ msgstr "Сохранить"
 #: .\type_one\templates\cook.html:40 .\type_one\templates\cooked_add.html:13
 #: .\type_one\templates\fetch.html:15 .\type_one\templates\ingredient.html:67
 #: .\type_one\templates\meal_new.html:13
-#: .\type_one\templates\meals_recent.html:26 .\type_one\templates\photo.html:17
+#: .\type_one\templates\meals_recent.html:26 .\type_one\templates\photo.html:18
+#: .\type_one\templates\photo_edit.html:15
 #: .\type_one\templates\record_long.html:26
-#: .\type_one\templates\record_new.html:37 .\type_one\templates\unit.html:12
+#: .\type_one\templates\record_new.html:50 .\type_one\templates\unit.html:12
 #: .\type_one\templates\unit_add.html:13
 msgid "Cancel"
 msgstr "Отменить"
@@ -293,11 +294,13 @@ msgstr "Граммов в единице"
 
 #: .\type_one\templates\ingredient.html:54
 #: .\type_one\templates\ingredients.html:19 .\type_one\templates\meals.html:20
-#: .\type_one\templates\records.html:31 .\type_one\templates\units.html:20
+#: .\type_one\templates\photo_edit.html:14 .\type_one\templates\records.html:38
+#: .\type_one\templates\units.html:20
 msgid "Delete"
 msgstr "Удалить"
 
-#: .\type_one\templates\ingredient.html:55 .\type_one\templates\units.html:21
+#: .\type_one\templates\ingredient.html:55 .\type_one\templates\records.html:39
+#: .\type_one\templates\units.html:21
 msgid "Details"
 msgstr "Детали"
 
@@ -308,12 +311,11 @@ msgstr "Добавить единицу измерения"
 
 #: .\type_one\templates\ingredients.html:11 .\type_one\templates\meals.html:13
 #: .\type_one\templates\meals_recent.html:13
-#: .\type_one\templates\records.html:16 .\type_one\templates\units.html:13
+#: .\type_one\templates\records.html:23 .\type_one\templates\units.html:13
 msgid "Actions"
 msgstr "Действия"
 
 #: .\type_one\templates\ingredients.html:20 .\type_one\templates\meals.html:21
-#: .\type_one\templates\records.html:32
 msgid "Update"
 msgstr "Обновить"
 
@@ -341,8 +343,7 @@ msgstr "Логин"
 msgid "Password"
 msgstr "Пароль"
 
-#: .\type_one\templates\meal_new.html:7 .\type_one\templates\photo.html:11
-#: .\type_one\templates\record_new.html:7
+#: .\type_one\templates\meal_new.html:7
 msgid "New record"
 msgstr "Новая запись"
 
@@ -351,11 +352,14 @@ msgid "Meals"
 msgstr "Еда"
 
 #: .\type_one\templates\meals.html:12 .\type_one\templates\meals_recent.html:12
+#: .\type_one\templates\record_new.html:22
+#, fuzzy
+#| msgid "Meals"
 msgid "Meal"
 msgstr "Еда"
 
 #: .\type_one\templates\meals.html:26
-msgid "Add meal"
+msgid "Add meals"
 msgstr "Добавить еду"
 
 #: .\type_one\templates\meals.html:27
@@ -371,7 +375,7 @@ msgid "Recent meals"
 msgstr "Недавние блюда"
 
 #: .\type_one\templates\meals_recent.html:11
-#: .\type_one\templates\records.html:11
+#: .\type_one\templates\records.html:18
 msgid "Time"
 msgstr "Время"
 
@@ -379,41 +383,65 @@ msgstr "Время"
 msgid "Import"
 msgstr "Импортировать"
 
+#: .\type_one\templates\photo.html:12
+msgid "Add photo"
+msgstr "Добавить фото"
+
+#: .\type_one\templates\photo_edit.html:11
+msgid "Edit photo"
+msgstr "Редактировать фото"
+
 #: .\type_one\templates\record_long.html:7
 msgid "Prolongated shot"
 msgstr "Длинный инсулин"
 
 #: .\type_one\templates\record_long.html:14
-#: .\type_one\templates\records.html:12
+#: .\type_one\templates\records.html:19
 msgid "Insulin shot"
 msgstr "Подкол инсулина"
 
 #: .\type_one\templates\record_long.html:15
-#: .\type_one\templates\record_new.html:17 .\type_one\templates\records.html:15
+#: .\type_one\templates\record_new.html:35 .\type_one\templates\records.html:22
 msgid "Notes"
 msgstr "Заметки"
 
-#: .\type_one\templates\record_new.html:14
+#: .\type_one\templates\record_new.html:10
 msgid "shot, units"
 msgstr "Укол, единиц"
 
-#: .\type_one\templates\record_new.html:15 .\type_one\templates\records.html:13
+#: .\type_one\templates\record_new.html:14 .\type_one\templates\records.html:20
 msgid "Glucose level"
 msgstr "Глюкоза"
 
-#: .\type_one\templates\record_new.html:16 .\type_one\templates\records.html:14
+#: .\type_one\templates\record_new.html:18 .\type_one\templates\records.html:21
 msgid "Bread units"
 msgstr "Хлебных единиц"
 
-#: .\type_one\templates\records.html:33
-msgid "Photo"
-msgstr ""
+#: .\type_one\templates\record_new.html:29
+#, fuzzy
+#| msgid "Add meal"
+msgid "Add Meals"
+msgstr "Добавить еду"
 
-#: .\type_one\templates\records.html:40
+#: .\type_one\templates\record_new.html:30
+msgid "Photo"
+msgstr "Фото"
+
+#: .\type_one\templates\record_new.html:40
+msgid "Photos"
+msgstr "Фотографии"
+
+#: .\type_one\templates\record_new.html:49
+#, fuzzy
+#| msgid "Add photo"
+msgid "Add Photo"
+msgstr "Добавить фото"
+
+#: .\type_one\templates\records.html:11
 msgid "Add record"
 msgstr "Добавить запись"
 
-#: .\type_one\templates\records.html:41
+#: .\type_one\templates\records.html:12
 msgid "Add prolongated"
 msgstr "Добавить длинный"
 

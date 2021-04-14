@@ -19,14 +19,14 @@
                 {{form.bread_units}}
             </div>
             <div class="col-sm-3">
-                <b>{% trans "Meal details" %}</b><br>
+                <b>{% trans "Meals" %}</b><br>
                 {% if meals %}
                     {% for meal in meals %}
                         {% trans meal.ingredient_unit.ingredient.name %}, {% trans meal.ingredient_unit.unit.name %}, {{meal.quantity}} <br>
                     {% endfor %}
                 {% endif %}
                 {% if form.instance.id %}
-                <a href="{% url 'records:meals' form.instance.id %}" class="btn btn-primary btn-sm">{% trans "Meals" %}</a>&nbsp;
+                <a href="{% url 'records:meals' form.instance.id %}" class="btn btn-primary btn-sm">{% trans "Add meals" %}</a>&nbsp;
                 <a href="{% url 'records:photo' form.instance.id %}" class="btn btn-primary btn-sm">{% trans "Photo" %}</a>                
                 {% endif %}
                 <br><br>
@@ -46,6 +46,7 @@
         </div>
         <br>
         <input type="submit" value='{% trans "Save" %}' class="btn btn-primary">
+        <a href="{% url 'records:photo' form.instance.id %}" class="btn btn-secondary">{% trans "Add Photo" %}</a>                        
         <input type="submit" value='{% trans "Cancel" %}' name="cancel" class="btn btn-basic"> 
     </form>             
 </div>        

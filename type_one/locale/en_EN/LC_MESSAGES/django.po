@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-04-08 16:09+0300\n"
+"POT-Creation-Date: 2021-04-13 15:39+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -109,69 +109,65 @@ msgstr "Egg"
 msgid "omelette"
 msgstr "Omelette"
 
-#: .\type_one\core\strings.py:29
-msgid "test"
-msgstr ""
-
-#: .\type_one\core\strings.py:31
+#: .\type_one\core\strings.py:30
 msgid "morning_exercise"
 msgstr "Morning exercise"
 
-#: .\type_one\core\strings.py:32
+#: .\type_one\core\strings.py:31
 msgid "warm_up"
 msgstr "Warm up"
 
-#: .\type_one\core\strings.py:33
+#: .\type_one\core\strings.py:32
 msgid "running"
 msgstr "Running"
 
-#: .\type_one\core\strings.py:34
+#: .\type_one\core\strings.py:33
 msgid "swimming"
 msgstr "Swimming"
 
-#: .\type_one\core\strings.py:35
+#: .\type_one\core\strings.py:34
 msgid "walking"
 msgstr "Walking"
 
-#: .\type_one\core\strings.py:37
+#: .\type_one\core\strings.py:36
 msgid "mmol_l"
 msgstr "mmol/l"
 
-#: .\type_one\core\strings.py:38
+#: .\type_one\core\strings.py:37
 msgid "mg_dl"
 msgstr "mg/dl"
 
-#: .\type_one\core\strings.py:40
+#: .\type_one\core\strings.py:39
 msgid "gramm"
 msgstr ""
 
-#: .\type_one\core\strings.py:41
+#: .\type_one\core\strings.py:40
 #, fuzzy
 #| msgid "milk"
 msgid "ml"
 msgstr "Milk"
 
-#: .\type_one\core\strings.py:42
+#: .\type_one\core\strings.py:41
 msgid "slice"
 msgstr ""
 
-#: .\type_one\core\strings.py:43
+#: .\type_one\core\strings.py:42
 msgid "glass"
 msgstr ""
 
-#: .\type_one\core\strings.py:44
+#: .\type_one\core\strings.py:43
 msgid "teaspoon"
 msgstr ""
 
-#: .\type_one\core\strings.py:45
+#: .\type_one\core\strings.py:44
 msgid "spoon"
 msgstr ""
 
-#: .\type_one\core\strings.py:46
+#: .\type_one\core\strings.py:45
 msgid "plate"
 msgstr ""
 
-#: .\type_one\core\strings.py:47
+#: .\type_one\core\strings.py:46
 msgid "piece"
 msgstr ""
 
@@ -183,24 +179,24 @@ msgstr "English"
 msgid "Russian"
 msgstr "Russian"
 
-#: .\type_one\templates\base.html:21 .\type_one\templates\records.html:6
+#: .\type_one\templates\base.html:22 .\type_one\templates\records.html:8
 msgid "Records"
 msgstr "Records"
 
-#: .\type_one\templates\base.html:22 .\type_one\templates\cook.html:15
+#: .\type_one\templates\base.html:23 .\type_one\templates\cook.html:15
 #: .\type_one\templates\ingredients.html:5
 msgid "Ingredients"
 msgstr "Ingredients"
 
-#: .\type_one\templates\base.html:23 .\type_one\templates\ingredient.html:41
+#: .\type_one\templates\base.html:24 .\type_one\templates\ingredient.html:41
 msgid "Units"
 msgstr "Units"
 
-#: .\type_one\templates\base.html:24
+#: .\type_one\templates\base.html:25
 msgid "Sign out"
 msgstr ""
 
-#: .\type_one\templates\base.html:25
+#: .\type_one\templates\base.html:26
 msgid "Admin"
 msgstr ""
 
@@ -238,9 +234,9 @@ msgstr ""
 
 #: .\type_one\templates\cook.html:39 .\type_one\templates\cooked_add.html:12
 #: .\type_one\templates\ingredient.html:66 .\type_one\templates\login.html:19
-#: .\type_one\templates\meal_new.html:12 .\type_one\templates\photo.html:16
+#: .\type_one\templates\meal_new.html:12 .\type_one\templates\photo.html:17
 #: .\type_one\templates\record_long.html:25
-#: .\type_one\templates\record_new.html:36 .\type_one\templates\unit.html:11
+#: .\type_one\templates\record_new.html:48 .\type_one\templates\unit.html:11
 #: .\type_one\templates\unit_add.html:12
 msgid "Save"
 msgstr ""
@@ -248,9 +244,10 @@ msgstr ""
 #: .\type_one\templates\cook.html:40 .\type_one\templates\cooked_add.html:13
 #: .\type_one\templates\fetch.html:15 .\type_one\templates\ingredient.html:67
 #: .\type_one\templates\meal_new.html:13
-#: .\type_one\templates\meals_recent.html:26 .\type_one\templates\photo.html:17
+#: .\type_one\templates\meals_recent.html:26 .\type_one\templates\photo.html:18
+#: .\type_one\templates\photo_edit.html:15
 #: .\type_one\templates\record_long.html:26
-#: .\type_one\templates\record_new.html:37 .\type_one\templates\unit.html:12
+#: .\type_one\templates\record_new.html:50 .\type_one\templates\unit.html:12
 #: .\type_one\templates\unit_add.html:13
 msgid "Cancel"
 msgstr ""
@@ -297,11 +294,13 @@ msgstr ""
 
 #: .\type_one\templates\ingredient.html:54
 #: .\type_one\templates\ingredients.html:19 .\type_one\templates\meals.html:20
-#: .\type_one\templates\records.html:31 .\type_one\templates\units.html:20
+#: .\type_one\templates\photo_edit.html:14 .\type_one\templates\records.html:38
+#: .\type_one\templates\units.html:20
 msgid "Delete"
 msgstr ""
 
-#: .\type_one\templates\ingredient.html:55 .\type_one\templates\units.html:21
+#: .\type_one\templates\ingredient.html:55 .\type_one\templates\records.html:39
+#: .\type_one\templates\units.html:21
 msgid "Details"
 msgstr ""
 
@@ -312,12 +311,11 @@ msgstr ""
 
 #: .\type_one\templates\ingredients.html:11 .\type_one\templates\meals.html:13
 #: .\type_one\templates\meals_recent.html:13
-#: .\type_one\templates\records.html:16 .\type_one\templates\units.html:13
+#: .\type_one\templates\records.html:23 .\type_one\templates\units.html:13
 msgid "Actions"
 msgstr ""
 
 #: .\type_one\templates\ingredients.html:20 .\type_one\templates\meals.html:21
-#: .\type_one\templates\records.html:32
 msgid "Update"
 msgstr ""
 
@@ -345,8 +343,7 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: .\type_one\templates\meal_new.html:7 .\type_one\templates\photo.html:11
-#: .\type_one\templates\record_new.html:7
+#: .\type_one\templates\meal_new.html:7
 msgid "New record"
 msgstr ""
 
@@ -355,6 +352,7 @@ msgid "Meals"
 msgstr ""
 
 #: .\type_one\templates\meals.html:12 .\type_one\templates\meals_recent.html:12
+#: .\type_one\templates\record_new.html:22
 msgid "Meal"
 msgstr ""
 
@@ -375,7 +373,7 @@ msgid "Recent meals"
 msgstr ""
 
 #: .\type_one\templates\meals_recent.html:11
-#: .\type_one\templates\records.html:11
+#: .\type_one\templates\records.html:18
 msgid "Time"
 msgstr ""
 
@@ -383,41 +381,61 @@ msgstr ""
 msgid "Import"
 msgstr ""
 
+#: .\type_one\templates\photo.html:12
+msgid "Add photo"
+msgstr ""
+
+#: .\type_one\templates\photo_edit.html:11
+msgid "Edit photo"
+msgstr ""
+
 #: .\type_one\templates\record_long.html:7
 msgid "Prolongated shot"
 msgstr ""
 
 #: .\type_one\templates\record_long.html:14
-#: .\type_one\templates\records.html:12
+#: .\type_one\templates\records.html:19
 msgid "Insulin shot"
 msgstr ""
 
 #: .\type_one\templates\record_long.html:15
-#: .\type_one\templates\record_new.html:17 .\type_one\templates\records.html:15
+#: .\type_one\templates\record_new.html:35 .\type_one\templates\records.html:22
 msgid "Notes"
 msgstr ""
 
-#: .\type_one\templates\record_new.html:14
+#: .\type_one\templates\record_new.html:10
 msgid "shot, units"
 msgstr ""
 
-#: .\type_one\templates\record_new.html:15 .\type_one\templates\records.html:13
+#: .\type_one\templates\record_new.html:14 .\type_one\templates\records.html:20
 msgid "Glucose level"
 msgstr ""
 
-#: .\type_one\templates\record_new.html:16 .\type_one\templates\records.html:14
+#: .\type_one\templates\record_new.html:18 .\type_one\templates\records.html:21
 msgid "Bread units"
 msgstr ""
 
-#: .\type_one\templates\records.html:33
+#: .\type_one\templates\record_new.html:29
+msgid "Add Meals"
+msgstr ""
+
+#: .\type_one\templates\record_new.html:30
 msgid "Photo"
 msgstr ""
 
-#: .\type_one\templates\records.html:40
+#: .\type_one\templates\record_new.html:40
+msgid "Photos"
+msgstr ""
+
+#: .\type_one\templates\record_new.html:49
+msgid "Add Photo"
+msgstr ""
+
+#: .\type_one\templates\records.html:11
 msgid "Add record"
 msgstr ""
 
-#: .\type_one\templates\records.html:41
+#: .\type_one\templates\records.html:12
 msgid "Add prolongated"
 msgstr ""
 
