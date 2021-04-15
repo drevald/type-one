@@ -1,16 +1,18 @@
+from django.utils.translation import gettext
 from django.utils.translation import gettext as _
 from django import forms
 from .models import Record, Meal, Ingredient, IngredientUnit, Photo
 
-class MealForm (forms.ModelForm):    
-    #ingredient_unit = forms.ModelChoiceField(queryset=IngredientUnit.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm'}))    
-    quantity = forms.FloatField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}))
+def get_choices():
+    iunits = IngredientUnit.objects.all()
+    return [(iunit.id, _(iunit.ingredient.name)+', '+_(iunit.unit.name)) for iunit in iunits]
+
+class MealForm (forms.Form):    
+    ingredient_unit = forms.ChoiceField(choices=get_choices())    
+    quantity = forms.FloatField(initial=1)
     def __init__(self, *args, **kwargs):
         super(MealForm, self).__init__(*args, **kwargs)
-        self.fields['ingredient_unit'] = forms.ChoiceField(choices=[ (o.id, _(str(o.ingredient.name)) + ',  ' + _(str(o.unit.name))) for o in IngredientUnit.objects.all()])
-    def is_valid(self):
-        self.instance.ingredient_unit=IngredientUnit.objects.get(id=27)
-        return super().is_valid()
+        self.fields['ingredient_unit'] = forms.ChoiceField(choices=get_choices())    
     class Meta:
         model = Meal
         fields = ['ingredient_unit','quantity']
