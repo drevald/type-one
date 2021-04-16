@@ -153,9 +153,15 @@ def meals_delete(request, pk, meal_id):
 
 @login_required
 def recent(request, pk):    
-    list = Record.objects.exclude(id=pk,user=request.user)
-    template = "meals_recent.html"
-    context = {'pk':pk,'list':list}
+    all_records = Record.objects.exclude(id=pk,user=request.user)
+    records = []
+    for record in all_records:
+        if (len(record.meals.all())>0):
+            records.append(record)
+    print("records")
+    template = "meals_recent.html"     
+    meals = [(record.id, record.time, ', '.join(str(m) for m in record.meals.all())) for record in records]
+    context = {'pk':pk,'list':meals}
     return render(request, template, context) 
 
 @login_required

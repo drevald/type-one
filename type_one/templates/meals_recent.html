@@ -9,16 +9,16 @@
     <thead>
         <tr>
             <th>{% trans "Time" %}</th>
-            <th>{% trans "Meal" %}</th>
+            <th>{% trans "Meals" %}</th>
             <th>{% trans "Actions" %}</th>
         </tr>
     </thead>
     {% for record in list %}
     <tr>
-        <td>{{ record.time }}</td>
-        <td>{{ record.meals.all }}</td>
+        <td><nobr>{{ record.1|date:'M d, H:i' }}</nobr></td>
+        <td>{{ record.2 }}</td>
         <td>
-            <a href="{% url 'records:select' pk record.pk %}">{% trans "Import" %}</a>
+            <a href="{% url 'records:select' pk record.0 %}">{% trans "Import" %}</a>
         </td>    
     </tr>
     {% endfor %}

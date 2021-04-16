@@ -7,15 +7,12 @@ def get_choices():
     iunits = IngredientUnit.objects.all()
     return [(iunit.id, _(iunit.ingredient.name)+', '+_(iunit.unit.name)) for iunit in iunits]
 
-class MealForm (forms.Form):    
-    ingredient_unit = forms.ChoiceField(widget=forms.Select(attrs={'class' : 'form-control input-sm'}), choices=get_choices())    
-    quantity = forms.FloatField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}), initial=1)
+class MealForm (forms.Form):                  
     def __init__(self, *args, **kwargs):
         super(MealForm, self).__init__(*args, **kwargs)
-        self.fields['ingredient_unit'] = forms.ChoiceField(choices=get_choices())    
-    class Meta:
-        model = Meal
-        fields = ['ingredient_unit','quantity']
+        self.fields['ingredient_unit'] = forms.ChoiceField(choices=get_choices(), widget=forms.Select(attrs={'class': 'form-control input-sm-3'}), label=_("Ingredient"))   
+        self.fields['quantity'] = forms.FloatField(widget=forms.NumberInput(attrs={'class':'form-control input-sm-3'}), initial=1, label=_("Quantity"))        
+        
 
 class LongForm (forms.ModelForm):
     insulin_amount = forms.IntegerField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}), initial=0)
