@@ -194,9 +194,10 @@ def cooked_add(request):
         print()
         if 'cooked_ingredients' not in request.session:
             request.session['cooked_ingredients'] = []
+        ingredient = models.IngredientUnit.objects.get(id=form.cleaned_data["unit"])
         cooked_ingredients = request.session['cooked_ingredients']
         cooked_ingredients.append({
-            "ingredient":form.cleaned_data["unit"],
+            "ingredient":ingredient,
             "quantity":form.cleaned_data["quantity"]
             })
         return HttpResponseRedirect(reverse("ingredients:cook"))            

@@ -22,7 +22,7 @@
             <tbody>
             {% for ingr in request.session.cooked_ingredients %}
             <tr>
-                <td>{{ ingr.ingredient }}</td>
+                <td>{% trans ingr.ingredient.ingredient.name %}, {% trans ingr.ingredient.unit.name %}</td>
                 <td>{{ ingr.quantity }}</td>
                 <td>
                     <a href="{% url 'ingredients:cooked_details' forloop.counter %}">{% trans "Change" %}</a>

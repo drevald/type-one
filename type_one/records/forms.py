@@ -11,9 +11,7 @@ class MealForm (forms.Form):
     def __init__(self, *args, **kwargs):
         super(MealForm, self).__init__(*args, **kwargs)
         self.fields['ingredient_unit'] = forms.ChoiceField(choices=get_choices(), widget=forms.Select(attrs={'class': 'form-control input-sm-3'}), label=_("Ingredient"))   
-        self.fields['quantity'] = forms.FloatField(widget=forms.NumberInput(attrs={'class':'form-control input-sm-3'}), initial=1, label=_("Quantity"))        
-        
-
+        self.fields['quantity'] = forms.FloatField(widget=forms.NumberInput(attrs={'class':'form-control input-sm-3'}), initial=1, label=_("Quantity"))
 class LongForm (forms.ModelForm):
     insulin_amount = forms.IntegerField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}), initial=0)
     notes = forms.CharField(widget=forms.Textarea(attrs={'class' : 'form-control input-sm'}), required=False)

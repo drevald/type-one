@@ -160,7 +160,7 @@ def recent(request, pk):
             records.append(record)
     print("records")
     template = "meals_recent.html"     
-    meals = [(record.id, record.time, ', '.join(str(m) for m in record.meals.all())) for record in records]
+    # meals = [(record.id, record.time, ', '.join(str(m) for m in record.meals.all())) for record in records]
     context = {'pk':pk,'list':meals}
     return render(request, template, context) 
 
