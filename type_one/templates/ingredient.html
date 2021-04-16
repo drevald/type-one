@@ -47,7 +47,7 @@
               <tbody>
               {% for unit in units %}
                 <tr>
-                    <td>{{unit.unit.name}}</td>
+                    <td>{% trans unit.unit.name %}</td>
                     <td>{{unit.grams_in_unit}}</td>
                     <td>
                       <a href="{% url 'ingredients:ingredient_unit_delete' pk unit.id %}">{% trans "Delete" %}</a>

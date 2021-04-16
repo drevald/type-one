@@ -23,18 +23,16 @@ class CookForm(forms.ModelForm):
         model = models.Ingredient
         fields = ['name']
 
-class WeightUnitForm(forms.ModelForm):
+class WeightUnitForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-sm col-sm-4'}), label=_("Name"))
-    class Meta:
-        model = models.WeightUnit
-        fields = ['name']
 
 class IngredientUnitForm(forms.Form):
     unit = forms.ChoiceField(widget=forms.Select())
     grams_in_unit = forms.FloatField(widget=forms.NumberInput())
     def __init__(self, *args, **kwargs):
         super(IngredientUnitForm, self).__init__(*args, **kwargs)
-        self.fields['unit'] = forms.ChoiceField(choices=get_choices())        
+        self.fields['unit'] = forms.ChoiceField(choices=get_choices(), widget=forms.Select(attrs={'class' : 'form-control input-sm col-sm-2'}), label=_("Unit"))
+        self.fields['grams_in_unit'] = forms.FloatField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm col-sm-2'}), label=_("Grams in unit"), initial=1)      
     
 class IngredientForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'class' : 'form-control input-sm'}))

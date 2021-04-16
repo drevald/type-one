@@ -9,13 +9,24 @@ from django.shortcuts import render
 from django.urls import reverse
 from . import models
 from . import forms
+from django.core.paginator import Paginator
 
 @login_required
 def all(request):
     ls = list(models.Ingredient.objects.filter(Q(user=request.user)|Q(user__isnull=True)))
     template = "ingredients.html"
     ls.sort(key=lambda x: _(x.name))
-    context = {'list':ls}
+
+    page = request.GET.get('page', 1)
+    paginator = Paginator(ls, 10)
+    try:
+        ingrs = paginator.page(page)
+    except PageNotAnInteger:
+        ingrs = paginator.page(1)
+    except EmptyPage:
+        ingrs = paginator.page(paginator.num_pages)    
+    
+    context = {'list':ingrs}
     return render(request, template, context)
 
 @login_required
@@ -95,20 +106,22 @@ def units(request):
 
 @login_required
 def unit_create(request):
-    unit = models.WeightUnit(user=request.user)
-    form = forms.WeightUnitForm(request.POST or None, instance=unit)
+    form = forms.WeightUnitForm(request.POST or None)
     if form.is_valid():
-        form.save()
+        unit = models.WeightUnit(
+            name=form.data["name"],
+            user=request.user)
+        unit.save()
         return HttpResponseRedirect(reverse('ingredients:units'))
     return render(request, "unit.html", {"form":form})
 
 @login_required
 def unit_details(request, unit_id):
     unit = models.WeightUnit.objects.get(id=unit_id,user=request.user)
-    #unit = models.WeightUnit()
-    form = forms.WeightUnitForm(request.POST or None, instance=unit)
+    form = forms.WeightUnitForm(request.POST or None)
     if form.is_valid():
-        form.save()
+        unit.name=form.data["name"]
+        unit.save()
         return HttpResponseRedirect(reverse('ingredients:units'))
     return render(request, "unit.html", {"form":form})
 
