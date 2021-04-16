@@ -15,22 +15,24 @@ from django.views.generic.edit import DeleteView
 from . import models
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
+from django.core.paginator import Paginator
 
 import io
 import base64
 
 @login_required
-def default(request):
-    records_list = Record.objects.filter(user=request.user).order_by('-time')
-    template = loader.get_template('records.html')
-    context = {'records_list' : records_list}
-    return HttpResponse(template.render(context, request))
-
-@login_required
 def records(request):
     records_list = Record.objects.filter(user=request.user).order_by('-time')
+    page = request.GET.get('page', 1)
+    paginator = Paginator(records_list, 5)
+    try:
+        records = paginator.page(page)
+    except PageNotAnInteger:
+        records = paginator.page(1)
+    except EmptyPage:
+        records = paginator.page(paginator.num_pages)    
     template = loader.get_template('records.html')
-    context = {'records_list' : records_list}
+    context = {'records' : records}
     return HttpResponse(template.render(context, request))
 
 @login_required

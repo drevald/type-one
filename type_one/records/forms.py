@@ -8,8 +8,8 @@ def get_choices():
     return [(iunit.id, _(iunit.ingredient.name)+', '+_(iunit.unit.name)) for iunit in iunits]
 
 class MealForm (forms.Form):    
-    ingredient_unit = forms.ChoiceField(choices=get_choices())    
-    quantity = forms.FloatField(initial=1)
+    ingredient_unit = forms.ChoiceField(widget=forms.Select(attrs={'class' : 'form-control input-sm'}), choices=get_choices())    
+    quantity = forms.FloatField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}), initial=1)
     def __init__(self, *args, **kwargs):
         super(MealForm, self).__init__(*args, **kwargs)
         self.fields['ingredient_unit'] = forms.ChoiceField(choices=get_choices())    
