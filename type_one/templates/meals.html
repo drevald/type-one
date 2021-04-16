@@ -9,7 +9,7 @@
     <table class="table table-condensed">
         <thead>
             <tr>
-                <th>{% trans "Meal" %}</th>
+                <th>{% trans "Ingredient" %}</th>
                 <th>{% trans "Actions" %}</th>
             </tr>
         </thead>
@@ -23,7 +23,7 @@
         </tr>
         {% endfor %}
     </table>
-    <a href="{% url 'records:meals_create' pk %}" class="btn btn-primary">{% trans "Add meal" %}</a>
+    <a href="{% url 'records:meals_create' pk %}" class="btn btn-primary">{% trans "Add meals" %}</a>
     <a href="{% url 'records:recent' pk %}" class="btn btn-primary">{% trans "Import recent" %}</a>    
     <a href="{% url 'records:details' pk %}" class="btn btn-primary">{% trans "Done" %}</a>
 </div>

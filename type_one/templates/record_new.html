@@ -39,7 +39,7 @@
                 {% if photos %}
                 <b>{% trans "Photos" %}</b><br>
                     {% for photo in photos %}
-                    <a href="{% url 'records:photo_edit' form.instance.id 1 %}"><img src="data:image/jpg;base64,{{ photo.data }}"></a>&nbsp;
+                    <a href="{% url 'records:photo_edit' form.instance.id photo.id %}"><img src="data:image/jpg;base64,{{ photo.data }}"></a>&nbsp;
                     {% endfor %}
                 {% endif %}
             </div>                

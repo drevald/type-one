@@ -1,5 +1,10 @@
+from django.utils.translation import gettext as _
 from django import forms
 from . import models
+
+def get_choices():
+    units = models.WeightUnit.objects.all()
+    return [(unit.id, _(unit.name)) for unit in units]
 
 class CookedForm(forms.Form):
     unit = forms.ModelChoiceField(queryset=models.IngredientUnit.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm col-sm-2'}))
@@ -19,13 +24,15 @@ class WeightUnitForm(forms.ModelForm):
         model = models.WeightUnit
         fields = ['name']
 
-class IngredientUnitForm(forms.ModelForm):
-    ingredient = forms.ModelChoiceField(queryset=models.Ingredient.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm col-sm-2'}), disabled=True)
-    unit = forms.ModelChoiceField(queryset=models.WeightUnit.objects.all(), widget=forms.Select(attrs={'class' : 'form-control input-sm col-sm-2'}))
-    grams_in_unit = forms.FloatField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm col-sm-2'}))
+class IngredientUnitForm(forms.Form):
+    unit = forms.ChoiceField(widget=forms.Select())
+    grams_in_unit = forms.FloatField(widget=forms.NumberInput())
+    def __init__(self, *args, **kwargs):
+        super(IngredientUnitForm, self).__init__(*args, **kwargs)
+        self.fields['unit'] = forms.ChoiceField(choices=get_choices())        
     class Meta:
         model = models.IngredientUnit
-        fields = ['ingredient','unit','grams_in_unit']
+        fields = ['unit','grams_in_unit']
     
 class IngredientForm(forms.ModelForm):
     name = forms.CharField(widget=forms.TextInput(attrs={'class' : 'form-control input-sm'}))

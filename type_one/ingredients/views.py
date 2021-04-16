@@ -53,11 +53,16 @@ def delete(request, pk):
     return HttpResponseRedirect(reverse('ingredients:list'))
 
 @login_required
-def unit_add(request, pk):
-    unit = models.IngredientUnit(ingredient=models.Ingredient.objects.get(id=pk),user=request.user)
-    form = forms.IngredientUnitForm(request.POST or None, instance=unit)
+def unit_add(request, pk):    
+    form = forms.IngredientUnitForm(request.POST or None)
     if form.is_valid():
-        form.save()
+        unit = models.IngredientUnit(
+            ingredient=models.Ingredient.objects.get(id=pk),
+            user=request.user,
+            unit=models.WeightUnit.objects.get(id=form.data['unit']),
+            grams_in_unit= form.data['grams_in_unit']
+        )   
+        unit.save()     
         return HttpResponseRedirect(reverse('ingredients:details', kwargs={'pk':pk}))
     context = {"form":form,"pk":pk}
     template = "unit_add.html"
