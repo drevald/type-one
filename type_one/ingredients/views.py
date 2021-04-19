@@ -47,7 +47,7 @@ def create(request):
 def details(request, pk):
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('ingredients:list'))
-    ingredient = models.Ingredient.objects.get(id=pk, user=request.user)
+    ingredient = models.Ingredient.objects.get(id=pk)
     units = models.IngredientUnit.objects.filter(ingredient=ingredient)
     form = forms.IngredientForm(request.POST or None, instance=ingredient)
     if form.is_valid():
