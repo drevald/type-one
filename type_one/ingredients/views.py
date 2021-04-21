@@ -81,8 +81,9 @@ def unit_add(request, pk):
 
 @login_required
 def ingredient_unit_details(request, pk, unit_id):
-    unit = models.IngredientUnit.objects.get(id=unit_id,user=request.user)
-    form = forms.IngredientUnitForm(request.POST or None, instance=unit)
+    unit = models.IngredientUnit.objects.get(id=unit_id, user=request.user)
+    form = forms.IngredientUnitForm(request.POST or None)
+    form.fields["name"]="aaa"
     print(str(unit))
     if form.is_valid():
         form.save()
@@ -93,7 +94,7 @@ def ingredient_unit_details(request, pk, unit_id):
 
 @login_required
 def ingredient_unit_delete(request, pk, unit_id):
-    unit = models.IngredientUnit.objects.get(id=unit_id,user=request.user)
+    unit = models.IngredientUnit.objects.get(id=unit_id, user=request.user)
     unit.delete()
     return HttpResponseRedirect(reverse('ingredients:details', kwargs={'pk':pk}))
 
@@ -118,11 +119,14 @@ def unit_create(request):
 @login_required
 def unit_details(request, unit_id):
     unit = models.WeightUnit.objects.get(id=unit_id,user=request.user)
-    form = forms.WeightUnitForm(request.POST or None)
-    if form.is_valid():
-        unit.name=form.data["name"]
-        unit.save()
-        return HttpResponseRedirect(reverse('ingredients:units'))
+    if request.method == 'POST':
+        form = forms.WeightUnitForm(request.POST or None)
+        if form.is_valid():
+            unit.name=form.data["name"]
+            unit.save()
+            return HttpResponseRedirect(reverse('ingredients:units'))
+    else:
+        form = forms.WeightUnitForm(initial={'name':unit.name})           
     return render(request, "unit.html", {"form":form})
 
 @login_required
