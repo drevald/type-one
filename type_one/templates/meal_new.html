@@ -10,7 +10,7 @@
         {% csrf_token %}             
         {{ form.as_p }}
         <input type="submit" value='{% trans "Save" %}' class="btn btn-primary">
-        <input type="submit" value='{% trans "Cancel" %}' name="cancel" class="btn btn-basic"> 
+        <input type="submit" value='{% trans "Cancel" %}' name="cancel" class="btn btn-secondary"> 
     </form>                
 </div>
 {% endblock %}

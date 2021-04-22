@@ -1,40 +1,53 @@
 {% extends 'base.html' %}
-
 {% block content %}
 {% load i18n %}
+
 <div class="container">
-    <div class="page-header">
-        <h1>{% trans "New record" %}</h1>            
-    </div>
     <form action="" method="post">
-        {% csrf_token %}             
-        <table class="table table-condensed">
-            <thead>
-                <tr>
-                    <th>{{request.user.rapid_acting_insulin.name}} {% trans "shot, units" %}</th>
-                    <th>{% trans "Glucose level" %}, {{request.user.glucose_level_unit.name}}</th>
-                    <th>{% trans "Bread units" %}</th>
-                    <th>{% trans "Notes" %}</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>{{form.insulin_amount}}</td>
-                    <td>{{form.glucose_level}}</td>
-                    <td>{{form.bread_units}}
-                        {% if meals %}
-                        <br> {{ meal_details }} <br>
-                        {% endif %}
-                        {% if form.instance.id %}<br/>
-                        <a href="{% url 'records:meals' form.instance.id %}" class="btn btn-primary btn-sm">Meals</a>
-                        {% endif %}
-                    </td>
-                    <td>{{form.notes}}</td>
-                </tr>  
-            </tbody>
-        </table>
+        {% csrf_token %}                
+        <div class="row">
+            <div class="col-sm-3">
+                <b>{{request.user.rapid_acting_insulin.name}} {% trans "shot, units" %}</b>
+                {{form.insulin_amount}} 
+            </div>
+            <div class="col-sm-3">
+                <b>{% trans "Glucose level" %}, {{request.user.glucose_level_unit.name}}</b>
+                {{form.glucose_level}}
+            </div>
+            <div class="col-sm-3">
+                <b>{% trans "Bread units" %}</b><br>
+                {{form.bread_units}}
+            </div>
+            <div class="col-sm-3">
+                <b>{% trans "Meals" %}</b><br>
+                {% if meals %}
+                    {% for meal in meals %}
+                        {% trans meal.ingredient_unit.ingredient.name %}, {% trans meal.ingredient_unit.unit.name %}, {{meal.quantity}} <br>
+                    {% endfor %}
+                {% endif %}
+                {% if form.instance.id %}
+                <a href="{% url 'records:meals' form.instance.id %}" class="btn btn-primary btn-sm">{% trans "Add meals" %}</a>&nbsp;
+                <a href="{% url 'records:photo' form.instance.id %}" class="btn btn-primary btn-sm">{% trans "Photo" %}</a>                
+                {% endif %}
+                <br><br>
+            </div>
+            <div class="col-sm-6">
+                <b>{% trans "Notes" %}</b><br>
+                {{form.notes}}
+            </div>
+            <div class="col-sm-6">
+                {% if photos %}
+                <b>{% trans "Photos" %}</b><br>
+                    {% for photo in photos %}
+                    <a href="{% url 'records:photo_edit' form.instance.id photo.id %}"><img src="data:image/jpg;base64,{{ photo.data }}"></a>&nbsp;
+                    {% endfor %}
+                {% endif %}
+            </div>                
+        </div>
+        <br>
         <input type="submit" value='{% trans "Save" %}' class="btn btn-primary">
         <input type="submit" value='{% trans "Cancel" %}' name="cancel" class="btn btn-basic"> 
-    </form>                
-</div>
+    </form>             
+</div>        
+
 {% endblock %}

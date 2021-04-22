@@ -1,3 +1,4 @@
+from django.utils.translation import gettext as _
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from datetime import datetime
@@ -21,4 +22,8 @@ class Meal(models.Model):
     ingredient_unit = models.ForeignKey(IngredientUnit, on_delete = models.CASCADE)
     quantity = models.FloatField(default=1)
     def __str__(self):
-        return self.ingredient_unit.ingredient.name + " " + str(self.quantity) + " " + self.ingredient_unit.unit.name
+        return f"{_(self.ingredient_unit.ingredient.name)} {self.quantity} {_(self.ingredient_unit.unit.name)}"
+
+class Photo(models.Model):
+    record = models.ForeignKey(Record, on_delete = models.CASCADE, related_name='photos', null = True)
+    data = models.TextField(null=False)   

@@ -1,0 +1,11 @@
+<!-- templates/article_delete.html -->
+{% extends 'base.html' %}
+{% load i18n %}
+{% block content %}
+<h1>{% trans "Delete" %}</h1>
+<form action="" method="post">{% csrf_token %}
+<p>Are you sure you want to delete "{{ record.time }}"?</p>
+<button class="btn btn-danger" type="submit">Confirm</button>
+<a class="btn btn-secondary" href="{% url 'records:list' %}">{% trans "Cancel" %}</a>
+</form>
+{% endblock content %}
