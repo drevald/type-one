@@ -26,3 +26,8 @@ WHERE S.relkind = 'S'
     AND D.refobjsubid = C.attnum
     AND T.relname = PGT.tablename
 ORDER BY S.relname;
+
+DEPLOYEMNT TO HEROKU:
+heroku container:login
+heroku container:push -a type-one --recruisive
+heroku container:release -a type-one
