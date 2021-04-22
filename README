@@ -29,5 +29,5 @@ ORDER BY S.relname;
 
 DEPLOYEMNT TO HEROKU:
 heroku container:login
-heroku container:push -a type-one --recruisive
-heroku container:release -a type-one
+heroku container:push web --app type-one
+heroku container:release web --app type-one
