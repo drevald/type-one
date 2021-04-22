@@ -16,11 +16,11 @@
     </thead>
     {% for record in list %}
     <tr>
-        <td><nobr>{{ record.1 | localtime | date:'M d, H:i' }}</nobr></td>
+        <td><nobr>{{ record.1 | timezone:"Europe/Moscow" | date:'M d, H:i' }}</nobr></td>
         <td>{{ record.2 }}</td>
         <td>
             <a href="{% url 'records:select' pk record.0 %}">{% trans "Import" %}</a>
-        </td>    
+        </td> 
     </tr>
     {% endfor %}
 </table>

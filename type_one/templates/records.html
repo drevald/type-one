@@ -26,7 +26,7 @@
         </thead>
         {% for record in records %}
         <tr>
-            <td>{{ record.time | localtime | date:'M d, H:i'}}</td>
+            <td>{{ record.time | timezone:"Europe/Moscow" | date:'M d, H:i'}}</td>
             {% if record.type == 0 %}
             <td>{{ record.insulin_amount }} {{record.insulin.name}}</td>
             <td>{{ record.glucose_level }}</td>
