@@ -25,6 +25,7 @@ INSTALLED_APPS = [
     'locale',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -105,3 +106,16 @@ STATIC_HOST = os.environ.get('DJANGO_STATIC_HOST', '')
 STATIC_URL = STATIC_HOST + '/static/'
 
 STATIC_ROOT = os.path.join(str(BASE_DIR), 'staticfiles')
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
+
+
