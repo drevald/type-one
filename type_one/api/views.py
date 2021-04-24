@@ -3,12 +3,15 @@ from django.views.decorators.csrf import csrf_exempt
 from rest_framework.parsers import JSONParser
 from type_one.records.models import Record
 from type_one.api.serializers import RecordSerializer
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import BasePermission, IsAuthenticated, SAFE_METHODS
 
 @csrf_exempt
+@permission_classes([IsAuthenticated])
 def records_list(request):
-    """
-    List all code records, or create a new record.
-    """
+
+    permission_classes = (IsAuthenticated,)
+
     if request.method == 'GET':
         records = Record.objects.all()
         serializer = RecordSerializer(records, many=True)
@@ -24,9 +27,9 @@ def records_list(request):
 
 @csrf_exempt
 def record_detail(request, pk):
-    """
-    Retrieve, update or delete a code record.
-    """
+
+    permission_classes = (IsAuthenticated,)
+
     try:
         record = Record.objects.get(pk=pk)
     except Record.DoesNotExist:
