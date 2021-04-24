@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'type_one.core',
     'type_one.records',
     'type_one.ingredients',
+    'type_one.api',
     'django_extensions',
     'debug_toolbar',
     'locale',
