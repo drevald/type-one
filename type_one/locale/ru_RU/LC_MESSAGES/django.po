@@ -415,7 +415,7 @@ msgstr "Глюкоза"
 
 #: .\type_one\templates\record_new.html:18 .\type_one\templates\records.html:21
 msgid "Bread units"
-msgstr "Хлебных единиц"
+msgstr "ХЕ"
 
 #: .\type_one\templates\record_new.html:29
 #, fuzzy
