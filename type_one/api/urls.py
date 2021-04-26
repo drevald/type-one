@@ -13,7 +13,7 @@ app_name = 'api'
 urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('records/', views.records_list),
+    path('records/', views.RecordsList.as_view()),
     path('records/<int:pk>/', views.record_detail),    
 ]
 
