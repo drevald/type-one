@@ -1,15 +1,15 @@
 from rest_framework import serializers
-from type_one.records.models import Record
+from type_one.records.models import Record, Photo
 
-    # user = models.ForeignKey(User, on_delete = models.CASCADE)
-    # time = models.DateTimeField(auto_now_add=True)
-    # type = models.IntegerField(default=0)
-    # glucose_level = models.FloatField(null = True, default = 0)
-    # glucose_level_unit = models.ForeignKey(GlucoseUnit, on_delete = models.SET_NULL, null = True)
-    # insulin_amount = models.IntegerField(null = True, default = 0)
-    # insulin = models.ForeignKey(Insulin, on_delete = models.SET_NULL, null = True)
-    # bread_units = models.FloatField(null = True, default = 0)
-    # notes = models.CharField(max_length = 256, null = True)
+class PhotoSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    thumb = serializers.StringRelatedField()
+
+    def create(self, validated_data):
+        return Photo.objects.created(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.data = validated_data.get('thumb', instance.thumb)
 
 class GlucoseUnitSerializer(serializers.Serializer):
     id = serializers.IntegerField()
@@ -43,6 +43,7 @@ class RecordSerializer(serializers.Serializer):
     insulin = InsulinSerializer()
     notes = serializers.StringRelatedField()
     glucose_level_unit = GlucoseUnitSerializer()
+    photos = PhotoSerializer(many=True, read_only=True)
 
     def create(self, validated_data):
         return Record.objects.create(**validated_data)

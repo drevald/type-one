@@ -53,8 +53,8 @@ def photo(request, pk):
     if request.method == 'POST':
         form = UploadFileForm(request.POST, request.FILES)
         if form.is_valid():
-            data = handle_uploaded_file(request.FILES['file'])
-            photo = Photo(record=record, data=data)
+            (thumb, data) = handle_uploaded_file(request.FILES['file'])
+            photo = Photo(record=record, data=data, thumb=thumb)
             photo.save()
             print("valid")
             return HttpResponseRedirect(reverse("records:details", kwargs={'pk':pk}))
@@ -65,12 +65,18 @@ def photo(request, pk):
 def handle_uploaded_file(f):
     im = Image.open(f)        
     size = (360, 240)
-    im.thumbnail(size)
+    im.thumbnail((360, 240))
     memstr = io.BytesIO()
     im.save(memstr, 'JPEG')
     memstr.seek(0)
-    data = base64.b64encode(memstr.read()).decode('utf-8') 
-    return data    
+    preview_data = base64.b64encode(memstr.read()).decode('utf-8') 
+    im = Image.open(f)        
+    im.thumbnail((100, 100))
+    memstr = io.BytesIO()
+    im.save(memstr, 'JPEG')
+    memstr.seek(0)
+    thumb_data = base64.b64encode(memstr.read()).decode('utf-8') 
+    return thumb_data, preview_data    
 
 @login_required
 def details(request, pk):
@@ -160,7 +166,6 @@ def recent(request, pk):
             records.append(record)
     print("records")
     template = "meals_recent.html"     
-    # meals = [(record.id, record.time, ', '.join(str(m) for m in record.meals.all())) for record in records]
     context = {'pk':pk,'list':meals}
     return render(request, template, context) 
 
