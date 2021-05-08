@@ -14,6 +14,7 @@ urlpatterns = [
     path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('records/', views.RecordsList.as_view()),
-    # path('records/<int:pk>/', views.record_detail),    
+    path('record/<int:pk>/', views.RecordDetails.as_view()),
+    path('insulins/', views.InsulinsList.as_view()),
 ]
 

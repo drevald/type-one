@@ -39,10 +39,10 @@ class RecordSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     time = serializers.DateTimeField(required=True, format='%B %d %H:%M')
     bread_units = serializers.FloatField()
-    glucose_level = serializers.FloatField()
-    insulin = InsulinSerializer()
+    glucose_level = serializers.FloatField(required=True)
+    insulin = InsulinSerializer(many=False, required=True)
     notes = serializers.StringRelatedField()
-    glucose_level_unit = GlucoseUnitSerializer()
+    glucose_level_unit = GlucoseUnitSerializer(required=True)
     photos = PhotoSerializer(many=True, read_only=True)
 
     def create(self, validated_data):
