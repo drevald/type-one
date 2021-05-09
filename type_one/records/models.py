@@ -26,4 +26,5 @@ class Meal(models.Model):
 
 class Photo(models.Model):
     record = models.ForeignKey(Record, on_delete = models.CASCADE, related_name='photos', null = True)
-    data = models.TextField(null=False)   
+    data = models.TextField(null=False)
+    thumb = models.TextField(null=False)   
