@@ -89,7 +89,7 @@ def details(request, pk):
 def create(request, type=0):    
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('records:list'))    
-    record = Record(glucose_level_unit = request.user.glucose_level_unit, type=type,user=request.user)
+    record = Record(glucose_level_unit = request.user.glucose_level_unit, type=type, user=request.user)
     record.insulin = request.user.rapid_acting_insulin if type==0 else request.user.long_acting_insulin
     return store(request, record)
 
@@ -103,11 +103,13 @@ def store(request, record):
     meal_details_str = ','.join(meal_details) if meal_details else None
     breads = [meal.quantity * meal.ingredient_unit.grams_in_unit * meal.ingredient_unit.ingredient.bread_units_per_100g for meal in meals] if meals else None
     record.bread_units = sum(breads)/100 if meals else record.bread_units 
-    record.bread_units = round(record.bread_units, 1)
+    record.bread_units = round(record.bread_units, 1)    
     form = RecordForm(request.POST or None, instance=record) if record.type == 0 else LongForm(request.POST or None, instance=record)        
     print(form)
     if form.is_valid():
         form.instance.bread_units = round(form.cleaned_data['bread_units'], 1) if record.type == 0 else 0
+        form.instance.insulin = request.user.rapid_acting_insulin if type==0 else request.user.long_acting_insulin
+        form.instance.glucose_level_unit = request.user.glucose_level_unit
         form.save()
         print("Returning to " + reverse('records:list'))
         return HttpResponseRedirect(reverse('records:list'))

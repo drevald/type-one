@@ -41,6 +41,7 @@ class RecordSerializer(serializers.Serializer):
     bread_units = serializers.FloatField()
     glucose_level = serializers.FloatField(required=True)
     insulin = InsulinSerializer(many=False, required=True)
+    insulin_amount = serializers.IntegerField()
     notes = serializers.StringRelatedField()
     glucose_level_unit = GlucoseUnitSerializer(required=True)
     photos = PhotoSerializer(many=True, read_only=True)
