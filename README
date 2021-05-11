@@ -31,3 +31,7 @@ DEPLOYEMNT TO HEROKU:
 heroku container:login
 heroku container:push web --app type-one
 heroku container:release web --app type-one
+
+ACCESS TO HEROKU POSTGRES DATABASE:
+heroku psql -a type-one
+
