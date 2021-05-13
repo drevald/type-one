@@ -18,19 +18,19 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiY
     "ratio_to_mmol_l": 311.0
   },
   "user": {
-    "id":1,
-    "glucose_level_unit": {
-      "id": 2,
-      "name": "ml",
-      "ratio_to_mmol_l": 1.0
-    },
-    "long_acting_insulin": {
-      "id": 2,
-      "name": "tujeo"
-    },
-    "rapid_acting_insulin": {
-      "id": 3,
-      "name": "apidra"
-    }
+      "id":1,
+      "glucose_level_unit": {
+        "id": 2,
+        "name": "ml",
+        "ratio_to_mmol_l": 1.0
+      },
+      "long_acting_insulin": {
+        "id": 2,
+        "name": "tujeo"
+      },
+      "rapid_acting_insulin": {
+        "id": 3,
+        "name": "apidra"
+      }
   }
 }
