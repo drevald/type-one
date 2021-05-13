@@ -1,4 +1,33 @@
-/records/
-/record/id/
-/photos/
-/photo/id/
+GET     /records/               Lists all records for current user. Each record includes:
+                                    - record type id
+                                    - insulin name
+                                    - insulin units in shot
+                                    - blood glucose level
+                                    - blood glucose unit name
+                                    - bread units amount
+                                    - notes
+                                    - meal photos thumbnails
+POST    /records/               Adds new record specifying:
+                                    - record type id
+                                    - insulin units in shot
+                                    - blood glucose level
+                                    - bread units
+                                    - notes
+GET     /record/id/             Get record details including:
+                                    - record type id
+                                    - insulin name
+                                    - insulin units in shot
+                                    - blood glucose level
+                                    - blood glucose unit name
+                                    - bread units amount
+                                    - notes
+                                    - meal photos in original size 
+DELETE  /record/id/             Deletes this record
+PUT     /record/id/             Updates this record specifying:
+                                    - insulin units in shot
+                                    - blood glucose level
+                                    - bread units
+                                    - notes
+POST    /record/id/photos/      Adds photo for current record
+GET     /record/id/photo/ph_id/ Gets specific record photo in original size
+DELETE  /record/id/photo/ph_id/ Deletes specific record photo 
