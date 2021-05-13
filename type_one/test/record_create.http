@@ -1,0 +1,36 @@
+POST http://localhost:8000/api/record/create/ HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI5NDQ3MDgzLCJqdGkiOiIyNjE2ZGNmYjFjYzM0YTI1YmQ0YmVmMjIyNWZkZGIyOCIsInVzZXJfaWQiOjF9.ttLxJ9xldsJJyWNXKrjjulDO_XhpcP0-jD0f8FWvVTA
+
+{
+  "user_id":"1",
+  "time": "2021-05-13T15:15",
+  "bread_units":"1.5",
+  "glucose_level":"1.5", 
+  "insulin": {
+    "id": "2",
+    "name": "tujeo"
+  },
+  "insulin_amount":"1",
+  "glucose_level_unit": {
+    "id": "4",
+    "name": "ml",
+    "ratio_to_mmol_l": "311.0"
+  },
+  "user": {
+      "id":"1",
+      "glucose_level_unit": {
+        "id": 2,
+        "name": "ml",
+        "ratio_to_mmol_l": 1.0
+      },
+      "long_acting_insulin": {
+        "id": 2,
+        "name": "tujeo"
+      },
+      "rapid_acting_insulin": {
+        "id": 3,
+        "name": "apidra"
+      }
+    }
+}
