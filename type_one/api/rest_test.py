@@ -12,5 +12,12 @@ def test_login():
     assert response.status_code == 200
     decoder = json.JSONDecoder()
     access_key = decoder.decode(response.content.decode('utf-8'))['access']
-    print("TEST", access_key)
+    
+    # client = Client(Authorization='Bearer ' + access_key)
+    # # header = {'Authorization':'Bearer ' + access_key}
+    # response = client.get('/api/records/',  follow = True)
+    # assert response.status_code == 200
+    # decoder = json.JSONDecoder()
+    # access_key = decoder.decode(response.content.decode('utf-8'))
+
     user.delete()

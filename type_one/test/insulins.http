@@ -1,3 +1,0 @@
-GET http://localhost:8000/api/insulins/ HTTP/1.1
-content-type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjIwNTE0Nzg4LCJqdGkiOiI2NDM5ODExNjE1Mjc0N2E2ODg3NDdlYjY1YzI3Njc0YSIsInVzZXJfaWQiOjF9.1Kx4NGjdtNhqESCPsu0qldC1hOx3ZVCwqEKKlUFZjxM

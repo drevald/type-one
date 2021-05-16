@@ -5,17 +5,31 @@ from type_one.records.models import Insulin
 from type_one.api.serializers import PhotoSerializer
 from type_one.api.serializers import RecordSerializer
 from type_one.api.serializers import RecordFullSerializer
+from type_one.api import serializers
 
 class RecordDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Record.objects.filter()
     serializer_class = RecordFullSerializer
 
 class RecordsList(generics.ListCreateAPIView):
-    # queryset = Record.objects.all()
     serializer_class = RecordSerializer
     def get_queryset(self):
         user = self.request.user
         return Record.objects.filter(user=user).order_by('-time')
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return serializers.RecordListSerializer
+        return serializers.RecordCreateSerializer
+    def perform_create(self, serializer):
+        user = self.request.user
+        if serializer.validated_data['type'] == 0:
+            insulin = user.rapid_acting_insulin
+        if serializer.validated_data['type'] == 1:
+            insulin = user.long_acting_insulin
+        serializer.save(
+            user=user, 
+            insulin=insulin, 
+            glucose_level_unit=user.glucose_level_unit)        
 
 class PhotoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Photo.objects.all()

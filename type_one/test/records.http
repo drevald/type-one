@@ -1,3 +1,0 @@
-GET http://localhost:8000/api/records/ HTTP/1.1
-content-type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI5NDQ3MDgzLCJqdGkiOiIyNjE2ZGNmYjFjYzM0YTI1YmQ0YmVmMjIyNWZkZGIyOCIsInVzZXJfaWQiOjF9.ttLxJ9xldsJJyWNXKrjjulDO_XhpcP0-jD0f8FWvVTA
