@@ -1,15 +1,21 @@
+import io
+import base64
+from io import BytesIO
 from rest_framework import generics
 from type_one.records.models import Photo
 from type_one.records.models import Record
-from type_one.records.models import Insulin
-from type_one.api.serializers import PhotoSerializer
+from type_one.api.serializers import PhotoSerializer,PhotoCreateSerializer
 from type_one.api.serializers import RecordSerializer
 from type_one.api.serializers import RecordFullSerializer
 from type_one.api import serializers
+from type_one.records.views import handle_uploaded_file
 
 class RecordDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Record.objects.filter()
-    serializer_class = RecordFullSerializer
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return serializers.RecordFullSerializer
+        return serializers.RecordUpdateSerializer           
 
 class RecordsList(generics.ListCreateAPIView):
     serializer_class = RecordSerializer
@@ -41,4 +47,12 @@ class PhotoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 
 class PhotoCreate(generics.CreateAPIView):
     queryset = Photo.objects.all()
-    serializer_class = PhotoSerializer
+    serializer_class = PhotoCreateSerializer    
+    def perform_create(self, serializer):
+        record = Record.objects.all().filter(id=self.kwargs["pk"]).first()
+        in_memory_file = BytesIO(base64.b64decode(serializer.initial_data['data']))
+        (thumb, data) = handle_uploaded_file(in_memory_file)
+        serializer.save(
+            record=record, 
+            thumb=thumb,
+            data=data)
