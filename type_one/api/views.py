@@ -2,11 +2,7 @@ import io
 import base64
 from io import BytesIO
 from rest_framework import generics
-from type_one.records.models import Photo
-from type_one.records.models import Record
-from type_one.api.serializers import PhotoSerializer,PhotoCreateSerializer
-from type_one.api.serializers import RecordSerializer
-from type_one.api.serializers import RecordFullSerializer
+from type_one.records.models import Photo, Record
 from type_one.api import serializers
 from type_one.records.views import handle_uploaded_file
 
@@ -18,7 +14,7 @@ class RecordDetails(generics.RetrieveUpdateDestroyAPIView):
         return serializers.RecordUpdateSerializer           
 
 class RecordsList(generics.ListCreateAPIView):
-    serializer_class = RecordSerializer
+    serializer_class = serializers.RecordListSerializer
     def get_queryset(self):
         user = self.request.user
         return Record.objects.filter(user=user).order_by('-time')
@@ -39,7 +35,7 @@ class RecordsList(generics.ListCreateAPIView):
 
 class PhotoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Photo.objects.all()
-    serializer_class = PhotoSerializer
+    serializer_class = serializers.PhotoSerializer
     def get_queryset(self):
         return Photo.objects.all().filter(
             record_id=self.kwargs["record_id"], 
@@ -47,7 +43,7 @@ class PhotoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
 
 class PhotoCreate(generics.CreateAPIView):
     queryset = Photo.objects.all()
-    serializer_class = PhotoCreateSerializer    
+    serializer_class = serializers.PhotoCreateSerializer    
     def perform_create(self, serializer):
         record = Record.objects.all().filter(id=self.kwargs["pk"]).first()
         in_memory_file = BytesIO(base64.b64decode(serializer.initial_data['data']))

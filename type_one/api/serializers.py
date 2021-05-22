@@ -12,12 +12,14 @@ class PhotoCreateSerializer(serializers.Serializer):
 class PhotoSerializer(serializers.Serializer):
     id = serializers.IntegerField()
     thumb = serializers.StringRelatedField()
+    data = serializers.StringRelatedField()
 
     def create(self, validated_data):
         return Photo.objects.create(**validated_data)
 
     def update(self, instance, validated_data):
-        instance.data = validated_data.get('thumb', instance.thumb)
+        instance.thumb = validated_data.get('thumb', instance.thumb)
+        instance.data = validated_data.get('data', instance.data)
 
 class PhotoFullSerializer(serializers.Serializer):
     id = serializers.IntegerField()
@@ -173,7 +175,7 @@ class RecordCreateSerializer(serializers.Serializer):
     bread_units = serializers.FloatField()
     glucose_level = serializers.FloatField(required=True)
     insulin_amount = serializers.IntegerField()
-    notes = serializers.CharFiled()
+    notes = serializers.CharField()
 
     def create(self, validated_data):
         return Record.objects.create(**validated_data)
