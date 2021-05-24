@@ -2,11 +2,4 @@ PUT http://localhost:8000/api/record/16/ HTTP/1.1
 content-type: application/json
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjI5NDQ3MDgzLCJqdGkiOiIyNjE2ZGNmYjFjYzM0YTI1YmQ0YmVmMjIyNWZkZGIyOCIsInVzZXJfaWQiOjF9.ttLxJ9xldsJJyWNXKrjjulDO_XhpcP0-jD0f8FWvVTA
 
-{
-  "type":1,
-  "time": "2021-12-13T15:16",
-  "bread_units":1.5,
-  "glucose_level":1.5, 
-  "insulin_amount":10,
-  "notes":"Not much" 
-}
+{"id":42,"type":"0","time":"2021-05-23 13:31","insulin_amount":"210","glucose_level":"1.5","bread_units":"1.5","notes":"kkk"}

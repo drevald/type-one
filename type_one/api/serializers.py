@@ -68,7 +68,7 @@ class UserSerializer(serializers.Serializer):
 
 # class RecordSerializer(serializers.Serializer):
 #     id = serializers.IntegerField(read_only=True)
-#     time = serializers.DateTimeField(required=True, format='%B %d %H:%M')
+#     time = serializers.DateTimeField(required=True)
 #     bread_units = serializers.FloatField()
 #     glucose_level = serializers.FloatField(required=True)
 #     insulin = InsulinSerializer(many=False, required=True)
@@ -112,7 +112,7 @@ class UserSerializer(serializers.Serializer):
 class RecordUpdateSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     type = serializers.IntegerField(read_only=True)
-    time = serializers.DateTimeField(required=True, format='%B %d %H:%M')
+    time = serializers.DateTimeField(required=True)
     bread_units = serializers.FloatField()
     glucose_level = serializers.FloatField(required=True)
     insulin_amount = serializers.IntegerField()
@@ -133,7 +133,7 @@ class RecordUpdateSerializer(serializers.Serializer):
 
 class RecordFullSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    time = serializers.DateTimeField(required=True, format='%B %d %H:%M')
+    time = serializers.DateTimeField(required=True)
     bread_units = serializers.FloatField()
     glucose_level = serializers.FloatField(required=True)
     insulin = InsulinSerializer(many=False, required=True)
@@ -152,7 +152,7 @@ class RecordFullSerializer(serializers.Serializer):
 
 class RecordListSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
-    time = serializers.DateTimeField(required=True, format='%B %d %H:%M')
+    time = serializers.DateTimeField(required=True)
     bread_units = serializers.FloatField()
     glucose_level = serializers.FloatField(required=True)
     insulin = InsulinSerializer(many=False, required=True)
@@ -171,7 +171,7 @@ class RecordListSerializer(serializers.Serializer):
         
 class RecordCreateSerializer(serializers.Serializer):
     type = serializers.IntegerField(required=True)
-    time = serializers.DateTimeField(required=True, format='%B %d %H:%M')
+    time = serializers.DateTimeField(required=True)
     bread_units = serializers.FloatField()
     glucose_level = serializers.FloatField(required=True)
     insulin_amount = serializers.IntegerField()
@@ -196,7 +196,7 @@ class RecordCreateSerializer(serializers.Serializer):
     class RecordDetailsSerializer(serializers.Serializer):
         id = serializers.IntegerField(read_only=True)
         type = serializers.IntegerField(read_only=True)        
-        time = serializers.DateTimeField(required=True, format='%B %d %H:%M')
+        time = serializers.DateTimeField(required=True)
         insulin = InsulinSerializer(many=False, required=True)
         insulin_amount = serializers.IntegerField()
         glucose_level = serializers.FloatField(required=True)
