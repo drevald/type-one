@@ -70,10 +70,10 @@ class RecordUpdateSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     type = serializers.IntegerField(read_only=True)
     time = serializers.DateTimeField(required=True)
-    bread_units = serializers.FloatField()
-    glucose_level = serializers.FloatField(required=True)
-    insulin_amount = serializers.IntegerField()
-    notes = serializers.CharField(required=False)
+    bread_units = serializers.FloatField(required=False, allow_null=True)
+    glucose_level = serializers.FloatField(required=False, allow_null=True)
+    insulin_amount = serializers.IntegerField(required=True)
+    notes = serializers.CharField(required=False, allow_blank=True)
 
     def create(self, validated_data):
         return Record.objects.create(**validated_data)
@@ -91,12 +91,12 @@ class RecordUpdateSerializer(serializers.Serializer):
 class RecordFullSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     time = serializers.DateTimeField(required=True)
-    bread_units = serializers.FloatField()
-    glucose_level = serializers.FloatField(required=True)
+    bread_units = serializers.FloatField(required=False, allow_null=True)
+    glucose_level = serializers.FloatField(required=False, allow_null=True)
     insulin = InsulinSerializer(many=False, required=True)
     insulin_amount = serializers.IntegerField(required=True)
-    notes = serializers.CharField(required=False)
-    glucose_level_unit = GlucoseUnitSerializer(required=True)
+    notes = serializers.CharField(required=False, allow_blank=True)
+    glucose_level_unit = GlucoseUnitSerializer(required=False)
     photos = PhotoFullSerializer(many=True, read_only=True)
 
     def create(self, validated_data):
@@ -110,12 +110,12 @@ class RecordFullSerializer(serializers.Serializer):
 class RecordListSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     time = serializers.DateTimeField(required=True)
-    bread_units = serializers.FloatField()
-    glucose_level = serializers.FloatField(required=True)
+    bread_units = serializers.FloatField(required=False, allow_null=True)
+    glucose_level = serializers.FloatField(required=False, allow_null=True)
     insulin = InsulinSerializer(many=False, required=True)
     insulin_amount = serializers.IntegerField(required=True)
-    notes = serializers.CharField(required=False)
-    glucose_level_unit = GlucoseUnitSerializer(required=True)
+    notes = serializers.CharField(required=False, allow_blank=True)
+    glucose_level_unit = GlucoseUnitSerializer(required=False, allow_null=True)
     photos = PhotoSerializer(many=True, read_only=True)
 
     def create(self, validated_data):      
@@ -129,10 +129,10 @@ class RecordListSerializer(serializers.Serializer):
 class RecordCreateSerializer(serializers.Serializer):
     type = serializers.IntegerField(required=True)
     time = serializers.DateTimeField(required=True)
-    bread_units = serializers.FloatField()
-    glucose_level = serializers.FloatField(required=True)
-    insulin_amount = serializers.IntegerField()
-    notes = serializers.CharField()
+    bread_units = serializers.FloatField(required=False, allow_null=True)
+    glucose_level = serializers.FloatField(required=False, allow_null=True)
+    insulin_amount = serializers.IntegerField(required=True)
+    notes = serializers.CharField(required=False, allow_blank=True)
 
     def create(self, validated_data):
         return Record.objects.create(**validated_data)
@@ -155,12 +155,12 @@ class RecordCreateSerializer(serializers.Serializer):
         type = serializers.IntegerField(read_only=True)        
         time = serializers.DateTimeField(required=True)
         insulin = InsulinSerializer(many=False, required=True)
-        insulin_amount = serializers.IntegerField()
-        glucose_level = serializers.FloatField(required=True)
-        glucose_level_unit = GlucoseUnitSerializer(required=True)
-        bread_units = serializers.FloatField()
+        insulin_amount = serializers.IntegerField(required=True)
+        glucose_level = serializers.FloatField(required=False, allow_null=True)
+        glucose_level_unit = GlucoseUnitSerializer(required=False, allow_null=True)
+        bread_units = serializers.FloatField(required=False, allow_null=True)
         photos = PhotoFullSerializer(many=True, read_only=True)
-        notes = serializers.CharField(required=False)
+        notes = serializers.CharField(required=False, allow_blank=True)
 
         def create(self, validated_data):
             return Record.objects.create(**validated_data)
