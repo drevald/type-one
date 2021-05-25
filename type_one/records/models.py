@@ -14,7 +14,7 @@ class Record(models.Model):
     insulin_amount = models.IntegerField(null = True, default = 0)
     insulin = models.ForeignKey(Insulin, on_delete = models.SET_NULL, null = True)
     bread_units = models.FloatField(null = True, default = 0)
-    notes = models.CharField(max_length = 256, null = True)
+    notes = models.CharField(max_length = 256, null = True, blank=True)
 
 class Meal(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
@@ -27,4 +27,4 @@ class Meal(models.Model):
 class Photo(models.Model):
     record = models.ForeignKey(Record, on_delete = models.CASCADE, related_name='photos', null = True)
     data = models.TextField(null=False)
-    thumb = models.TextField(null=False)   
+    thumb = models.TextField(null=False)
