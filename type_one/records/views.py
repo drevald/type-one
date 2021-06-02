@@ -83,7 +83,7 @@ def details(request, pk):
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('records:list'))    
     record = Record.objects.get(id=pk,user=request.user)    
-    return store(request, record)
+    return store(request, record, record.type)
 
 @login_required
 def create(request, type=0):    
