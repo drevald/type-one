@@ -91,10 +91,10 @@ def create(request, type=0):
         return HttpResponseRedirect(reverse('records:list'))    
     record = Record(glucose_level_unit = request.user.glucose_level_unit, type=type, user=request.user)
     record.insulin = request.user.rapid_acting_insulin if type==0 else request.user.long_acting_insulin
-    return store(request, record)
+    return store(request, record, type)
 
 @login_required
-def store(request, record):
+def store(request, record, type):
     print(record.glucose_level)
     template = 'record_new.html' if record.type == 0 else 'record_long.html'
     meals = Meal.objects.filter(record=record.id) if record.id else None
@@ -105,7 +105,6 @@ def store(request, record):
     record.bread_units = sum(breads)/100 if meals else record.bread_units 
     record.bread_units = round(record.bread_units, 1)    
     form = RecordForm(request.POST or None, instance=record) if record.type == 0 else LongForm(request.POST or None, instance=record)        
-    print(form)
     if form.is_valid():
         form.instance.bread_units = round(form.cleaned_data['bread_units'], 1) if record.type == 0 else 0
         form.instance.insulin = request.user.rapid_acting_insulin if type==0 else request.user.long_acting_insulin
