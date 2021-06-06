@@ -75,17 +75,6 @@ DATABASES = {
     "default": env.db()
 }
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'type_one',
-#         'USER': 'postgres',
-#         'PASSWORD': 'password',
-#         'HOST': '127.0.0.1',
-#         'PORT': '5432'
-#     }
-# }
-
 SECRET_KEY = 'segretto'
 
 DEBUG = True
@@ -132,8 +121,9 @@ REST_FRAMEWORK = {
 
 from datetime import timedelta
 
-
 SIMPLE_JWT = {
     'ACCESS_TOKEN_LIFETIME': timedelta(days=100),
     'REFRESH_TOKEN_LIFETIME': timedelta(days=1000),
 }
+
+USE_TZ = True
