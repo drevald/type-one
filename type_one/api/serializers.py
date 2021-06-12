@@ -1,3 +1,4 @@
+import re
 from type_one.core.models import GlucoseUnit, Insulin, User
 from rest_framework import serializers
 from type_one.records.models import Record, Photo
@@ -117,6 +118,7 @@ class RecordListSerializer(serializers.Serializer):
     notes = serializers.CharField(required=False, allow_blank=True)
     glucose_level_unit = GlucoseUnitSerializer(required=False, allow_null=True)
     photos = PhotoSerializer(many=True, read_only=True)
+    type = serializers.IntegerField(required=True)
 
     def create(self, validated_data):      
         return Record.objects.create(**validated_data)
