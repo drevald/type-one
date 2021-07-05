@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models.deletion import CASCADE
 from ..core.models import User, GlucoseUnit, Insulin
 
 class Ingredient(models.Model):
@@ -27,3 +28,8 @@ class IngredientUnit(models.Model):
     def __str__(self):
         return self.ingredient.name + ", " + self.unit.name
 
+class IngredientHint(models.Model):
+    ingredient = models.ForeignKey(Ingredient, on_delete = models.CASCADE)
+    grams_in_hint = models.IntegerField(null = False)
+    data = models.TextField(null = False)
+    thumb = models.TextField(null = False)

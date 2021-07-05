@@ -1,15 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.utils.translation import gettext as _
 from django.db.models import Q
-import requests
-import json
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
+from django.core.paginator import Paginator
+from type_one.records.views import handle_uploaded_file
+import requests
+import json
 from . import models
 from . import forms
-from django.core.paginator import Paginator
+
 
 @login_required
 def all(request):
@@ -49,11 +51,12 @@ def details(request, pk):
         return HttpResponseRedirect(reverse('ingredients:list'))
     ingredient = models.Ingredient.objects.get(id=pk)
     units = models.IngredientUnit.objects.filter(ingredient=ingredient)
+    hints = models.IngredientHint.objects.filter(ingredient=ingredient)
     form = forms.IngredientForm(request.POST or None, instance=ingredient)
     if form.is_valid():
         form.save()
         return HttpResponseRedirect(reverse('ingredients:list'))
-    context = {"form":form,"units":units,"pk":pk}
+    context = {"form":form,"units":units,"hints":hints,"pk":pk}
     template = "ingredient.html"
     return render(request, template, context)
 
@@ -245,3 +248,21 @@ def cooked_details(request, id):
 def cooked_delete(request, id):
     request.session['cooked_ingredients'].pop(id-1)
     return HttpResponseRedirect(reverse("ingredients:cook"))
+
+def ingredient_hint_details(request, pk, hint_id):
+    pass
+
+def ingredient_hint_delete(request, pk, hint_id):
+    pass
+
+def hints_add(request, pk):
+    form = forms.UploadHintForm(request.POST or None)
+    if form.is_valid():
+        ingredient = models.Ingredient.objects.get(id=pk)
+        (thumb, data) = handle_uploaded_file(request.FILES['file'])
+        hint = models.IngredientHint(ingredient=ingredient, data=data, thumb=thumb, grams_in_unit= form.data['grams_in_unit'])
+        hint.save()   
+        return HttpResponseRedirect(reverse('ingredients:details', kwargs={'pk':pk}))
+    context = {"form":form,"pk":pk}
+    template = "hint_add.html"
+    return render(request, template, context)

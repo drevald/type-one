@@ -54,3 +54,6 @@ class IngredientForm(forms.ModelForm):
             'energy_kKkal_per_100g'
         ]
 
+class UploadHintForm(forms.Form):
+    grams_in_hint = forms.IntegerField(required=True)
+    file = forms.FileField(required=True, widget=forms.FileInput(attrs={'capture':'camera','class':'form-control-file'}))    
