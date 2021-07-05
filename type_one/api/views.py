@@ -5,6 +5,14 @@ from rest_framework import generics
 from type_one.records.models import Photo, Record
 from type_one.api import serializers
 from type_one.records.views import handle_uploaded_file
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import generics, status
+
+class LogoutView(APIView):
+    def get(self, request, format=None):
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_200_OK)
 
 class RecordDetails(generics.RetrieveUpdateDestroyAPIView):
     queryset = Record.objects.filter()
