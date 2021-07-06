@@ -29,6 +29,7 @@ class IngredientUnit(models.Model):
         return self.ingredient.name + ", " + self.unit.name
 
 class IngredientHint(models.Model):
+    user = models.ForeignKey(User, on_delete = models.CASCADE, null=True)
     ingredient = models.ForeignKey(Ingredient, on_delete = models.CASCADE)
     grams_in_hint = models.IntegerField(null = False)
     data = models.TextField(null = False)
