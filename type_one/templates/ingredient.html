@@ -76,6 +76,7 @@
                     <td><img  width="320px" height="240px" src="data:image/jpg;base64,{{ hint.data }}"></td>
                     <td>
                       <a href="{% url 'ingredients:ingredient_hint_delete' pk hint.id %}">{% trans "Delete" %}</a>
+                      <a href="{% url 'ingredients:ingredient_hint_details' pk hint.id %}">{% trans "Details" %}</a>
                     </td>
                 </tr>
               {% endfor %}

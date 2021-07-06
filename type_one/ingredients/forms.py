@@ -57,3 +57,9 @@ class IngredientForm(forms.ModelForm):
 class UploadHintForm(forms.Form):
     grams_in_hint = forms.IntegerField(required=True)
     file = forms.FileField(required=False)   
+
+class IngredientHintForm(forms.ModelForm):
+    grams_in_hint = forms.IntegerField(required=True)
+    class Meta:
+        model = models.IngredientHint
+        fields = ['grams_in_hint']

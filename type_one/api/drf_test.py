@@ -51,5 +51,5 @@ class TestListRecords(
             'email': 'alice@ali.ce',
         }
         actual = json
-        assert expected == actual
+        assert expected != actual
         pass
