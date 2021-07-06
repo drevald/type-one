@@ -25,7 +25,7 @@ class RecordsList(generics.ListCreateAPIView):
     serializer_class = serializers.RecordListSerializer
     def get_queryset(self):
         user = self.request.user
-        return Record.objects.filter(user=user).order_by('-time')
+        return Record.objects.filter(user=user).order_by('-time')[:17]
     def get_serializer_class(self):
         if self.request.method == 'GET':
             return serializers.RecordListSerializer
