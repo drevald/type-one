@@ -65,13 +65,15 @@
           <h1>{% trans "Hints" %}</h1>
           <table class="table table-striped" width="25%">
               <thead>
-                <th>{% trans "Grams per hint" %}</th>                    
+                <th>{% trans "Grams per hint" %}</th>
+                <th>{% trans "Preview" %}</th>
                 <th></th>   
               </thead>
               <tbody>
               {% for hint in hints %}
                 <tr>
                     <td>{{hint.grams_in_hint}}</td>
+                    <td><img  width="320px" height="240px" src="data:image/jpg;base64,{{ hint.data }}"></td>
                     <td>
                       <a href="{% url 'ingredients:ingredient_hint_delete' pk hint.id %}">{% trans "Delete" %}</a>
                     </td>

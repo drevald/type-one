@@ -249,20 +249,35 @@ def cooked_delete(request, id):
     request.session['cooked_ingredients'].pop(id-1)
     return HttpResponseRedirect(reverse("ingredients:cook"))
 
-def ingredient_hint_details(request, pk, hint_id):
-    pass
-
-def ingredient_hint_delete(request, pk, hint_id):
-    pass
-
+@login_required
 def hints_add(request, pk):
     form = forms.UploadHintForm(request.POST or None)
     if form.is_valid():
         ingredient = models.Ingredient.objects.get(id=pk)
         (thumb, data) = handle_uploaded_file(request.FILES['file'])
-        hint = models.IngredientHint(ingredient=ingredient, data=data, thumb=thumb, grams_in_unit= form.data['grams_in_unit'])
+        hint = models.IngredientHint(ingredient=ingredient, data=data, thumb=thumb, grams_in_hint= form.data['grams_in_hint'])
         hint.save()   
         return HttpResponseRedirect(reverse('ingredients:details', kwargs={'pk':pk}))
     context = {"form":form,"pk":pk}
     template = "hint_add.html"
     return render(request, template, context)
+
+@login_required
+def ingredient_hint_delete(request, pk, hint_id):
+    hint = models.IngredientHint.objects.get(id=hint_id)
+    hint.delete()
+    return HttpResponseRedirect(reverse('ingredients:details', kwargs={'pk':pk}))    
+
+@login_required
+def ingredient_hint_details(request, pk, hint_id):
+    pass
+    # unit = models.IngredientHint.objects.get(id=hint_id)
+    # form = forms.IngredientUnitForm(request.POST or None)
+    # form.fields["name"]="aaa"
+    # print(str(unit))
+    # if form.is_valid():
+    #     form.save()
+    #     return HttpResponseRedirect(reverse('ingredients:details', kwargs={'pk':pk}))
+    # context = {"form":form,"pk":pk,"unit_id":unit_id}
+    # template = "unit_add.html"
+    # return render(request, template, context)   

@@ -56,4 +56,4 @@ class IngredientForm(forms.ModelForm):
 
 class UploadHintForm(forms.Form):
     grams_in_hint = forms.IntegerField(required=True)
-    file = forms.FileField(required=True, widget=forms.FileInput(attrs={'capture':'camera','class':'form-control-file'}))    
+    file = forms.FileField(required=False)   
