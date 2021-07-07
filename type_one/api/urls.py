@@ -18,5 +18,7 @@ urlpatterns = [
     path('record/<int:pk>/', views.RecordDetails.as_view()),
     path('record/<int:pk>/photos/', views.PhotoCreate.as_view()),
     path('record/<record_id>/photo/<pk>/', views.PhotoRetrieveUpdateDestroy.as_view()),
+    path('record/<int:pk>/meals/', views.MealsList.as_view()),
+    path('ingredients/', views.IngredientsList.as_view(), name='ingredients')
 ]
 

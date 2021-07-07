@@ -2,7 +2,8 @@ import io
 import base64
 from io import BytesIO
 from rest_framework import generics
-from type_one.records.models import Photo, Record
+from type_one.records.models import Photo, Record, Meal
+from type_one.ingredients.models import Ingredient, IngredientUnit
 from type_one.api import serializers
 from type_one.records.views import handle_uploaded_file
 from rest_framework.views import APIView
@@ -60,3 +61,16 @@ class PhotoCreate(generics.CreateAPIView):
             record=record, 
             thumb=thumb,
             data=data)
+
+class MealsList(generics.ListCreateAPIView):
+    serializer_class = serializers.MealSerializer
+    # def perform_create(self, serializer):
+    #     record = Record.objects.all().filter(id=self.kwargs["pk"]).first()
+    def get_queryset(self):
+        return Meal.objects.all().filter(record_id=self.kwargs["pk"])
+
+class IngredientsList(generics.ListAPIView):
+    serializer_class = serializers.IngredientUnitSerializer
+    def get_queryset(self):
+        user = self.request.user
+        return IngredientUnit.objects.all().filter(user=user)
