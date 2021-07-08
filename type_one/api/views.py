@@ -9,6 +9,8 @@ from type_one.records.views import handle_uploaded_file
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics, status
+from django.db.models import Q
+
 
 class LogoutView(APIView):
     def get(self, request, format=None):
@@ -73,4 +75,4 @@ class IngredientsList(generics.ListAPIView):
     serializer_class = serializers.IngredientUnitSerializer
     def get_queryset(self):
         user = self.request.user
-        return IngredientUnit.objects.all().filter(user=user)
+        return IngredientUnit.objects.all().filter(Q(user=None)|Q(user=user))
