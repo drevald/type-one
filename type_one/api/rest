@@ -28,6 +28,29 @@ PUT     /record/id/             Updates this record specifying:
                                     - blood glucose level
                                     - bread units
                                     - notes
+GET     /record/id/photos/      Gets all photos for current record
 POST    /record/id/photos/      Adds photo for current record
 GET     /record/id/photo/ph_id/ Gets specific record photo in original size
 DELETE  /record/id/photo/ph_id/ Deletes specific record photo 
+
+GET     /record/id/meals/       Gets all meals for current record including:
+                                    - ingredient name
+                                    - measurement unit name
+                                    - unit to gramms relation
+                                    - ingredient quantity measured in given units
+POST    /record/id/meals/       Adds meal for current record
+GET     /record/id/meal/meal_id Gets meal detail for current record
+
+GET     /ingredients/           Gets all available ingredients including:
+                                    - ingredient name
+                                    - measurement unit name
+                                    - unit to gramms relation
+GET     /ingredient/id          Gets ingredient details including:
+                                    - ingredient name
+                                    - measurement unit name
+                                    - unit to gramms relation
+                                    - all available ingredient weight hints
+POST    /ingredient/id/hints    Adds ingredient weight hint specifying:
+                                    - ingredient id
+                                    - hint photo original and thumbnail size
+                                    - hint weight in gramms

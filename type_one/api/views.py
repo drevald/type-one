@@ -65,14 +65,45 @@ class PhotoCreate(generics.CreateAPIView):
             data=data)
 
 class MealsList(generics.ListCreateAPIView):
-    serializer_class = serializers.MealSerializer
-    # def perform_create(self, serializer):
-    #     record = Record.objects.all().filter(id=self.kwargs["pk"]).first()
-    def get_queryset(self):
-        return Meal.objects.all().filter(record_id=self.kwargs["pk"])
+    serializer_class = serializers.MealShortSerializer
 
-class IngredientsList(generics.ListAPIView):
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return serializers.MealSerializer
+        return serializers.MealShortSerializer
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        serializer.save(
+            user=user, 
+            record=Record.objects.get(id=serializer.validated_data.get('record_id')),
+            ingredient_unit=IngredientUnit.objects.get(id=serializer.validated_data.get('ingredient_unit_id')),
+            quantity=serializer.validated_data.get('quantity')
+        )
+
+
+    def get_queryset(self):
+        user = self.request.user
+        print(f"user={user}")
+        record = Record.objects.all().get(id=self.kwargs["pk"])
+        return Meal.objects.all().filter(Q(user=None)|Q(user=user)).filter(record=record)
+
+
+class IngredientsList(generics.ListCreateAPIView):
     serializer_class = serializers.IngredientUnitSerializer
     def get_queryset(self):
         user = self.request.user
         return IngredientUnit.objects.all().filter(Q(user=None)|Q(user=user))
+
+class IngredientsDetails(generics.RetrieveAPIView):
+    serializer_class = serializers.IngredientUnitFullSerializer
+    def get_queryset(self):
+        # user = self.request.user
+        # return IngredientUnit.objects.all().filter(ingredient_id=self.kwargs["pk"])
+        return IngredientUnit.objects.all()
+
+class MealDetails(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.MealShortSerializer
+
+    def get_queryset(self):
+        return Meal.objects.all().filter(id=self.kwargs["pk"])

@@ -1,0 +1,10 @@
+PUT http://192.168.113.101:9000/api/record/1/meal/16/ HTTP/1.1
+content-type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM0ODQzMjg3LCJqdGkiOiIxYTQ1NjZjZTI2Zjc0Y2JkYjJkNzRiNTcyZTk0MTQ3MyIsInVzZXJfaWQiOjJ9.guLUQbpS0aRIYWRdhUn8KoT6sWIQh9oE2E3JjVgjJ_c
+
+{
+  "id": 16,
+  "record_id": 1,
+  "ingredient_unit_id": 26,
+  "quantity": 17.0
+}

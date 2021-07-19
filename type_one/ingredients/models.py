@@ -30,7 +30,7 @@ class IngredientUnit(models.Model):
 
 class IngredientHint(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE, null=True)
-    ingredient = models.ForeignKey(Ingredient, on_delete = models.CASCADE)
+    ingredient = models.ForeignKey(Ingredient, on_delete = models.CASCADE, related_name='hints')
     grams_in_hint = models.IntegerField(null = False)
     data = models.TextField(null = False)
     thumb = models.TextField(null = False)
