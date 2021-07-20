@@ -1,3 +1,4 @@
+from django.db.models.fields import IntegerField
 from type_one.records.views import meals
 from type_one.core.models import GlucoseUnit, Insulin, User
 from rest_framework import serializers
@@ -198,6 +199,7 @@ class WeightUnitSerializer(serializers.Serializer):
         return instance
 
 class IngredientSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
     name = serializers.CharField()
     bread_units_per_100g = serializers.FloatField()
     
@@ -224,7 +226,7 @@ class IngredientUnitSerializer(serializers.Serializer):
         return instance
 
 class IngredientHintSerializer(serializers.Serializer):
-    id = serializers.IntegerField()
+    ingredient = IngredientSerializer
     grams_in_hint = serializers.IntegerField()
     thumb = serializers.StringRelatedField()
 
@@ -236,9 +238,15 @@ class IngredientHintSerializer(serializers.Serializer):
         instance.data = validated_data.get('grams_in_hint', instance.grams_in_hint)
         return instance
 
+class IngredientHintFullSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    ingredient = IngredientSerializer
+    grams_in_hint = serializers.IntegerField()
+    thumb = serializers.StringRelatedField()
+
 class IngredientFullSeralizer(serializers.Serializer):
     id = serializers.IntegerField()
-    hints = IngredientHintSerializer(many=True, read_only=True)
+    hints = IngredientHintFullSerializer(many=True, read_only=True)
     name = serializers.CharField()
     bread_units_per_100g = serializers.FloatField()
     

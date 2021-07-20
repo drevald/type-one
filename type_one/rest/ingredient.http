@@ -1,3 +1,3 @@
-GET http://192.168.113.101:9000/api/ingredient/25/ HTTP/1.1
+GET http://localhost:8000/api/ingredient/46/ HTTP/1.1
 content-type: application/json
-Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM0NTg1NDA3LCJqdGkiOiJiNGE3YjRjNGNlNmE0NDc3OWU2NDM1OTgwMTY0MWZmNiIsInVzZXJfaWQiOjJ9.JsqCpuTDJYYXh1KjvdRepEpNJnzpK-HE_cMAUXyN_Uo
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjM1MzQzMTUzLCJqdGkiOiIzN2JmNzBjMGM3ODk0ODRmOTUwZDE4MDc2YWFmYWEzMiIsInVzZXJfaWQiOjN9.f8E0j_6fnr_6VutWm-XSOmvoTDe9kZGR3YcBSNsn2Gk

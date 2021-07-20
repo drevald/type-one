@@ -107,3 +107,18 @@ class MealDetails(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         return Meal.objects.all().filter(id=self.kwargs["pk"])
+
+class IngredientsHintCreate(generics.CreateAPIView):
+    serializer_class = serializers.IngredientHintSerializer
+    
+    def perform_create(self, serializer):
+        in_memory_file = BytesIO(base64.b64decode(serializer.initial_data['data']))
+        (thumb, data) = handle_uploaded_file(in_memory_file)
+        serializer.save(
+            user = self.request.user,
+            ingredient=Ingredient.objects.get(id=self.kwargs["pk"]),
+            thumb=thumb,
+            data=data)
+
+class IngredientsHintDelete(generics.DestroyAPIView):
+    serializer_class = serializers.IngredientHintSerializer    
