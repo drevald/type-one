@@ -18,5 +18,11 @@ urlpatterns = [
     path('record/<int:pk>/', views.RecordDetails.as_view()),
     path('record/<int:pk>/photos/', views.PhotoCreate.as_view()),
     path('record/<record_id>/photo/<pk>/', views.PhotoRetrieveUpdateDestroy.as_view()),
+    path('record/<int:pk>/meals/', views.MealsList.as_view()),
+    path('record/<record_id>/meal/<int:pk>/', views.MealDetails.as_view()),
+    path('ingredients/', views.IngredientsList.as_view(), name='ingredients'),
+    path('ingredient/<int:pk>/', views.IngredientsDetails.as_view(), name='ingredient'),
+    path('ingredient/<int:pk>/hints/', views.IngredientsHintCreate.as_view(), name='hint_add'),
+    path('ingredient/<int:pk>/hints/<hint_id>', views.IngredientsHintDelete.as_view(), name='hint_delete'),
 ]
 

@@ -25,23 +25,9 @@
             </tr>
         </thead>
         {% for record in records %}
-        <!-- <tr>
-            <td>{{ record.time | timezone:"Europe/Moscow" | date:'M d, H:i'}}</td>
-            {% if record.type == 0 %}
-            <td>{{ record.insulin_amount }} {{record.insulin.name}}</td>
-            <td>{{ record.glucose_level }}</td>
-            <td>{{ record.bread_units }}</td>
-            {% else %}
-            <td colspan=3>{{ record.insulin_amount }} {{record.insulin.name}}</td>
-            {% endif %}
-            <td>{{ record.notes }}</td>
-            <td>
-                <a class="btn btn-sm btn-danger" href="{% url 'records:delete' record.pk %}">{% trans "Delete" %}</a>&nbsp;&nbsp;
-                <a class="btn btn-sm btn-primary" href="{% url 'records:details' record.pk %}">{% trans "Details" %}</a>
-            </td>    
-        </tr> -->
           {% if record.type == 0 %}
           <tr>
+            <!-- todo: replace hardcoded locale with client's -->
             <td rowspan="2">{{ record.time | timezone:"Europe/Moscow" | date:'M d, H:i'}}</td>
             <td>{{ record.insulin_amount }} {{record.insulin.name}}</td>
             <td>{{ record.glucose_level }}</td>

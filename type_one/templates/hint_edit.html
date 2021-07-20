@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load i18n %}
+<div class="container">
+    <div class="page-header">
+        <h1>{% trans "Edit hint" %}</h1>            
+    </div>
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}             
+        {{ form.as_p }}
+        <img  width="320px" height="240px" src="data:image/jpg;base64,{{ data }}">
+        <br>
+        <input type="submit" value="{% trans 'Save' %}" class="btn btn-primary">
+        <a href="{% url 'ingredients:details' pk %}" class="btn btn-basic">{% trans "Cancel" %}</a>
+    </form>                
+</div>
+{% endblock %}

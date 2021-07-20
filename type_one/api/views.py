@@ -2,12 +2,15 @@ import io
 import base64
 from io import BytesIO
 from rest_framework import generics
-from type_one.records.models import Photo, Record
+from type_one.records.models import Photo, Record, Meal
+from type_one.ingredients.models import Ingredient, IngredientUnit
 from type_one.api import serializers
 from type_one.records.views import handle_uploaded_file
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import generics, status
+from django.db.models import Q
+
 
 class LogoutView(APIView):
     def get(self, request, format=None):
@@ -60,3 +63,62 @@ class PhotoCreate(generics.CreateAPIView):
             record=record, 
             thumb=thumb,
             data=data)
+
+class MealsList(generics.ListCreateAPIView):
+    serializer_class = serializers.MealShortSerializer
+
+    def get_serializer_class(self):
+        if self.request.method == 'GET':
+            return serializers.MealSerializer
+        return serializers.MealShortSerializer
+
+    def perform_create(self, serializer):
+        user = self.request.user
+        serializer.save(
+            user=user, 
+            record=Record.objects.get(id=serializer.validated_data.get('record_id')),
+            ingredient_unit=IngredientUnit.objects.get(id=serializer.validated_data.get('ingredient_unit_id')),
+            quantity=serializer.validated_data.get('quantity')
+        )
+
+
+    def get_queryset(self):
+        user = self.request.user
+        print(f"user={user}")
+        record = Record.objects.all().get(id=self.kwargs["pk"])
+        return Meal.objects.all().filter(Q(user=None)|Q(user=user)).filter(record=record)
+
+
+class IngredientsList(generics.ListCreateAPIView):
+    serializer_class = serializers.IngredientUnitSerializer
+    def get_queryset(self):
+        user = self.request.user
+        return IngredientUnit.objects.all().filter(Q(user=None)|Q(user=user))
+
+class IngredientsDetails(generics.RetrieveAPIView):
+    serializer_class = serializers.IngredientUnitFullSerializer
+    def get_queryset(self):
+        # user = self.request.user
+        # return IngredientUnit.objects.all().filter(ingredient_id=self.kwargs["pk"])
+        return IngredientUnit.objects.all()
+
+class MealDetails(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = serializers.MealShortSerializer
+
+    def get_queryset(self):
+        return Meal.objects.all().filter(id=self.kwargs["pk"])
+
+class IngredientsHintCreate(generics.CreateAPIView):
+    serializer_class = serializers.IngredientHintSerializer
+    
+    def perform_create(self, serializer):
+        in_memory_file = BytesIO(base64.b64decode(serializer.initial_data['data']))
+        (thumb, data) = handle_uploaded_file(in_memory_file)
+        serializer.save(
+            user = self.request.user,
+            ingredient=Ingredient.objects.get(id=self.kwargs["pk"]),
+            thumb=thumb,
+            data=data)
+
+class IngredientsHintDelete(generics.DestroyAPIView):
+    serializer_class = serializers.IngredientHintSerializer    

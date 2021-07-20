@@ -37,6 +37,7 @@
             <div class="col-sm-5">{{form.energy_kKkal_per_100g}}</div>
           </div>
           {% if pk %}
+
           <h1>{% trans "Units" %}</h1>
           <table class="table table-striped" width="25%">
               <thead>
@@ -54,12 +55,39 @@
                       <a href="{% url 'ingredients:ingredient_unit_details' pk unit.id %}">{% trans "Details" %}</a>
                     </td>
                 </tr>
-                {% endfor %}
-                  <tr>
-                      <td colspan=3><a href="{% url 'ingredients:unit_add' pk %}">{% trans "Add unit" %}</a></td>
-                  </tr>
+              {% endfor %}
+                <tr>
+                  <td colspan=3><a href="{% url 'ingredients:unit_add' pk %}">{% trans "Add unit" %}</a></td>
+                </tr>
             </tbody>
           </table>
+
+          <h1>{% trans "Hints" %}</h1>
+          <table class="table table-striped" width="25%">
+              <thead>
+                <th>{% trans "Grams per hint" %}</th>
+                <th>{% trans "Preview" %}</th>
+                <th></th>   
+              </thead>
+              <tbody>
+              {% for hint in hints %}
+                <tr>
+                    <td>{{hint.grams_in_hint}}</td>
+                    <td><img  width="320px" height="240px" src="data:image/jpg;base64,{{ hint.data }}"></td>
+                    <td>
+                      <a href="{% url 'ingredients:ingredient_hint_delete' pk hint.id %}">{% trans "Delete" %}</a>
+                      <a href="{% url 'ingredients:ingredient_hint_details' pk hint.id %}">{% trans "Details" %}</a>
+                    </td>
+                </tr>
+              {% endfor %}
+                <tr>
+                  <tr>
+                    <td colspan=3><a href="{% url 'ingredients:hint_add' pk %}">{% trans "Add hint" %}</a></td>
+                  </tr>
+                </tr>
+            </tbody>
+          </table>
+
           {% endif %}
           <br>
       <input type="submit" value='{% trans "Save" %}' class="btn btn-primary">

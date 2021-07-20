@@ -1,4 +1,4 @@
-POST https://type-one.herokuapp.com/api/token/ HTTP/1.1
+POST http://localhost:8000/api/token/ HTTP/1.1
 content-type: application/json
 
 {

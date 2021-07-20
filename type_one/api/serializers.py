@@ -1,7 +1,9 @@
-import re
+from django.db.models.fields import IntegerField
+from type_one.records.views import meals
 from type_one.core.models import GlucoseUnit, Insulin, User
 from rest_framework import serializers
-from type_one.records.models import Record, Photo
+from type_one.records.models import Record, Photo, Meal
+from type_one.ingredients.models import Ingredient, IngredientUnit, WeightUnit, IngredientHint
 
 class PhotoCreateSerializer(serializers.Serializer):
     data = serializers.StringRelatedField()
@@ -99,6 +101,19 @@ class RecordFullSerializer(serializers.Serializer):
     notes = serializers.CharField(required=False, allow_blank=True)
     glucose_level_unit = GlucoseUnitSerializer(required=False)
     photos = PhotoFullSerializer(many=True, read_only=True)
+    calculated_bread_units = serializers.SerializerMethodField()
+
+    def get_calculated_bread_units(self, obj):
+        result = 0
+        if (obj.meals is not None):
+            for meal in obj.meals.all():
+                share = (meal.ingredient_unit.ingredient.bread_units_per_100g) \
+                * (meal.ingredient_unit.grams_in_unit) \
+                * meal.quantity \
+                * 0.01
+                print(f"record {meal.record_id} meal {meal.id} adds {share}")
+                result += share
+        return result
 
     def create(self, validated_data):
         return Record.objects.create(**validated_data)
@@ -144,30 +159,143 @@ class RecordCreateSerializer(serializers.Serializer):
         instance.save()
         return instance
 
-    # - record type id
-    # - insulin name
-    # - insulin units in shot
-    # - blood glucose level
-    # - blood glucose unit name
-    # - bread units amount
-    # - notes
-    # - meal photos in original size         
-    class RecordDetailsSerializer(serializers.Serializer):
-        id = serializers.IntegerField(read_only=True)
-        type = serializers.IntegerField(read_only=True)        
-        time = serializers.DateTimeField(required=True)
-        insulin = InsulinSerializer(many=False, required=True)
-        insulin_amount = serializers.IntegerField(required=True)
-        glucose_level = serializers.FloatField(required=False, allow_null=True)
-        glucose_level_unit = GlucoseUnitSerializer(required=False, allow_null=True)
-        bread_units = serializers.FloatField(required=False, allow_null=True)
-        photos = PhotoFullSerializer(many=True, read_only=True)
-        notes = serializers.CharField(required=False, allow_blank=True)
+# - record type id
+# - insulin name
+# - insulin units in shot
+# - blood glucose level
+# - blood glucose unit name
+# - bread units amount
+# - notes
+# - meal photos in original size         
+class RecordDetailsSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    type = serializers.IntegerField(read_only=True)        
+    time = serializers.DateTimeField(required=True)
+    insulin = InsulinSerializer(many=False, required=True)
+    insulin_amount = serializers.IntegerField(required=True)
+    glucose_level = serializers.FloatField(required=False, allow_null=True)
+    glucose_level_unit = GlucoseUnitSerializer(required=False, allow_null=True)
+    bread_units = serializers.FloatField(required=False, allow_null=True)
+    photos = PhotoFullSerializer(many=True, read_only=True)
+    notes = serializers.CharField(required=False, allow_blank=True)
 
-        def create(self, validated_data):
-            return Record.objects.create(**validated_data)
+    def create(self, validated_data):
+        return Record.objects.create(**validated_data)
 
-        def update(self, instance, validated_data):
-            instance.time = validated_data.get('time', instance.time)
-            instance.save()
-            return instance
+    def update(self, instance, validated_data):
+        instance.time = validated_data.get('time', instance.time)
+        instance.save()
+        return instance
+
+class WeightUnitSerializer(serializers.Serializer):
+    name = serializers.CharField()
+    
+    def create(self, validated_data):
+        return Ingredient.objects.create(**validated_data)
+    
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
+        instance.save()
+        return instance
+
+class IngredientSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    name = serializers.CharField()
+    bread_units_per_100g = serializers.FloatField()
+    
+    def create(self, validated_data):
+        return Ingredient.objects.create(**validated_data)
+    
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
+        instance.save()
+        return instance
+
+class IngredientUnitSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    ingredient = IngredientSerializer(required=True, allow_null=False)
+    grams_in_unit = serializers.FloatField()
+    unit = WeightUnitSerializer(required=True, allow_null=False)
+
+    def create(self, validated_data):
+        return IngredientUnit.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.ingredient = validated_data.get('ingredient', instance.ingredient)
+        instance.save()
+        return instance
+
+class IngredientHintSerializer(serializers.Serializer):
+    ingredient = IngredientSerializer
+    grams_in_hint = serializers.IntegerField()
+    thumb = serializers.StringRelatedField()
+
+    def create(self, validated_data):
+        return IngredientHint.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.data = validated_data.get('thumb', instance.thumb) 
+        instance.data = validated_data.get('grams_in_hint', instance.grams_in_hint)
+        return instance
+
+class IngredientHintFullSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    ingredient = IngredientSerializer
+    grams_in_hint = serializers.IntegerField()
+    thumb = serializers.StringRelatedField()
+
+class IngredientFullSeralizer(serializers.Serializer):
+    id = serializers.IntegerField()
+    hints = IngredientHintFullSerializer(many=True, read_only=True)
+    name = serializers.CharField()
+    bread_units_per_100g = serializers.FloatField()
+    
+    def create(self, validated_data):
+        return Ingredient.objects.create(**validated_data)
+    
+    def update(self, instance, validated_data):
+        instance.name = validated_data.get('name', instance.name)
+        instance.save()
+        return instance    
+
+class IngredientUnitFullSerializer(serializers.Serializer):
+    id = serializers.IntegerField()
+    ingredient = IngredientFullSeralizer(required=True, allow_null=False)
+    grams_in_unit = serializers.FloatField()
+    unit = WeightUnitSerializer(required=True, allow_null=False)
+
+    def create(self, validated_data):
+        return IngredientUnit.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.ingredient = validated_data.get('ingredient', instance.ingredient)
+        instance.save()
+        return instance        
+
+class MealSerializer(serializers.Serializer):
+    id = serializers.IntegerField(read_only=True)
+    ingredient_unit = IngredientUnitSerializer(required=True, allow_null=False)
+    quantity = serializers.FloatField()
+
+    def create(self, validated_data):
+        return Meal.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.ingredient_unit = validated_data.get('ingredient_unit', instance.ingredient_unit)
+        instance.quantity = validated_data.get('quantity', instance.quantity)
+        instance.save()
+        return instance
+
+class MealShortSerializer(serializers.Serializer):
+    id = serializers.IntegerField(required=False)
+    record_id = serializers.IntegerField()
+    ingredient_unit_id = serializers.IntegerField()
+    quantity = serializers.FloatField()
+
+    def create(self, validated_data):
+        return Meal.objects.create(**validated_data)
+
+    def update(self, instance, validated_data):
+        instance.quantity = validated_data.get('quantity')
+        instance.save()
+        return instance
