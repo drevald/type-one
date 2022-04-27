@@ -4,10 +4,10 @@ from django.contrib.auth.admin import UserAdmin
 
 class TypeOneAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
-        (None, {'fields': ('glucose_level_unit','long_acting_insulin','rapid_acting_insulin',)}),
+        (None, {'fields': ('glucose_level_unit','long_acting_insulin','rapid_acting_insulin','show_long_insulin','show_rapid_insulin','show_sugar','show_calories',)}),
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
-        (None, {'fields': ('glucose_level_unit','long_acting_insulin','rapid_acting_insulin',)}),
+        (None, {'fields': ('glucose_level_unit','long_acting_insulin','rapid_acting_insulin','show_long_insulin','show_rapid_insulin','show_sugar','show_calories',)}),
     )
 
 admin.site.register(GlucoseUnit)
