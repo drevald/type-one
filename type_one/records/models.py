@@ -15,6 +15,7 @@ class Record(models.Model):
     insulin = models.ForeignKey(Insulin, on_delete = models.SET_NULL, null = True)
     bread_units = models.FloatField(null = True, default = 0)
     notes = models.CharField(max_length = 256, null = True, blank=True)
+    calories = models.IntegerField(default=0, null=True, blank=True)
     def get_calories(self):
         return ":)"
 
