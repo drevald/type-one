@@ -57,6 +57,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                # 'django.core.context_processors.request',
             ],
         },
     },
@@ -89,7 +90,8 @@ ALLOWED_HOSTS = [
     'localhost',
     '0.0.0.0',
     'type-one.herokuapp.com',
-    '192.168.113.101'
+    '192.168.113.101',
+    '192.168.0.189',
 ]
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'

@@ -3,23 +3,38 @@
 {% load i18n %}
 
 <div class="container">
-    <form action="" method="post">
+    <table class="table">
+    <form method="post">
         {% csrf_token %}                
-        <div class="row">
-            <div class="col-sm-3">
-                <b>{{request.user.rapid_acting_insulin.name}} {% trans "shot, units" %}</b>
-                {{form.insulin_amount}} 
-            </div>
-            <div class="col-sm-3">
-                <b>{% trans "Glucose level" %}, {{request.user.glucose_level_unit.name}}</b>
-                {{form.glucose_level}}
-            </div>
-            <div class="col-sm-3">
-                <b>{% trans "Bread units" %}</b><br>
-                {{form.bread_units}}
-            </div>
-            <div class="col-sm-3">
-                <b>{% trans "Meals" %}</b><br>
+        <tr>
+            {% if request.user.show_rapid_insulin or request.user.show_long_insulin %}
+                <th>{{request.user.rapid_acting_insulin.name}} {% trans "shot, units" %}</th>
+            {% endif %}
+            {% if request.user.show_sugar %}
+                <th>{% trans "Glucose level" %}, {{request.user.glucose_level_unit.name}}</th>
+            {% endif %}
+            {% if request.user.show_bread_units %}
+                <th>{% trans "Bread units" %}</th>
+            {% endif %}
+            {% if request.user.show_calories %}
+                <th>{% trans "Calories" %}, kkal</th>
+            {% endif %}            
+            <th>{% trans "Meals" %}</th>
+        </tr>
+        <tr>
+            {% if request.user.show_rapid_insulin or request.user.show_long_insulin %}
+                <td>{{form.insulin_amount}}</td>
+            {% endif %}
+            {% if request.user.show_sugar %}
+                <td>{{form.glucose_level}}</td>            
+            {% endif %}
+            {% if request.user.show_bread_units %}
+                <td>{{form.bread_units}}</td>
+            {% endif %}
+            {% if request.user.show_calories %}
+                <td>{{form.calories}}</td>
+            {% endif %}
+            <td>
                 {% if meals %}
                     {% for meal in meals %}
                         {% trans meal.ingredient_unit.ingredient.name %}, {% trans meal.ingredient_unit.unit.name %}, {{meal.quantity}} <br>
@@ -29,25 +44,34 @@
                 <a href="{% url 'records:meals' form.instance.id %}" class="btn btn-primary btn-sm">{% trans "Add meals" %}</a>&nbsp;
                 <a href="{% url 'records:photo' form.instance.id %}" class="btn btn-primary btn-sm">{% trans "Photo" %}</a>                
                 {% endif %}
-                <br><br>
-            </div>
-            <div class="col-sm-6">
-                <b>{% trans "Notes" %}</b><br>
+            </td>                        
+        </tr>
+    </table>
+    <table class="table">
+        <tr>
+            <th width="50%">{% trans "Notes" %}</th>
+            <th width="50%">{% trans "Photos" %}</th>
+        </tr>
+        <tr>
+            <td>
                 {{form.notes}}
-            </div>
-            <div class="col-sm-6">
+            </td>
+            <td>
                 {% if photos %}
-                <b>{% trans "Photos" %}</b><br>
                     {% for photo in photos %}
                     <a href="{% url 'records:photo_edit' form.instance.id photo.id %}"><img src="data:image/jpg;base64,{{ photo.data }}"></a>&nbsp;
                     {% endfor %}
                 {% endif %}
-            </div>                
-        </div>
-        <br>
-        <input type="submit" value='{% trans "Save" %}' class="btn btn-primary">
-        <input type="submit" value='{% trans "Cancel" %}' name="cancel" class="btn btn-basic"> 
-    </form>             
+            </td>
+        </tr>
+        <tr>
+            <td colspan=2>
+                <input type="submit" value='{% trans "Save" %}' class="btn btn-primary">
+                <input type="submit" value='{% trans "Cancel" %}' name="cancel" class="btn btn-basic">         
+            </td>
+        </tr>
+    </form> 
+    </table>            
 </div>        
 
 {% endblock %}

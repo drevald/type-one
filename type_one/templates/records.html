@@ -4,63 +4,73 @@
 {% load i18n %}
 {% load tz %}
 <div class="container">
-    <div class="row">
-        <div class="col-8">
+    <div class="row justify-content-between">
+        <div>
             <h1>{% trans "Records" %}</h1>      
         </div>
-        <div class="col-4">
+        <div>
             <a href="{% url 'records:create' 0 %}" class="btn btn-primary">{% trans "Add record" %}</a>
+            {% if request.user.show_rapid_insulin or request.user.show_long_insulin %}
             <a href="{% url 'records:create' 1 %}" class="btn btn-primary">{% trans "Add prolongated" %}</a>            
-        </div>
+            {% endif %}
+          </div>
     </div>
     <table class="table table-condensed">
         <thead>
             <tr>
                 <th class="small">{% trans "Time" %}</th>
-                <th class="small">{% trans "Insulin shot" %}</th>
-                <th class="small">{% trans "Glucose level" %}</th>
-                <th class="small">{% trans "Bread units" %}</th>
-                <th class="small">{% trans "Pictore" %}</th>
-                <th class="small">&nbsp;</th>                    
+                {%  if request.user.show_rapid_insulin or request.user.show_long_insulin %} 
+                  <th class="small">sss</th>
+                {% endif %}
+                {%  if request.user.show_sugar %} 
+                  <th class="small">{% trans "Glucose level" %}</th> 
+                {% endif %}
+                {%  if request.user.show_bread_unit %} 
+                  <th class="small">{% trans "Bread units" %}</th>
+                {% endif %}
+                {%  if request.user.show_calories %} 
+                  <th class="small">{% trans "Calories" %}</th>
+                {% endif %}
+                {%  if request.user.show_calories_today %} 
+                  <th class="small">{% trans "Calories today" %}</th>
+                {% endif %}
+                <th class="small">{% trans "Picture" %}</th>
+                <th class="small">{% trans "Notes" %}</th>                    
+                <th class="small">&nbsp;</th>    
             </tr>
         </thead>
         {% for record in records %}
-          {% if record.type == 0 %}
           <tr>
-            <!-- todo: replace hardcoded locale with client's -->
-            <td rowspan="2">{{ record.time | timezone:"Europe/Moscow" | date:'M d, H:i'}}</td>
-            <td>{{ record.insulin_amount }} {{record.insulin.name}}</td>
-            <td>{{ record.glucose_level }}</td>
-            <td>{{ record.bread_units }}</td>
-            <td rowspan="2">
+            <td>{{ record.time | timezone:"Europe/Moscow" | date:'M d, H:i'}}</td>
+            {%  if request.user.show_rapid_insulin or request.user.show_long_insulin %} 
+              <td>{{ record.insulin_amount }} {{record.insulin.name}}</td>
+            {% endif %}
+            {%  if request.user.show_sugar %} 
+              <td>{{ record.glucose_level }}</td>
+            {% endif %}
+            {%  if request.user.show_bread_units %} 
+              <td>{{ record.bread_units }}</td>
+            {% endif %}
+            {%  if request.user.show_calories %} 
+              <td>{{ record.calories }}</td>
+            {% endif %}
+            {%  if request.user.show_calories %} 
+              <td>{{ record.get_calories_today }}</td>
+            {% endif %}
+            <td>
               {% for photo in record.photos.all %}
               <img  width="100px" height="100px" src="data:image/jpg;base64,{{ photo.data }}">
               {% endfor %}
             </td>
-            <td rowspan="2">
-                <a class="btn btn-sm btn-danger" href="{% url 'records:delete' record.pk %}">{% trans "Delete" %}</a>&nbsp;&nbsp;
-                <a class="btn btn-sm btn-primary" href="{% url 'records:details' record.pk %}">{% trans "Details" %}</a>
+            <td class="text-wrap text-truncate" style="max-width: 150px;"><small>{{ record.notes }}</small></td>            
+            <td class="flex-nowrap" style="max-width: 150px;">
+                  <a class="btn btn-sm btn-danger" href="{% url 'records:delete' record.pk %}">{% trans "Delete" %}</a>&nbsp;&nbsp;
+                  <a class="btn btn-sm btn-primary" href="{% url 'records:details' record.pk %}">{% trans "Details" %}</a>
             </td>    
           </tr>        
-          <tr>
-            <td colspan=3 class="small">{{ record.notes }}&nbsp;</td>
-          </tr>
-          {% else %}
-          <tr>
-            <td rowspan="2">{{ record.time | timezone:"Europe/Moscow" | date:'M d, H:i'}}</td>
-            <td colspan=4>{{ record.insulin_amount }} {{record.insulin.name}}</td>
-            <td rowspan="2">
-              <a class="btn btn-sm btn-danger" href="{% url 'records:delete' record.pk %}">{% trans "Delete" %}</a>&nbsp;&nbsp;
-              <a class="btn btn-sm btn-primary" href="{% url 'records:details' record.pk %}">{% trans "Details" %}</a>
-            </td>                      
-          </tr>
-          <tr>
-            <td colspan=4 class="small">{{record.notes}}</td>
-          </tr>            
-          {% endif %}
         {% endfor %}
     </table>
-    <nav aria-label="Page navigation example">
+    <nav>
         {% if records.has_other_pages %}
         <ul class="pagination">
           {% if records.has_previous %}
