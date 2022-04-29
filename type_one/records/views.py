@@ -103,7 +103,7 @@ def store(request, record, type):
     meal_details_str = ','.join(meal_details) if meal_details else None
     
     #recalculating calories if meal present
-    calories = [meal.quantity * meal.ingredient_unit.grams_in_unit * meal.ingredient_unit.ingredient.calories_per_100g for meal in meals] if meals else None
+    calories = [meal.quantity * meal.ingredient_unit.grams_in_unit * meal.ingredient_unit.ingredient.energy_kKkal_per_100g for meal in meals] if meals else None
     record.calories = sum(calories)/100 if meals else record.calories
     record.calories = round(record.calories, 1)
 
@@ -111,10 +111,11 @@ def store(request, record, type):
     breads = [meal.quantity * meal.ingredient_unit.grams_in_unit * meal.ingredient_unit.ingredient.bread_units_per_100g for meal in meals] if meals else None
     record.bread_units = sum(breads)/100 if meals else record.bread_units 
     record.bread_units = round(record.bread_units, 1)    
-    
+
     form = RecordForm(request.POST or None, instance=record) if record.type == 0 else LongForm(request.POST or None, instance=record)        
     if form.is_valid():
-        form.instance.bread_units = round(form.cleaned_data['bread_units'], 1) if record.type == 0 else 0
+        form.instance.calories = 0 if form.cleaned_data['calories'] is None else (round(form.cleaned_data['calories'], 1) if record.type == 0 else 0)
+        form.instance.bread_units = 0 if form.cleaned_data['bread_units'] is None else (round(form.cleaned_data['bread_units'], 1) if record.type == 0 else 0)
         form.instance.insulin = request.user.rapid_acting_insulin if type==0 else request.user.long_acting_insulin
         form.instance.glucose_level_unit = request.user.glucose_level_unit
         form.save()

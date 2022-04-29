@@ -21,5 +21,6 @@ class User(AbstractUser):
     show_sugar = models.BooleanField(default = True)
     show_calories = models.BooleanField(default = False)
     show_bread_units = models.BooleanField(default = False)
+    show_calories_today = models.BooleanField(default = False)
     def show_insulin(self):
         return self.show_long_insulin or self.show_rapid_insulin

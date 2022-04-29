@@ -4,17 +4,6 @@
 {% load i18n %}
 {% load tz %}
 <div class="container">
-  <!-- <div class="col-8 d-flex justify-content-center">
-    <div>
-      <h1>{% trans "Records" %}</h1>      
-    </div>
-    <div>
-      <a href="{% url 'records:create' 0 %}" class="btn btn-primary">{% trans "Add record" %}</a>
-      {% if request.user.show_rapid_insulin or request.user.show_long_insulin %}
-      <a href="{% url 'records:create' 1 %}" class="btn btn-primary">{% trans "Add prolongated" %}</a>            
-      {% endif %}
-    </div>
-  </div> -->
     <div class="row justify-content-between">
         <div>
             <h1>{% trans "Records" %}</h1>      
@@ -30,12 +19,21 @@
         <thead>
             <tr>
                 <th class="small">{% trans "Time" %}</th>
-                <th class="small">sss</th>
+                {%  if request.user.show_rapid_insulin or request.user.show_long_insulin %} 
+                  <th class="small">sss</th>
+                {% endif %}
                 {%  if request.user.show_sugar %} 
                   <th class="small">{% trans "Glucose level" %}</th> 
                 {% endif %}
-                <th class="small">{% trans "Bread units" %}</th>
-                <th class="small">{% trans "Calories" %}</th>
+                {%  if request.user.show_bread_unit %} 
+                  <th class="small">{% trans "Bread units" %}</th>
+                {% endif %}
+                {%  if request.user.show_calories %} 
+                  <th class="small">{% trans "Calories" %}</th>
+                {% endif %}
+                {%  if request.user.show_calories_today %} 
+                  <th class="small">{% trans "Calories today" %}</th>
+                {% endif %}
                 <th class="small">{% trans "Picture" %}</th>
                 <th class="small">{% trans "Notes" %}</th>                    
                 <th class="small">&nbsp;</th>    
@@ -44,12 +42,21 @@
         {% for record in records %}
           <tr>
             <td>{{ record.time | timezone:"Europe/Moscow" | date:'M d, H:i'}}</td>
-            <td>{{ record.insulin_amount }} {{record.insulin.name}}</td>
+            {%  if request.user.show_rapid_insulin or request.user.show_long_insulin %} 
+              <td>{{ record.insulin_amount }} {{record.insulin.name}}</td>
+            {% endif %}
             {%  if request.user.show_sugar %} 
               <td>{{ record.glucose_level }}</td>
             {% endif %}
-            <td>{{ record.bread_units }}</td>
-            <td>{{ record.get_calories }}</td>
+            {%  if request.user.show_bread_units %} 
+              <td>{{ record.bread_units }}</td>
+            {% endif %}
+            {%  if request.user.show_calories %} 
+              <td>{{ record.calories }}</td>
+            {% endif %}
+            {%  if request.user.show_calories %} 
+              <td>{{ record.get_calories_today }}</td>
+            {% endif %}
             <td>
               {% for photo in record.photos.all %}
               <img  width="100px" height="100px" src="data:image/jpg;base64,{{ photo.data }}">

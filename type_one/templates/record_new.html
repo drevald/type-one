@@ -4,7 +4,7 @@
 
 <div class="container">
     <table class="table">
-    <form action="" method="post">
+    <form method="post">
         {% csrf_token %}                
         <tr>
             {% if request.user.show_rapid_insulin or request.user.show_long_insulin %}
@@ -13,7 +13,9 @@
             {% if request.user.show_sugar %}
                 <th>{% trans "Glucose level" %}, {{request.user.glucose_level_unit.name}}</th>
             {% endif %}
-            <th>{% trans "Bread units" %}</th>
+            {% if request.user.show_bread_units %}
+                <th>{% trans "Bread units" %}</th>
+            {% endif %}
             {% if request.user.show_calories %}
                 <th>{% trans "Calories" %}, kkal</th>
             {% endif %}            
@@ -26,9 +28,11 @@
             {% if request.user.show_sugar %}
                 <td>{{form.glucose_level}}</td>            
             {% endif %}
-            <td>{{form.bread_units}}</td>
+            {% if request.user.show_bread_units %}
+                <td>{{form.bread_units}}</td>
+            {% endif %}
             {% if request.user.show_calories %}
-                <td>:)</td>
+                <td>{{form.calories}}</td>
             {% endif %}
             <td>
                 {% if meals %}
