@@ -15,7 +15,8 @@ from . import forms
 
 @login_required
 def all(request):
-    ls = list(models.Ingredient.objects.filter(Q(user=request.user)|Q(user__isnull=True)))
+    #ls = list(models.Ingredient.objects.filter(Q(user=request.user)|Q(user__isnull=True)))
+    ls = list(models.Ingredient.objects.all())
     template = "ingredients.html"
     ls.sort(key=lambda x: _(x.name))
 
@@ -62,7 +63,8 @@ def details(request, pk):
 
 @login_required
 def delete(request, pk):
-    ingredient = models.Ingredient.objects.get(id=pk, user=request.user)
+    #ingredient = models.Ingredient.objects.get(id=pk, user=request.user)
+    ingredient = models.Ingredient.objects.get(id=pk)
     ingredient.delete()
     return HttpResponseRedirect(reverse('ingredients:list'))
 
@@ -84,7 +86,8 @@ def unit_add(request, pk):
 
 @login_required
 def ingredient_unit_details(request, pk, unit_id):
-    unit = models.IngredientUnit.objects.get(id=unit_id, user=request.user)
+    #unit = models.IngredientUnit.objects.get(id=unit_id, user=request.user)
+    unit = models.IngredientUnit.objects.get(id=unit_id)
     form = forms.IngredientUnitForm(request.POST or None)
     form.fields["name"]="aaa"
     print(str(unit))
@@ -97,13 +100,15 @@ def ingredient_unit_details(request, pk, unit_id):
 
 @login_required
 def ingredient_unit_delete(request, pk, unit_id):
-    unit = models.IngredientUnit.objects.get(id=unit_id, user=request.user)
+    #unit = models.IngredientUnit.objects.get(id=unit_id, user=request.user)
+    unit = models.IngredientUnit.objects.get(id=unit_id)
     unit.delete()
     return HttpResponseRedirect(reverse('ingredients:details', kwargs={'pk':pk}))
 
 @login_required
 def units(request):
-    units = models.WeightUnit.objects.filter(user=request.user)
+    # units = models.WeightUnit.objects.filter(user=request.user)
+    units = models.WeightUnit.objects.all()
     template = "units.html"
     context = {"units":units}
     return render(request, template, context)
