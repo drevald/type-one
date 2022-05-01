@@ -105,12 +105,12 @@ def store(request, record, type):
     #recalculating calories if meal present
     calories = [meal.quantity * meal.ingredient_unit.grams_in_unit * meal.ingredient_unit.ingredient.energy_kKkal_per_100g for meal in meals] if meals else None
     record.calories = sum(calories)/100 if meals else record.calories
-    record.calories = round(record.calories, 1)
+    record.calories = round(record.calories)
 
     #recalculating bread units if meal present
     breads = [meal.quantity * meal.ingredient_unit.grams_in_unit * meal.ingredient_unit.ingredient.bread_units_per_100g for meal in meals] if meals else None
     record.bread_units = sum(breads)/100 if meals else record.bread_units 
-    record.bread_units = round(record.bread_units, 1)    
+    record.bread_units = round(record.bread_units)    
 
     form = RecordForm(request.POST or None, instance=record) if record.type == 0 else LongForm(request.POST or None, instance=record)        
     if form.is_valid():
