@@ -27,7 +27,7 @@
                       {{ record.description }}
                    </td>
                     <td>
-                      <a href="{% url 'ingredients:fetch_select' record.fdcId %}">{% trans "Select" %}</a>
+                      <a href="{% url 'ingredients:fetch_select' record.id record.type%}">{% trans "Select" %}</a>
                     </td>
                 </tr>
                 {% endfor %}

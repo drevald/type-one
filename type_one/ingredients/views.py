@@ -11,7 +11,7 @@ import requests
 import json
 from . import models
 from . import forms
-
+from bs4 import BeautifulSoup
 
 @login_required
 def all(request):
@@ -146,35 +146,35 @@ def unit_delete(request, unit_id):
 @login_required
 def fetch(request):
     string = request.POST.get('name')
-    url = 'https://api.nal.usda.gov/fdc/v1/foods/search?query=' + str(string) + '&api_key=IfJaYBICN1pUVdbsf7u9u1LaKYrYBKS5mqCqFCz7&dataType=SR%20Legacy'
-    # 168191
-    r = requests.get(url, params=request.GET)
-    if r.status_code == 200:
-        data = json.loads(r.text)
-        records = data["foods"]
-        context = {"string":string,"records":records}
-        return render(request, "fetch.html", context)    
-    context = {"string":string}
+    r = requests.get("https://calorizator.ru/search/node/" + str(string))
+    html_doc = r.text
+    soup = BeautifulSoup (html_doc, 'html.parser')
+    records = []
+    for p in list(soup.find_all('dt')):
+        if 'product' not in str(p.a['href']) and 'recept' not in str(p.a['href']):
+            continue
+        if not (p.a['href'].split('/')[-1]).isdigit():
+            continue
+        records.append({'description':p.a.string,'id':p.a['href'].split('/')[-1],'type':p.a['href'].split('/')[-2]})
+    context = {"string":string,"records":records}
     return render(request, "fetch.html", context)
 
 @login_required
-def fetch_select(request, id):
-    url = 'https://api.nal.usda.gov/fdc/v1/food/' + str(id) + '?api_key=IfJaYBICN1pUVdbsf7u9u1LaKYrYBKS5mqCqFCz7'
-    r = requests.get(url, params=request.GET)
-    data = json.loads(r.text)
-    records = data["foodNutrients"]
+def fetch_select(request, id, type):
+    url = 'https://calorizator.ru/' + str(type) + '/' + str(id)
+    r = requests.get(url, params=request.GET)    
+    html_doc = r.text
+    soup = BeautifulSoup (html_doc, 'html.parser')
+
     ingredient = models.Ingredient(user=request.user)
-    ingredient.name = data['description']
-    for record in records:
-        if record['nutrient']['id'] == 1008: # 1008 Energy 
-            ingredient.energy_kKkal_per_100g = int(record['amount'])
-        if record['nutrient']['id'] == 1003: # 1003 Protein
-            ingredient.protein_per_100g = int(record['amount'])
-        if record['nutrient']['id'] == 1004: # 1004 Total lipid (fat)
-            ingredient.fat_per_100g = int(record['amount'])
-        if record['nutrient']['id'] == 1005: # 1005 Carbohydrate, by difference
-            ingredient.carbohydrate_per_100g = int(record['amount'])
-            ingredient.bread_units_per_100g = round(record['amount']/12, 1)
+    ingredient.name = soup.findAll("span", {"itemprop" : "name"})[0].text
+    ingredient.energy_kKkal_per_100g = int(float(soup.findAll("span", {"itemprop" : "calories"})[0].text.split(" ")[0].replace(',','.')))
+    ingredient.protein_per_100g = int(float(soup.findAll("span", {"itemprop" : "proteinContent"})[0].text.split(" ")[0].replace(',','.')))
+    ingredient.fat_per_100g = int(float(soup.findAll("span", {"itemprop" : "fatContent"})[0].text.split(" ")[0].replace(',','.')))
+    ingredient.carbohydrate_per_100g = int(float(soup.findAll("span", {"itemprop" : "carbohydrateContent"})[0].text.split(" ")[0].replace(',','.')))
+    ingredient.bread_units_per_100g = round(ingredient.carbohydrate_per_100g/12, 1)
+    ingredient.glycemic_index = 50
+
     form = forms.IngredientForm(request.POST or None, instance = ingredient)
     print(form)
     if form.is_valid():
