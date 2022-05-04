@@ -53,3 +53,7 @@ insert into ingredients_ingredientunit values (DEFAULT, 1, 20, 0);
 insert into ingredients_ingredientunit values (DEFAULT, 1.04, 1, 1); -- 1.04 grams in 1 ml of milk
 insert into ingredients_ingredientunit values (DEFAULT, 35, 2, 2);   -- slice of ray bread is 35g
 insert into ingredients_ingredientunit values (DEFAULT, 25, 3, 2);   -- slice of wheat bread is 25g
+
+
+insert into ingredients_source values (DEFAULT, 'National Agricultural Library', 'https://api.nal.usda.gov/fdc/v1/foods/search?query={0}&api_key=IfJaYBICN1pUVdbsf7u9u1LaKYrYBKS5mqCqFCz7&dataType=SR%20Legacy', 'https://api.nal.usda.gov/fdc/v1/food/{0}?api_key=IfJaYBICN1pUVdbsf7u9u1LaKYrYBKS5mqCqFCz7)');
+insert into ingredients_source values (DEFAULT, 'Calorizator', 'https://calorizator.ru/search/node/{0}', 'https://calorizator.ru/{0}/{1}');

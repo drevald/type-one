@@ -7,34 +7,45 @@
         <h1>{% trans "Ingredient" %}</h1>            
     </div>
     <form action="" method="post">
-        {% csrf_token %}             
-        <div class="form-group row">
-          <label for="input" class="col-sm-1 col-form-label">{% trans "Name" %}</label>
-          <div class="col-sm"><input type="text" name="name" value="{{string}}" class="form-control input-sm" required id="id_name"></div>
-          <input type="submit" value='{% trans "Search" %}' class="btn btn-primary">
-          <a href="{% url 'ingredients:list' %}" class="btn">{% trans "Cancel" %}</a>
-        </div>   
-    </form>           
-        {% if records %}
-        <div class="form-group row">
-          <label for="input" class="col-sm-1 col-form-label">{% trans "Results" %}</label>
-          <div class="col-sm">
-          <table class="table table-striped">
-              <tbody>
-                {% for record in records %} 
-                <tr>
-                    <td>             
-                      {{ record.description }}
-                   </td>
-                    <td>
-                      <a href="{% url 'ingredients:fetch_select' record.fdcId %}">{% trans "Select" %}</a>
-                    </td>
-                </tr>
-                {% endfor %}
-            </tbody>
-          </table>
+      {% csrf_token %}             
+      <div class="form-group row">
+        <label for="input" class="col-sm-1 col-form-label">{% trans "Name" %}</label>
+        <div class="col-sm"><input type="text" name="name" value="{{string}}" class="form-control input-sm" required id="id_name"></div>
+        <input type="submit" value='{% trans "Search" %}' class="btn btn-primary">
+        <a href="{% url 'ingredients:list' %}" class="btn">{% trans "Cancel" %}</a>
+      </div>   
+      <div class="form-group row">
+        <label for="input" class="col-sm-1 col-form-label"></label>
+        <div class="col-sm">
+          {% for source in sources %}
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="radio" name="source" id="{{ source.id }}" value="{{ source.id }}" selected>
+            <label class="form-check-label" for="inlineRadio1">{{ source.name }}</label>
           </div>
-        </div>    
-        {% endif %}  
+          {% endfor %}
+        </div>
+      </div>
+    </form>           
+    {% if records %}
+    <div class="form-group row">
+      <label for="input" class="col-sm-1 col-form-label">{% trans "Results" %}</label>
+      <div class="col-sm">
+      <table class="table table-striped">
+          <tbody>
+            {% for record in records %} 
+            <tr>
+                <td>             
+                  {{ record.description }}
+                </td>
+                <td>
+                  <a href="{% url 'ingredients:fetch_select' record.fdcId %}">{% trans "Select" %}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+      </table>
+      </div>
+    </div>    
+    {% endif %}  
 </div>
 {% endblock %}

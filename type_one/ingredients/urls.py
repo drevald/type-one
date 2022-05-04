@@ -10,6 +10,7 @@ urlpatterns = [
     path('create/', views.create, name='create'),
     path('fetch/', views.fetch, name='fetch'),
     path('fetch/<int:id>/select', views.fetch_select, name='fetch_select'),
+    path('fetch_cal/<int:id>/select', views.fetch_cal_select, name='fetch_cal_select'),
     path('<int:pk>/', views.details, name='details'),
     path('<int:pk>/delete/', views.delete, name='delete'),
     path('<int:pk>/units/add', views.unit_add, name='unit_add'),

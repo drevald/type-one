@@ -11,7 +11,7 @@ import requests
 import json
 from . import models
 from . import forms
-
+from bs4 import BeautifulSoup
 
 @login_required
 def all(request):
@@ -144,18 +144,15 @@ def unit_delete(request, unit_id):
     return HttpResponseRedirect(reverse('ingredients:units'))
 
 @login_required
-def fetch(request):
-    string = request.POST.get('name')
-    url = 'https://api.nal.usda.gov/fdc/v1/foods/search?query=' + str(string) + '&api_key=IfJaYBICN1pUVdbsf7u9u1LaKYrYBKS5mqCqFCz7&dataType=SR%20Legacy'
-    # 168191
-    r = requests.get(url, params=request.GET)
-    if r.status_code == 200:
-        data = json.loads(r.text)
-        records = data["foods"]
-        context = {"string":string,"records":records}
-        return render(request, "fetch.html", context)    
-    context = {"string":string}
-    return render(request, "fetch.html", context)
+def fetch_store(request, record):
+    form = forms.IngredientForm(request.POST or None, instance = ingredient)
+    print(form)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('ingredients:list'))
+    context = {"form":form}
+    template = "ingredient.html"
+    return render(request, template, context)
 
 @login_required
 def fetch_select(request, id):
@@ -175,14 +172,69 @@ def fetch_select(request, id):
         if record['nutrient']['id'] == 1005: # 1005 Carbohydrate, by difference
             ingredient.carbohydrate_per_100g = int(record['amount'])
             ingredient.bread_units_per_100g = round(record['amount']/12, 1)
-    form = forms.IngredientForm(request.POST or None, instance = ingredient)
-    print(form)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect(reverse('ingredients:list'))
-    context = {"form":form}
-    template = "ingredient.html"
-    return render(request, template, context)
+    fetch_store(request, record)
+
+@login_required
+def fetch_cal_select(request, id):
+    url = 'https://api.nal.usda.gov/fdc/v1/food/' + str(id) + '?api_key=IfJaYBICN1pUVdbsf7u9u1LaKYrYBKS5mqCqFCz7'
+    r = requests.get(url, params=request.GET)
+    data = json.loads(r.text)
+    records = data["foodNutrients"]
+    ingredient = models.Ingredient(user=request.user)
+    ingredient.name = data['description']
+    for record in records:
+        if record['nutrient']['id'] == 1008: # 1008 Energy 
+            ingredient.energy_kKkal_per_100g = int(record['amount'])
+        if record['nutrient']['id'] == 1003: # 1003 Protein
+            ingredient.protein_per_100g = int(record['amount'])
+        if record['nutrient']['id'] == 1004: # 1004 Total lipid (fat)
+            ingredient.fat_per_100g = int(record['amount'])
+        if record['nutrient']['id'] == 1005: # 1005 Carbohydrate, by difference
+            ingredient.carbohydrate_per_100g = int(record['amount'])
+            ingredient.bread_units_per_100g = round(record['amount']/12, 1)
+    fetch_store(request, record)
+
+
+@login_required
+def fetch(request):
+    sources = models.Source.objects.all()
+    string = request.POST.get('name')
+    source = request.POST.get('source')  
+    context = {"sources":sources, "string":string}
+    if (source == 'nal'):
+        url = 'https://api.nal.usda.gov/fdc/v1/foods/search?query=' + str(string) + '&api_key=IfJaYBICN1pUVdbsf7u9u1LaKYrYBKS5mqCqFCz7&dataType=SR%20Legacy'
+        r = requests.get(url, params=request.GET)
+        if r.status_code == 200:
+            data = json.loads(r.text)
+            records = data["foods"]
+            context = {"string":string,"records":records}
+            return render(request, "fetch.html", context)    
+    if (source == 'cal'):
+        r = requests.get("https://calorizator.ru/search/node/" + str(string))
+        html_doc = r.text
+        soup = BeautifulSoup (html_doc, 'html.parser')
+        records = []
+        for p in list(soup.find_all('dt')):
+            #records.append({'description':p.a.string,'fdcId':p.a['href']})
+            if 'product' not in str(p.a['href']) and 'recipes' not in str(p.a['href']):
+                continue
+            records.append({'description':p.a.string,'fdcId':p.a['href'].split('/')[-1]})
+        context = {"string":string,"records":records}
+        return render(request, "fetch.html", context)  
+    return render(request, "fetch.html", context)
+
+@login_required
+def fetch_calorizator(request):
+    string = request.POST.get('name')
+    url = 'https://calorizator.ru/search/node/' + str(string)
+    r = requests.get(url, params=request.GET)
+    if r.status_code == 200:
+        data = json.loads(r.text)
+        records = data["foods"]
+        context = {"string":string,"records":records}
+        return render(request, "fetch.html", context)    
+    context = {"string":string}
+    return render(request, "fetch_calorizator.html", context)
 
 @login_required
 def cook(request):

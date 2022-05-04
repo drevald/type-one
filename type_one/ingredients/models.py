@@ -34,3 +34,8 @@ class IngredientHint(models.Model):
     grams_in_hint = models.IntegerField(null = False)
     data = models.TextField(null = False)
     thumb = models.TextField(null = False)
+
+class Source(models.Model):
+    name = models.CharField(max_length = 32, null = False)
+    search_pattern = models.CharField(max_length = 128, null = False)
+    select_pattern = models.CharField(max_length = 128, null = False)
