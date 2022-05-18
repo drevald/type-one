@@ -41,13 +41,14 @@ class RecordsList(generics.ListCreateAPIView):
         serializer.save(
             user=user, 
             insulin=insulin, 
-            glucose_level_unit=user.glucose_level_unit,
-            show_rapid_insulin=user.show_rapid_insulin,   
-            show_long_insulin=user.show_long_insulin,
-            show_sugar=user.show_sugar,
-            show_calories=user.show_calories,
-            show_calories_today=user.show_calories_today,
-            show_bread_units=user.show_bread_units)
+            glucose_level_unit=user.glucose_level_unit
+            # show_rapid_insulin=user.show_rapid_insulin,   
+            # show_long_insulin=user.show_long_insulin,
+            # show_sugar=user.show_sugar,
+            # show_calories=user.show_calories,
+            # show_calories_today=user.show_calories_today,
+            # show_bread_units=user.show_bread_units
+            )
 
 class PhotoRetrieveUpdateDestroy(generics.RetrieveUpdateDestroyAPIView):
     queryset = Photo.objects.all()

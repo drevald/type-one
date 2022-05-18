@@ -101,13 +101,13 @@ class RecordFullSerializer(serializers.Serializer):
     notes = serializers.CharField(required=False, allow_blank=True)
     glucose_level_unit = GlucoseUnitSerializer(required=False)
     photos = PhotoFullSerializer(many=True, read_only=True)
-    calculated_bread_units = serializers.SerializerMethodField()
-    show_long_insulin = serializers.BooleanField(default = True)
-    show_rapid_insulin = serializers.BooleanField(default = True)
-    show_sugar = serializers.BooleanField(default = True)
-    show_calories = serializers.BooleanField(default = False)
-    show_calories_today = serializers.BooleanField(default = False)
-    show_bread_units = serializers.BooleanField(default = False)
+    # calculated_bread_units = serializers.SerializerMethodField()
+    # show_long_insulin = serializers.BooleanField(default = True)
+    # show_rapid_insulin = serializers.BooleanField(default = True)
+    # show_sugar = serializers.BooleanField(default = True)
+    # show_calories = serializers.BooleanField(default = False)
+    # show_calories_today = serializers.BooleanField(default = False)
+    # show_bread_units = serializers.BooleanField(default = False)
 
     def get_calculated_bread_units(self, obj):
         result = 0
@@ -140,11 +140,11 @@ class RecordListSerializer(serializers.Serializer):
     glucose_level_unit = GlucoseUnitSerializer(required=False, allow_null=True)
     photos = PhotoSerializer(many=True, read_only=True)
     type = serializers.IntegerField(required=True)
-    show_long_insulin = serializers.BooleanField(default = True)
-    show_rapid_insulin = serializers.BooleanField(default = True)
-    show_sugar = serializers.BooleanField(default = True)
-    show_calories = serializers.BooleanField(default = False)
-    show_bread_units = serializers.BooleanField(default = False)
+    # show_long_insulin = serializers.BooleanField(default = True)
+    # show_rapid_insulin = serializers.BooleanField(default = True)
+    # show_sugar = serializers.BooleanField(default = True)
+    # show_calories = serializers.BooleanField(default = False)
+    # show_bread_units = serializers.BooleanField(default = False)
 
     def create(self, validated_data):      
         return Record.objects.create(**validated_data)

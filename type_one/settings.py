@@ -92,6 +92,7 @@ ALLOWED_HOSTS = [
     'type-one.herokuapp.com',
     '192.168.113.101',
     '192.168.0.189',
+    '192.168.0.148',
 ]
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'

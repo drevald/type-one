@@ -11,15 +11,19 @@
           <label for="input" class="col-sm-3 col-form-label">{% trans "Name" %}</label>
           <div class="col-sm-5">{{form.name}}</div>
         </div>
-        <div class="form-group row">
+        <!-- <div class="form-group row">
             <label for="input" class="col-sm-3 col-form-label">{% trans "Bread units per 100g" %}</label>
             <div class="col-sm-5">{{form.bread_units_per_100g}}
             </div>
-          </div>
+          </div> -->
           <div class="form-group row">
             <label for="input" class="col-sm-3 col-form-label">{% trans "Glycemic index" %}</label>
             <div class="col-sm-5" hint="35-70">{{form.glycemic_index}}</div>
           </div>
+          <div class="form-group row">
+            <label for="input" class="col-sm-3 col-form-label">{% trans "Protein per 100g" %}</label>
+            <div class="col-sm-5">{{form.protein_per_100g}}</div>
+          </div>           
           <div class="form-group row">
             <label for="input" class="col-sm-3 col-form-label">{% trans "Fat per 100g" %}</label>
             <div class="col-sm-5">{{form.fat_per_100g}}</div>
@@ -27,11 +31,7 @@
           <div class="form-group row">
             <label for="input" class="col-sm-3 col-form-label">{% trans "Carbohydrate per 100g" %}</label>
             <div class="col-sm-5">{{form.carbohydrate_per_100g}}</div>
-          </div>
-          <div class="form-group row">
-            <label for="input" class="col-sm-3 col-form-label">{% trans "Protein per 100g" %}</label>
-            <div class="col-sm-5">{{form.protein_per_100g}}</div>
-          </div>     
+          </div>   
           <div class="form-group row">
             <label for="input" class="col-sm-3 col-form-label">{% trans "Enegery ckal per 100g" %}</label>
             <div class="col-sm-5">{{form.energy_kKkal_per_100g}}</div>

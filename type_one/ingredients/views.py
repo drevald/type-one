@@ -178,7 +178,11 @@ def fetch_select(request, id, type):
     form = forms.IngredientForm(request.POST or None, instance = ingredient)
     print(form)
     if form.is_valid():
-        form.save()
+        ingredient = form.instance
+        ingredient.save()
+        gram_weight_unit = models.WeightUnit.objects.get(id=0)
+        ingredient_weight_unit = models.IngredientUnit(unit=gram_weight_unit, ingredient=ingredient, user=request.user, grams_in_unit=1)
+        ingredient_weight_unit.save()
         return HttpResponseRedirect(reverse('ingredients:list'))
     context = {"form":form}
     template = "ingredient.html"
@@ -204,6 +208,10 @@ def cook(request):
         ingredient.energy_kKkal_per_100g = sum([x*y*z for (x, y, z) in zip(amounts, unit_weights, [i.energy_kKkal_per_100g for i in ingrs])])/total
         ingredient.glycemic_index = sum([x*y*z for (x, y, z) in zip(amounts, unit_weights, [i.glycemic_index for i in ingrs])])/total
         ingredient.save()
+
+        gram_weight_unit = models.WeightUnit.objects.get(id=0)
+        ingredient_weight_unit = models.IngredientUnit(unit=gram_weight_unit, ingredient=ingredient, user=request.user, grams_in_unit=1)
+        ingredient_weight_unit.save()
 
         request.session['cooked_ingredients'].clear()
         return HttpResponseRedirect(reverse('ingredients:list'))
