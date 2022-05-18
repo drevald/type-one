@@ -7,9 +7,9 @@ class Ingredient(models.Model):
     name = models.CharField(max_length = 255)
     bread_units_per_100g = models.FloatField()##
     glycemic_index = models.IntegerField(null=True, default=50)
-    fat_per_100g = models.IntegerField()
-    carbohydrate_per_100g = models.IntegerField()
-    protein_per_100g = models.IntegerField()
+    fat_per_100g = models.FloatField()
+    carbohydrate_per_100g = models.FloatField()
+    protein_per_100g = models.FloatField()
     energy_kKkal_per_100g = models.IntegerField()
     def __str__(self):
         return self.name

@@ -39,8 +39,12 @@ def create(request):
     ingredient = models.Ingredient(user=request.user)
     form = forms.IngredientForm(request.POST or None, instance=ingredient)
     if form.is_valid():
-        print(form.instance.id)
-        form.save()
+        ingredient = form.instance
+        ingredient.bread_units_per_100g = round(ingredient.carbohydrate_per_100g/12, 1)
+        ingredient.save()
+        gram_weight_unit = models.WeightUnit.objects.get(id=0)
+        ingredient_weight_unit = models.IngredientUnit(unit=gram_weight_unit, ingredient=ingredient, user=request.user, grams_in_unit=1)
+        ingredient_weight_unit.save()
         return HttpResponseRedirect(reverse('ingredients:list'))
     context = {"form":form}
     template = "ingredient.html"
