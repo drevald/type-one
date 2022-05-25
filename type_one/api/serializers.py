@@ -101,7 +101,7 @@ class RecordFullSerializer(serializers.Serializer):
     notes = serializers.CharField(required=False, allow_blank=True)
     glucose_level_unit = GlucoseUnitSerializer(required=False)
     photos = PhotoFullSerializer(many=True, read_only=True)
-    # calculated_bread_units = serializers.SerializerMethodField()
+    calculated_bread_units = serializers.SerializerMethodField()
     # show_long_insulin = serializers.BooleanField(default = True)
     # show_rapid_insulin = serializers.BooleanField(default = True)
     # show_sugar = serializers.BooleanField(default = True)
