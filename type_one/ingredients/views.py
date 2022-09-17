@@ -301,3 +301,22 @@ def ingredient_hint_details(request, pk, hint_id):
     context = {"form":form,"pk":pk,"hint_id":hint_id, "data":hint.data}
     template = "hint_edit.html"
     return render(request, template, context)   
+
+@login_required
+def types(request):
+    types = models.Type.objects.all()
+    template = "types.html"
+    context = {"types":types}
+    return render(request, template, context)
+
+@login_required
+def type_add():
+    pass
+
+@login_required
+def type_details():
+    pass
+
+@login_required
+def type_delete():
+    pass

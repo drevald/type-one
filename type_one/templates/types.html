@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load i18n %}
+<div class="container">
+    <div class="page-header">
+        <h1>{% trans "Types" %}</h1>
+    </div>
+    <table class="table table-condensed">
+        <thead>
+            <tr>
+                <th>{% trans "Type" %}</th>
+                <th>{% trans "Actions" %}</th>
+            </tr>
+        </thead>
+        {% for type in types %}
+        <tr>
+            <td>{{ type }}</td>
+            <td>
+                <a href="{% url 'ingredients:type_delete' type.id %}">{% trans "Delete" %}</a>
+                <a href="{% url 'ingredients:type_details' type.id %}">{% trans "Details" %}</a>
+            </td>    
+        </tr>
+        {% endfor %}
+    </table>
+    <a href="{% url 'ingredients:type_create' %}" class="btn btn-primary">{% trans "Add type" %}</a>
+</div>
+{% endblock %}
