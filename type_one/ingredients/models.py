@@ -37,6 +37,8 @@ class IngredientHint(models.Model):
 
 class Type(models.Model):
     name = models.TextField(null = False)
+    def __str__(self):
+        return self.name
 
 class IngredientType(models.Model):
     ingredient = models.ForeignKey(Ingredient, on_delete = models.CASCADE)

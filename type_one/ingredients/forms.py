@@ -26,6 +26,9 @@ class CookForm(forms.ModelForm):
 class WeightUnitForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-sm col-sm-4'}), label=_("Name"))
 
+class TypeForm(forms.Form):
+    name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-sm col-sm-4'}), label=_("Name"))
+
 class IngredientUnitForm(forms.Form):
     unit = forms.ChoiceField(widget=forms.Select())
     grams_in_unit = forms.FloatField(widget=forms.NumberInput())

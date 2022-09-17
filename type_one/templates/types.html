@@ -18,7 +18,7 @@
             <td>{{ type }}</td>
             <td>
                 <a href="{% url 'ingredients:type_delete' type.id %}">{% trans "Delete" %}</a>
-                <a href="{% url 'ingredients:type_details' type.id %}">{% trans "Details" %}</a>
+                <!-- <a href="{% url 'ingredients:type_details' type.id %}">{% trans "Details" %}</a> -->
             </td>    
         </tr>
         {% endfor %}

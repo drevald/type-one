@@ -310,13 +310,24 @@ def types(request):
     return render(request, template, context)
 
 @login_required
-def type_add():
-    pass
+def type_add(request):
+    form = forms.TypeForm(request.POST or None)
+    if form.is_valid():
+        type = models.Type(
+            name=form.data["name"]
+            )
+        type.save()
+        return HttpResponseRedirect(reverse('ingredients:types'))
+    return render(request, "type_add.html", {"form":form})    
 
 @login_required
-def type_details():
-    pass
+def type_details(request, type_id):
+    type = models.Type.objects.get(id=type_id)
+    return HttpResponseRedirect(reverse('ingredients:types'))
 
 @login_required
-def type_delete():
-    pass
+def type_delete(request, type_id):
+    type = models.Type.objects.get(id=type_id)
+    type.delete()
+    return HttpResponseRedirect(reverse('ingredients:types'))
+
