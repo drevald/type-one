@@ -323,7 +323,15 @@ def type_add(request):
 @login_required
 def type_details(request, type_id):
     type = models.Type.objects.get(id=type_id)
-    return HttpResponseRedirect(reverse('ingredients:types'))
+    if request.method == 'POST':
+        form = forms.TypeForm(request.POST or None)
+        if form.is_valid():
+            type.name = form.data['name']
+            type.save()
+            return HttpResponseRedirect(reverse('ingredients:types'))
+    else:
+        form = forms.TypeForm(initial={'name':type.name})    
+    return render(request, "type_edit.html", {"form":form})   
 
 @login_required
 def type_delete(request, type_id):
