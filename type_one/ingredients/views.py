@@ -57,11 +57,17 @@ def details(request, pk):
     ingredient = models.Ingredient.objects.get(id=pk)
     units = models.IngredientUnit.objects.filter(ingredient=ingredient)
     hints = models.IngredientHint.objects.filter(ingredient=ingredient)
+    types = models.Type.objects.all()
+    ingredientTypes = models.IngredientType.objects.filter(ingredient=ingredient)
     form = forms.IngredientForm(request.POST or None, instance=ingredient)
     if form.is_valid():
+        models.IngredientType.objects.filter(ingredient=ingredient).delete()
+        for type in form.cleaned_data['types']:
+            ingredientType=models.IngredientType(type=type, ingredient=ingredient)
+            ingredientType.save()
         form.save()
         return HttpResponseRedirect(reverse('ingredients:list'))
-    context = {"form":form,"units":units,"hints":hints,"pk":pk}
+    context = {"ingredientTypes":ingredientTypes,"types":types,"form":form,"units":units,"hints":hints,"pk":pk}
     template = "ingredient.html"
     return render(request, template, context)
 
