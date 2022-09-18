@@ -152,15 +152,26 @@ def meals_create(request, pk, type_id):
 
 @login_required
 def meals_details(request, pk, meal_id):   
-    if "cancel" in request.POST:
-        return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))        
-    meal = Meal.objects.get(id=meal_id,user=request.user)    
-    form = MealForm(request.POST or None, instance=meal)
-    if form.is_valid():
-        form.save()
-        return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))
-    template = 'meal_new.html'
-    return render(request, template, {'form':form})
+    # if "cancel" in request.POST:
+    #     return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))        
+    # meal = Meal.objects.get(id=meal_id,user=request.user)    
+    # form = MealForm(request.POST or None, instance=meal)
+    # if form.is_valid():
+    #     form.save()
+    #     return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))
+    # template = 'meal_new.html'
+    # return render(request, template, {'form':form})
+    meal = models.Meal.objects.get(id=meal_id)
+    if request.method == 'POST':
+        form = MealForm(request.POST or None)
+        if form.is_valid():
+            meal.number = form.data['number']
+            meal.ingredient_unit = form.data['ingredient_unit']
+            meal.save()
+            return HttpResponseRedirect(reverse('ingredients:types'))
+    else:
+        form = MealForm(initial={'meal':meal})    
+    return render(request, "meal_edit.html", {"form":form})  
 
 @login_required
 def meals_delete(request, pk, meal_id):  

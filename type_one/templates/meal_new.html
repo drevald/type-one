@@ -13,4 +13,9 @@
         <input type="submit" value='{% trans "Cancel" %}' name="cancel" class="btn btn-secondary"> 
     </form>                
 </div>
+<div>
+    {{ formset.errors }}<br>
+    {{ formset.non_field_errors }}<br>
+    {{ form.errors }}
+</div>
 {% endblock %}
