@@ -34,3 +34,12 @@ class IngredientHint(models.Model):
     grams_in_hint = models.IntegerField(null = False)
     data = models.TextField(null = False)
     thumb = models.TextField(null = False)
+
+class Type(models.Model):
+    name = models.TextField(null = False)
+    def __str__(self):
+        return self.name
+
+class IngredientType(models.Model):
+    ingredient = models.ForeignKey(Ingredient, on_delete = models.CASCADE)
+    type = models.ForeignKey(Type, on_delete=models.CASCADE)

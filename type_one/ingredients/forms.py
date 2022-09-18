@@ -26,6 +26,9 @@ class CookForm(forms.ModelForm):
 class WeightUnitForm(forms.Form):
     name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-sm col-sm-4'}), label=_("Name"))
 
+class TypeForm(forms.Form):
+    name = forms.CharField(widget=forms.TextInput(attrs={'class':'form-control input-sm col-sm-4'}), label=_("Name"))
+
 class IngredientUnitForm(forms.Form):
     unit = forms.ChoiceField(widget=forms.Select())
     grams_in_unit = forms.FloatField(widget=forms.NumberInput())
@@ -41,6 +44,17 @@ class IngredientForm(forms.ModelForm):
     carbohydrate_per_100g = forms.FloatField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}))
     protein_per_100g = forms.FloatField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}))
     energy_kKkal_per_100g = forms.IntegerField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}))
+
+    types = forms.ModelMultipleChoiceField(
+        queryset=models.Type.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=True)
+
+    def __init__(self, *args, **kwargs):
+        super(IngredientForm, self).__init__(*args, **kwargs)
+        selected = [q.type for q in models.IngredientType.objects.filter(ingredient=kwargs['instance'])]
+        self.fields['types'].initial = selected
+
     class Meta:
         model = models.Ingredient
         fields = [
@@ -49,7 +63,8 @@ class IngredientForm(forms.ModelForm):
             'fat_per_100g',
             'carbohydrate_per_100g',
             'protein_per_100g',
-            'energy_kKkal_per_100g'
+            'energy_kKkal_per_100g',
+            'types'
         ]
 
 class UploadHintForm(forms.Form):

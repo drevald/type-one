@@ -1,16 +1,23 @@
 from django.utils.translation import gettext
 from django.utils.translation import gettext as _
 from django import forms
+
+from type_one.ingredients.models import IngredientType
 from .models import Record, Meal, Ingredient, IngredientUnit, Photo
 
-def get_choices():
-    iunits = IngredientUnit.objects.all()
+def get_choices(type_id):
+    print(type_id)
+    if (type_id is None or type_id==0):
+        iunits = IngredientUnit.objects.all()
+    else:
+        ingredients = IngredientType.objects.filter(type=type_id)
+        iunits = IngredientUnit.objects.filter(ingredient__id__in = ingredients.values('ingredient')) 
     return [(iunit.id, _(iunit.ingredient.name)+', '+_(iunit.unit.name)) for iunit in iunits]
 
 class MealForm (forms.Form):                  
     def __init__(self, *args, **kwargs):
         super(MealForm, self).__init__(*args, **kwargs)
-        self.fields['ingredient_unit'] = forms.ChoiceField(choices=get_choices(), widget=forms.Select(attrs={'class': 'form-control input-sm-3'}), label=_("Ingredient"))   
+        self.fields['ingredient_unit'] = forms.ChoiceField(choices=get_choices(kwargs['initial']['type_id']), widget=forms.Select(attrs={'class': 'form-control input-sm-3'}), label=_("Ingredient"))   
         self.fields['quantity'] = forms.FloatField(widget=forms.NumberInput(attrs={'class':'form-control input-sm-3'}), initial=1, label=_("Quantity"))
 
 class LongForm (forms.ModelForm):

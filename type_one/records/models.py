@@ -17,8 +17,8 @@ class Record(models.Model):
     notes = models.CharField(max_length = 256, null = True, blank=True)
     calories = models.IntegerField(default=0, null=True, blank=True)
     def get_calories_today(self):
-        today = datetime.today()
-        records = list(Record.objects.filter(time__year=today.year, time__month=today.month, time__day=today.day))
+        # today = datetime.today()
+        records = list(Record.objects.filter(time__year=self.time.year, time__month=self.time.month, time__day=self.time.day))
         return sum(record.calories for record in records)
 
 class Meal(models.Model):
