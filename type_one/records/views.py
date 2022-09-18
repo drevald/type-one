@@ -7,8 +7,8 @@ from django.urls import reverse
 from django.forms import ChoiceField
 from datetime import datetime
 from ..core.models import User, GlucoseUnit, Insulin
-from ..ingredients.models import Ingredient, IngredientUnit
-from .models import Record, Meal
+from ..ingredients.models import Ingredient, IngredientUnit, Type
+from .models import Record, Meal 
 from .forms import MealForm, RecordForm, LongForm, UploadFileForm, Photo
 from PIL import Image, ImageFilter
 from django.views.generic.edit import DeleteView
@@ -127,16 +127,17 @@ def store(request, record, type):
 @login_required
 def meals(request, pk):
     meals = Meal.objects.filter(record=Record.objects.get(id=pk),user=request.user)
+    types = Type.objects.all()
     template = 'meals.html'
-    context = {'meals' : meals, 'pk' : pk}
+    context = {'types':types, 'meals' : meals, 'pk' : pk}
     return render(request, template, context)
 
 @login_required
-def meals_create(request, pk):    
+def meals_create(request, pk, type_id):    
+    print(type_id)
     if "cancel" in request.POST:
         return HttpResponseRedirect(reverse('records:meals', kwargs={'pk':pk}))        
-    # meal = Meal(record=Record.objects.get(id=pk), ingredient_unit=IngredientUnit.objects.first(),user=request.user)
-    form = MealForm(request.POST or None)
+    form = MealForm(request.POST or None, initial={'type_id':type_id})
     if form.is_valid():
         quantity = form.data["quantity"]
         ingredient_unit_id = form.data["ingredient_unit"]

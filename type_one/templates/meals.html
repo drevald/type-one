@@ -23,16 +23,13 @@
         </tr>
         {% endfor %}
     </table>
-    <a href="{% url 'records:meals_create' pk %}" class="btn btn-primary">{% trans "Add meals" %}</a>
     <a href="{% url 'records:recent' pk %}" class="btn btn-primary">{% trans "Import recent" %}</a>    
-    <a href="{% url 'records:details' pk %}" class="btn btn-primary">{% trans "Done" %}</a>
-    <br><br><br>
-    <h2>{% trans "Add from category" %}</h2>
-    <ul>
-        <li>One</li>
-        <li>Two</li>
-        <li>Three</li>
-        <li>Four</li>
-    </ul>
-</div>
+    <a href="{% url 'records:meals_create' pk 0 %}" class="btn btn-primary">{% trans "All categories" %}</a>
+    {% for type in types %}
+    <a href="{% url 'records:meals_create' pk type.id %}" class="btn btn-primary">{{type.name}}</a>
+    {% endfor %}
+    <br><br>
+        <a href="{% url 'records:details' pk %}" class="btn btn-primary">{% trans "Done" %}</a>
+
+    </div>
 {% endblock %}
