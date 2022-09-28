@@ -17,9 +17,12 @@ from bs4 import BeautifulSoup
 def all(request):
     #ls = list(models.Ingredient.objects.filter(Q(user=request.user)|Q(user__isnull=True)))
     ls = list(models.Ingredient.objects.all())
+
+    letters = list(dict.fromkeys([q.name[:1] for q in models.Ingredient.objects.all()]))
+    letters.sort()
+
     template = "ingredients.html"
     ls.sort(key=lambda x: _(x.name))
-
     page = request.GET.get('page', 1)
     paginator = Paginator(ls, 10)
     try:
@@ -29,7 +32,16 @@ def all(request):
     except EmptyPage:
         ingrs = paginator.page(paginator.num_pages)    
     
-    context = {'list':ingrs}
+    context = {'list':ingrs,'letters':letters}
+    return render(request, template, context)
+
+@login_required
+def letter(request, ch):
+    ls = list(models.Ingredient.objects.filter(name__startswith=ch))
+    letters = list(dict.fromkeys([q.name[:1] for q in models.Ingredient.objects.all()]))
+    letters.sort()    
+    context = {'list':ls, 'letters':letters}
+    template = "ingredients.html"
     return render(request, template, context)
 
 @login_required
@@ -45,7 +57,12 @@ def create(request):
         gram_weight_unit = models.WeightUnit.objects.get(id=0)
         ingredient_weight_unit = models.IngredientUnit(unit=gram_weight_unit, ingredient=ingredient, user=request.user, grams_in_unit=1)
         ingredient_weight_unit.save()
-        return HttpResponseRedirect(reverse('ingredients:list'))
+        models.IngredientType.objects.filter(ingredient=ingredient).delete()
+        for type in form.cleaned_data['types']:
+            ingredientType=models.IngredientType(type=type, ingredient=ingredient)
+            ingredientType.save()
+        form.save()
+        return HttpResponseRedirect(reverse('ingredients:list'))        
     context = {"form":form}
     template = "ingredient.html"
     return render(request, template, context)

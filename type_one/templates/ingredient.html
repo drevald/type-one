@@ -92,25 +92,6 @@
             </tbody>
           </table>
 
-          <h1>{% trans "Types" %}</h1>
-          <table class="table table-striped" width="25%">
-              <thead>
-                <th>{% trans "Type" %}</th>
-                <th></th>   
-              </thead>
-              <tbody>
-              {% for type in types %}
-                <tr>
-                    <td>{{type.name}}</td>
-                    <td>
-                      <input name="type_{{type.id}}" type="checkbox">
-                    </td>
-                </tr>
-              {% endfor %}
-            </tbody>
-          </table>
-
-
           {% endif %}
           <br>
       <input type="submit" value='{% trans "Save" %}' class="btn btn-primary">

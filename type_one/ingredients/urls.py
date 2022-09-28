@@ -7,6 +7,7 @@ app_name = 'ingredients'
 
 urlpatterns = [
     path('', views.all, name='list'),
+    path('<str:ch>/', views.letter, name='letter'),
     path('create/', views.create, name='create'),
     path('fetch/', views.fetch, name='fetch'),
     path('fetch/<int:id>/select/<str:type>', views.fetch_select, name='fetch_select'),
