@@ -22,7 +22,7 @@ import base64
 
 @login_required
 def records(request):
-    records_list = Record.objects.filter(user=request.user).order_by('-time')
+    records_list = Record.objects.filter(user=request.user).prefetch_related('meals').order_by('-time')
     page = request.GET.get('page', 1)
     paginator = Paginator(records_list, 5)
     try:

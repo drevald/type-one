@@ -64,7 +64,11 @@
               <img  width="100px" height="100px" src="data:image/jpg;base64,{{ photo.data }}">
               {% endfor %}
             </td>
-            <td class="text-wrap text-truncate" style="max-width: 150px;"><small>{{ record.notes }}</small></td>            
+            <td class="text-wrap text-truncate" style="max-width: 150px;"><small>
+              {% for meal in record.get_meals %}
+                {{meal.ingredient_unit.ingredient.name}},{{meal.ingredient_unit.unit.name}}&nbsp;&nbsp;{{meal.quantity}}&nbsp;&nbsp;{{ meal.get_calories }}kkal<br/>
+              {% endfor %}
+            </small></td>            
             <td class="flex-nowrap" style="max-width: 150px;">
                   <a class="btn btn-sm btn-danger" href="{% url 'records:delete' record.pk %}">{% trans "Delete" %}</a>&nbsp;&nbsp;
                   <a class="btn btn-sm btn-primary" href="{% url 'records:details' record.pk %}">{% trans "Details" %}</a>

@@ -2,6 +2,7 @@ from django.utils.translation import gettext as _
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 from datetime import datetime
+from datetime import timedelta
 from ..core.models import User, GlucoseUnit, Insulin
 from ..ingredients.models import Ingredient, IngredientUnit
 
@@ -16,8 +17,10 @@ class Record(models.Model):
     bread_units = models.FloatField(null = True, default = 0)
     notes = models.CharField(max_length = 256, null = True, blank=True)
     calories = models.IntegerField(default=0, null=True, blank=True)
+    def get_meals(self):
+        meals = list(Meal.objects.filter(record=self))
+        return meals
     def get_calories_today(self):
-        # today = datetime.today()
         records = list(Record.objects.filter(time__year=self.time.year, time__month=self.time.month, time__day=self.time.day))
         return sum(record.calories for record in records)
 
@@ -28,6 +31,8 @@ class Meal(models.Model):
     quantity = models.FloatField(default=1)
     def __str__(self):
         return f"{_(self.ingredient_unit.ingredient.name)} {self.quantity} {_(self.ingredient_unit.unit.name)}"
+    def get_calories(self):
+        return self.quantity * self.ingredient_unit.grams_in_unit * self.ingredient_unit.ingredient.energy_kKkal_per_100g
 
 class Photo(models.Model):
     record = models.ForeignKey(Record, on_delete = models.CASCADE, related_name='photos', null = True)
