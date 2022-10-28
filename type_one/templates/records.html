@@ -64,7 +64,7 @@
               <img  width="100px" height="100px" src="data:image/jpg;base64,{{ photo.data }}">
               {% endfor %}
             </td>
-            <td class="text-wrap text-truncate" style="max-width: 150px;"><small>
+            <td class="text-wrap text-truncate" style="max-width: 250px;"><small>
               {% for meal in record.get_meals %}
                 {{meal.ingredient_unit.ingredient.name}},{{meal.ingredient_unit.unit.name}}&nbsp;&nbsp;{{meal.quantity}}&nbsp;&nbsp;{{ meal.get_calories }}kkal<br/>
               {% endfor %}

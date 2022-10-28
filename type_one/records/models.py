@@ -32,7 +32,7 @@ class Meal(models.Model):
     def __str__(self):
         return f"{_(self.ingredient_unit.ingredient.name)} {self.quantity} {_(self.ingredient_unit.unit.name)}"
     def get_calories(self):
-        return self.quantity * self.ingredient_unit.grams_in_unit * self.ingredient_unit.ingredient.energy_kKkal_per_100g
+        return self.quantity * self.ingredient_unit.grams_in_unit * self.ingredient_unit.ingredient.energy_kKkal_per_100g * 0.01
 
 class Photo(models.Model):
     record = models.ForeignKey(Record, on_delete = models.CASCADE, related_name='photos', null = True)
