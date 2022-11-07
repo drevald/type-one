@@ -25,7 +25,7 @@ Pillow==9.0.1
 pluggy==0.13.1
 psycopg2-binary
 py==1.10.0
-PyJWT==2.0.1
+PyJWT==2.4.0
 pyparsing==2.4.7
 pytest==6.2.3
 pytest-assert-utils==0.2.2
