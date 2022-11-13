@@ -66,7 +66,7 @@
             </td>
             <td class="text-wrap text-truncate" style="max-width: 200px;"><small>
               {% for meal in record.get_meals %}
-                {{meal.ingredient_unit.ingredient.name}},{{meal.ingredient_unit.unit.name}}&nbsp;&nbsp;{{meal.quantity}}&nbsp;&nbsp;{{ meal.get_calories }}kkal<br/>
+              <b>{{ meal.get_calories }} kkal</b>&nbsp;&nbsp;{% trans meal.ingredient_unit.ingredient.name %},{% trans meal.ingredient_unit.unit.name %}&nbsp;&nbsp;{{meal.quantity}}<br/>
               {% endfor %}
             </small></td>            
             <td class="flex-nowrap" style="max-width: 100px;">

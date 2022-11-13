@@ -181,14 +181,15 @@ def meals_delete(request, pk, meal_id):
 
 @login_required
 def recent(request, pk):    
-    all_records = Record.objects.exclude(id=pk,user=request.user)
+    all_records = Record.objects.exclude(id=pk,user=request.user).prefetch_related('meals');
+    #all_records = Record.objects.exclude(id=pk,user=request.user)
     records = []
     for record in all_records:
         if (len(record.meals.all())>0):
             records.append(record)
     print("records")
     template = "meals_recent.html"     
-    context = {'pk':pk,'list':meals}
+    context = {'pk':pk,'list':records}
     return render(request, template, context) 
 
 @login_required

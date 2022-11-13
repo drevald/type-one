@@ -17,9 +17,11 @@
     {% for record in list %}
     <tr>
         <td><nobr>{{ record.1 | timezone:"Europe/Moscow" | date:'M d, H:i' }}</nobr></td>
-        <td>{{ record.2 }}</td>
+        <td>{{ record.time }}</td>
         <td>
-            <a href="{% url 'records:select' pk record.0 %}">{% trans "Import" %}</a>
+            {% for meal in record.get_meals() %}
+                {{ meal }}
+            {% endfor %}
         </td> 
     </tr>
     {% endfor %}
