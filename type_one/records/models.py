@@ -21,7 +21,7 @@ class Record(models.Model):
         meals = list(Meal.objects.filter(record=self))
         return meals
     def get_calories_today(self):
-        records = list(Record.objects.filter(time__year=self.time.year, time__month=self.time.month, time__day=self.time.day))
+        records = list(Record.objects.filter(time__year=self.time.year, time__month=self.time.month, time__day=self.time.day, user=self.user))
         return sum(record.calories for record in records)
 
 class Meal(models.Model):

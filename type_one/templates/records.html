@@ -25,10 +25,9 @@
                 {%  if request.user.show_sugar %} 
                   <th class="small">{% trans "Glucose level" %}</th> 
                 {% endif %}
-                {%  if request.user.show_bread_unit %} 
+                {%  if request.user.show_bread_units %} 
                   <th class="small">{% trans "Bread units" %}...</th>
                 {% endif %}
-
                 {%  if request.user.show_calories %} 
                   <th class="small">{% trans "Calories" %}</th>
                 {% endif %}
@@ -50,9 +49,8 @@
               <td>{{ record.glucose_level }}</td>
             {% endif %}
             {%  if request.user.show_bread_units %} 
-              <td>{{ record.bread_units }}000</td>
+              <td>{{ record.bread_units }}</td>
             {% endif %}
-
             {%  if request.user.show_calories %} 
               <td>{{ record.calories }}</td>
             {% endif %} 
