@@ -23,7 +23,7 @@
         </tr>
         <tr>
             {% if request.user.show_rapid_insulin or request.user.show_long_insulin %}
-                <td>{{form.insulin_amount}}</td>
+                <td title="{{hint}}">{{form.insulin_amount}}</td>
             {% endif %}
             {% if request.user.show_sugar %}
                 <td>{{form.glucose_level}}</td>            

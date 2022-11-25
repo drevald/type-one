@@ -9,6 +9,7 @@ from datetime import datetime
 from ..core.models import User, GlucoseUnit, Insulin
 from ..ingredients.models import Ingredient, IngredientUnit, Type
 from .models import Record, Meal 
+
 from .forms import MealForm, RecordForm, LongForm, UploadFileForm, Photo
 from PIL import Image, ImageFilter
 from django.views.generic.edit import DeleteView
@@ -112,16 +113,18 @@ def store(request, record, type):
     record.bread_units = sum(breads)/100 if meals else record.bread_units 
     record.bread_units = round(record.bread_units)    
 
+    hint = f'x 2->{2 * record.bread_units}\nx 1.5->{1.5 * record.bread_units}\nx 0.75->{0.75 * record.bread_units}\nx 0.5->{0.5*record.bread_units}'
+
     form = RecordForm(request.POST or None, instance=record) if record.type == 0 else LongForm(request.POST or None, instance=record)        
     if form.is_valid():
-        form.instance.calories = 0 if form.cleaned_data['calories'] is None else (round(form.cleaned_data['calories'], 1) if record.type == 0 else 0)
-        form.instance.bread_units = 0 if form.cleaned_data['bread_units'] is None else (round(form.cleaned_data['bread_units'], 1) if record.type == 0 else 0)
+        form.instance.calories = 0 if 'calories' not in form.cleaned_data or form.cleaned_data['calories'] is None else (round(form.cleaned_data['calories'], 1) if record.type == 0 else 0)
+        form.instance.bread_units = 0 if 'bread_units' not in form.cleaned_data or form.cleaned_data['bread_units'] is None else (round(form.cleaned_data['bread_units'], 1) if record.type == 0 else 0)
         form.instance.insulin = request.user.rapid_acting_insulin if type==0 else request.user.long_acting_insulin
         form.instance.glucose_level_unit = request.user.glucose_level_unit
         form.save()
         print("Returning to " + reverse('records:list'))
         return HttpResponseRedirect(reverse('records:list'))
-    context = {"form":form, "meals":meals, "photos":photos, "meal_details":meal_details_str}
+    context = {"form":form, "meals":meals, "photos":photos, "meal_details":meal_details_str, "hint":hint}
     return render(request, template, context)
 
 @login_required

@@ -43,7 +43,7 @@
           <tr>
             <td>{{ record.time | timezone:"Europe/Moscow" | date:'M d, H:i'}}</td>
             {%  if request.user.show_rapid_insulin or request.user.show_long_insulin %} 
-              <td>{{ record.insulin_amount }} {{record.insulin.name}}</td>
+              <td hint="sample">{{ record.insulin_amount }} {{record.insulin.name}}</td>
             {% endif %}
             {%  if request.user.show_sugar %} 
               <td>{{ record.glucose_level }}</td>
@@ -63,6 +63,7 @@
               {% endfor %}
             </td>
             <td class="text-wrap text-truncate" style="max-width: 200px;"><small>
+              {% if record.notes %}{{record.notes}}aaa{% endif %}
               {% for meal in record.get_meals %}
               <b>{{ meal.get_calories | floatformat:0 }} kkal</b>&nbsp;&nbsp;{% trans meal.ingredient_unit.ingredient.name %},{% trans meal.ingredient_unit.unit.name %}&nbsp;&nbsp;{{meal.quantity}}<br/>
               {% endfor %}
