@@ -6,6 +6,7 @@ from django.template import loader
 from django.urls import reverse
 from django.forms import ChoiceField
 from datetime import datetime
+from datetime import timedelta
 from ..core.models import User, GlucoseUnit, Insulin
 from ..ingredients.models import Ingredient, IngredientUnit, Type
 from .models import Record, Meal 
@@ -22,15 +23,11 @@ import base64
 
 @login_required
 def records(request):
-    records_list = Record.objects.filter(user=request.user).prefetch_related('meals').order_by('-time')
-    page = request.GET.get('page', 1)
-    paginator = Paginator(records_list, 5)
-    try:
-        records = paginator.page(page)
-    except PageNotAnInteger:
-        records = paginator.page(1)
-    except EmptyPage:
-        records = paginator.page(paginator.num_pages)    
+    today = datetime.now()  
+    today_start = datetime(today.year, today.month, today.day, 00, 00, 00)
+    today_shifted = today_start + timedelta(hours = -3)
+    t = [today_shifted.year, today_shifted.month, today_shifted.day, today_shifted.hour]
+    records = Record.objects.raw('SELECT id, time FROM records_record where time > make_timestamp(%s, %s, %s, %s, 0, 0) ORDER BY time DESC', t)
     template = loader.get_template('records.html')
     context = {'records' : records}
     return HttpResponse(template.render(context, request))

@@ -66,7 +66,7 @@
             </td>
             <td class="text-wrap text-truncate" style="max-width: 200px;"><small>
               {% for meal in record.get_meals %}
-                {{meal.ingredient_unit.ingredient.name}},{{meal.ingredient_unit.unit.name}}&nbsp;&nbsp;{{meal.quantity}}&nbsp;&nbsp;{{ meal.get_calories }}kkal<br/>
+                {{meal.ingredient_unit.ingredient.name}},{{meal.ingredient_unit.unit.name}}&nbsp;&nbsp;{{meal.quantity}}&nbsp;&nbsp;{{ meal.get_calories | floatformat:0 }}kkal<br/>
               {% endfor %}
             </small></td>            
             <td class="flex-nowrap" style="max-width: 100px;">
@@ -96,8 +96,8 @@
 </div>
 {% endblock %}
 
-<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+{% comment %} <li class="page-item"><a class="page-link" href="#">Previous</a></li>
 <li class="page-item"><a class="page-link" href="#">1</a></li>
 <li class="page-item"><a class="page-link" href="#">2</a></li>
 <li class="page-item"><a class="page-link" href="#">3</a></li>
-<li class="page-item"><a class="page-link" href="#">Next</a></li>
+<li class="page-item"><a class="page-link" href="#">Next</a></li> {% endcomment %}
