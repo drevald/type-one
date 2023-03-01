@@ -14,7 +14,7 @@ class TimezoneTestCase(TestCase):
         record_two = Record.objects.create(user_id = user.id)
         record_one.time = stamp_one
         record_two.time = stamp_two
-        record_one.save()
+        record_one.save()ssh 
         record_two.save()
 
     def test_record_has_timestamp(self):
