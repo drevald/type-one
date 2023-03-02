@@ -19,5 +19,6 @@ urlpatterns = [
     path('<int:pk>/meals/<int:record_id>/select/', views.select, name='select'),
     path('<int:pk>/meals/<int:meal_id>/', views.meals_details, name='meals_details'),
     path('<int:pk>/meals/<int:meal_id>/delete/', views.meals_delete, name='meals_delete'),
-    path('<int:pk>/meals/<int:type_id>/create/', views.meals_create, name='meals_create')
+    path('<int:pk>/meals/<int:type_id>/create/', views.meals_create, name='meals_create'),
+    path('diagram', views.diagram, name='diagram'),
 ]

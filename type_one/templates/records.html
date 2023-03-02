@@ -9,6 +9,7 @@
             <h1>{% trans "Records" %}</h1>      
         </div>
         <div>
+            <a href="{% url 'records:diagram' %}" class="btn btn-primary">{% trans "Show Diagram" %}</a>
             <a href="{% url 'records:create' 0 %}" class="btn btn-primary">{% trans "Add record" %}</a>
             {% if request.user.show_rapid_insulin or request.user.show_long_insulin %}
             <a href="{% url 'records:create' 1 %}" class="btn btn-primary">{% trans "Add prolongated" %}</a>            
@@ -66,7 +67,7 @@
             </td>
             <td class="text-wrap text-truncate" style="max-width: 200px;"><small>
               {% for meal in record.get_meals %}
-                {{meal.ingredient_unit.ingredient.name}},{{meal.ingredient_unit.unit.name}}&nbsp;&nbsp;{{meal.quantity}}&nbsp;&nbsp;{{ meal.get_calories | floatformat:0 }}kkal<br/>
+                {% trans meal.ingredient_unit.ingredient.name %},{% trans meal.ingredient_unit.unit.name %}&nbsp;&nbsp;{{meal.quantity}}&nbsp;&nbsp;{{ meal.get_calories | floatformat:0 }}kkal<br/>
               {% endfor %}
             </small></td>            
             <td class="flex-nowrap" style="max-width: 100px;">
