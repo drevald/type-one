@@ -20,6 +20,24 @@ class Record(models.Model):
     def get_meals(self):
         meals = list(Meal.objects.filter(record=self))
         return meals
+    def get_prots(self):
+        meals = self.get_meals()
+        prot = 0
+        for meal in meals:
+            prot += (meal.ingredient_unit.ingredient.protein_per_100g * meal.ingredient_unit.grams_in_unit * meal.quantity)/100
+        return prot
+    def get_fats(self):
+        meals = self.get_meals()
+        fat = 0
+        for meal in meals:
+            fat += (meal.ingredient_unit.ingredient.fat_per_100g * meal.ingredient_unit.grams_in_unit * meal.quantity)/100            
+        return fat    
+    def get_carbs(self):
+        meals = self.get_meals()
+        carb = 0
+        for meal in meals:
+            carb += (meal.ingredient_unit.ingredient.carbohydrate_per_100g * meal.ingredient_unit.grams_in_unit * meal.quantity)/100            
+        return carb        
     def get_calories_today(self):
         today = datetime.now()  
         today_start = datetime(today.year, today.month, today.day, 00, 00, 00)

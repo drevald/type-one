@@ -39,17 +39,27 @@ def diagram(request):
     today_start = datetime(today.year, today.month, today.day, 00, 00, 00)
     today_shifted = today_start + timedelta(hours = -3)
     t = [today_shifted.year, today_shifted.month, today_shifted.day, today_shifted.hour]
-    records = Record.objects.raw('SELECT id, time FROM records_record where time > make_timestamp(%s, %s, %s, %s, 0, 0) ORDER BY time DESC', t)
-    #records = Record.objects.filter(time > today_shifted)
+    records = Record.objects.raw('SELECT id, time FROM records_record where time > make_timestamp(%s, %s, %s, %s, 0, 0) ORDER BY time ASC', t)
     diagram_data = []
-    fat = prot = carb = 0
-    for record in records:
-        meals = Meal.objects.filter(record = record.id)
-        for meal in meals:
-            prot += (meal.ingredient_unit.ingredient.protein_per_100g * meal.ingredient_unit.grams_in_unit * meal.quantity)/100
-            fat += (meal.ingredient_unit.ingredient.fat_per_100g * meal.ingredient_unit.grams_in_unit * meal.quantity)/100
-            carb += (meal.ingredient_unit.ingredient.carbohydrate_per_100g * meal.ingredient_unit.grams_in_unit * meal.quantity)/100
-        diagram_data.append((record.time, prot, fat, carb))
+    prot = records[1].get_prots()
+    fat = records[1].get_fats()
+    carb = records[1].get_carbs()
+    for i in range(2, len(records)):
+        diagram_data.append((
+            records[i-1].time.hour + 3 + records[i-1].time.minute/60, 
+            prot,
+            fat,
+            carb,
+            records[i].time.hour + 3 + records[i].time.minute/60, 
+            prot + records[i].get_prots(), 
+            fat + records[i].get_fats(), 
+            carb + records[i].get_carbs()
+        ))
+        prot += records[i].get_prots() 
+        fat += records[i].get_fats() 
+        carb += records[i].get_carbs()
+
+
     template = loader.get_template('diagram.html')
     context = {"data":diagram_data}
     return HttpResponse(template.render(context, request))

@@ -47,6 +47,41 @@
 
 </script>
 
+<script>
+
+    function plot(t1, p1, f1, c1, t2, p2, f2, c2) {
+        //alert(t1 + " " + p1 + " " + f1 + " " + c1 + " " + t2 + " " + p2 + " " + f2 + " " + c2);
+        context.strokeStyle = "#ff0000";
+        context.beginPath();
+        context.moveTo(t1 * (canvas.width/24), canvas.height - (p1 + f1 + c1));
+        context.lineTo(t2 * (canvas.width/24), canvas.height - (p2 + f2 + c2));
+        context.stroke();
+        context.closePath();
+
+        context.strokeStyle = "#00ff00";
+        context.beginPath();
+        context.moveTo(t1 * (canvas.width/24), canvas.height - (f1 + c1));
+        context.lineTo(t2 * (canvas.width/24), canvas.height - (f2 + c2));
+        context.stroke();
+        context.closePath();
+
+        context.strokeStyle = "#0000ff";
+        context.beginPath();
+        context.moveTo(t1 * (canvas.width/24), canvas.height - c1);
+        context.lineTo(t2 * (canvas.width/24), canvas.height - c2);
+        context.stroke();
+        context.closePath();        
+
+    }
+
+
+    {% for record in data %}
+
+    plot({{record.0}}, {{record.1}}, {{record.2}}, {{record.3}}, {{record.4}}, {{record.5}}, {{record.6}}, {{record.7}})
+
+    {% endfor %}
+</script>
+
 
 {% endblock %}
 
