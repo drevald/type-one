@@ -25,16 +25,6 @@
     var canvas = document.getElementById("diagramId");
     canvas.width = canvas.parentElement.offsetWidth;
     var context = canvas.getContext("2d");
-{% comment %} 
-    context.fillStyle = "blue";
-    context.fillRect(0, 0, canvas.width, 400); {% endcomment %}
-
-    {% comment %} context.strokeStyle = "#ff0000";
-    context.beginPath();
-    context.moveTo(0, canvas.height);
-    context.lineTo(canvas.width, canvas.height);
-    context.stroke();
-    context.closePath(); {% endcomment %}
 
     context.font = "12px Verdana";
 
@@ -42,15 +32,12 @@
         context.fillText(i, i * (canvas.width/24), canvas.height);
     }
 
-    {% comment %} context.fillText(minutes[i].split(',')[0].substring(10), xOff + (i * step) - 15, yOff - 20);
-    context.fillText(minutes[i].split(',')[0].substring(10), xOff + (i * step) - 15, height - yOff + 20); {% endcomment %}
-
 </script>
 
 <script>
 
     function plot(t1, p1, f1, c1, t2, p2, f2, c2) {
-        //alert(t1 + " " + p1 + " " + f1 + " " + c1 + " " + t2 + " " + p2 + " " + f2 + " " + c2);
+
         context.strokeStyle = "#ff0000";
         context.beginPath();
         context.moveTo(t1 * (canvas.width/24), canvas.height - (p1 + f1 + c1));
