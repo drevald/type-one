@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load i18n %}
+{% load tz %}
+
+<div class="container">
+    <div class="row justify-content-between">
+        <div>
+            <h1>{% trans "Diagram" %}</h1>      
+        </div>
+        <div>
+            <a href="{% url 'records:list' %}" class="btn btn-primary">{% trans "Records" %}</a>
+        </div>        
+    </div>
+    <div class="row">
+        <div class="col p-0">
+            <canvas id="diagramId" height="400px">Canvas element is not supported by this browser</canvas>
+        </div>   
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    var canvas = document.getElementById("diagramId");
+    canvas.width = canvas.parentElement.offsetWidth;
+    var context = canvas.getContext("2d");
+
+    context.font = "12px Verdana";
+
+    for (i=0; i<24; i++) {
+        context.fillText(i, i * (canvas.width/24), canvas.height);
+    }
+
+</script>
+
+<script>
+
+    function plot(t1, p1, f1, c1, t2, p2, f2, c2) {
+
+        context.strokeStyle = "#ff0000";
+        context.beginPath();
+        context.moveTo(t1 * (canvas.width/24), canvas.height - (p1 + f1 + c1));
+        context.lineTo(t2 * (canvas.width/24), canvas.height - (p2 + f2 + c2));
+        context.stroke();
+        context.closePath();
+
+        context.strokeStyle = "#00ff00";
+        context.beginPath();
+        context.moveTo(t1 * (canvas.width/24), canvas.height - (f1 + c1));
+        context.lineTo(t2 * (canvas.width/24), canvas.height - (f2 + c2));
+        context.stroke();
+        context.closePath();
+
+        context.strokeStyle = "#0000ff";
+        context.beginPath();
+        context.moveTo(t1 * (canvas.width/24), canvas.height - c1);
+        context.lineTo(t2 * (canvas.width/24), canvas.height - c2);
+        context.stroke();
+        context.closePath();        
+
+    }
+
+    {% for record in data %}
+    plot({{record.0}}, {{record.1}}, {{record.2}}, {{record.3}}, {{record.4}}, {{record.5}}, {{record.6}}, {{record.7}})
+    {% endfor %}
+
+</script>
+
+
+{% endblock %}
+
