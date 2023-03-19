@@ -7,7 +7,7 @@ def get_choices():
     return [(unit.id, _(unit.name)) for unit in units]
 
 def get_iunits():
-    iunits = models.IngredientUnit.objects.all()
+    iunits = models.IngredientUnit.objects.all().order_by('ingredient__name')
     return [(iunit.id, _(iunit.ingredient.name)+', '+_(iunit.unit.name)) for iunit in iunits]
 
 class CookedForm(forms.Form):

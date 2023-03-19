@@ -11,7 +11,7 @@ def get_choices(type_id):
         iunits = IngredientUnit.objects.all()
     else:
         ingredients = IngredientType.objects.filter(type=type_id)
-        iunits = IngredientUnit.objects.filter(ingredient__id__in = ingredients.values('ingredient')) 
+        iunits = IngredientUnit.objects.filter(ingredient__id__in = ingredients.values('ingredient')).order_by('ingredient__name') 
     return [(iunit.id, _(iunit.ingredient.name)+', '+_(iunit.unit.name)) for iunit in iunits]
 
 class MealForm (forms.Form):                  
