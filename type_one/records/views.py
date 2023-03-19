@@ -26,8 +26,8 @@ def records(request):
     today = datetime.now()  
     today_start = datetime(today.year, today.month, today.day, 00, 00, 00)
     today_shifted = today_start + timedelta(hours = -3)
-    t = [today_shifted.year, today_shifted.month, today_shifted.day, today_shifted.hour]
-    records = Record.objects.raw('SELECT id, time FROM records_record where time > make_timestamp(%s, %s, %s, %s, 0, 0) ORDER BY time DESC', t)
+    params = [today_shifted.year, today_shifted.month, today_shifted.day, today_shifted.hour, request.user.id]
+    records = Record.objects.raw('SELECT id, time FROM records_record where time > make_timestamp(%s, %s, %s, %s, 0, 0) and user_id=%s ORDER BY time DESC', params)
     template = loader.get_template('records.html')
     context = {'records' : records}
     return HttpResponse(template.render(context, request))
