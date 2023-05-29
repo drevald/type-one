@@ -18,7 +18,7 @@
             {% endif %}
           </div>
     </div>
-    <table class="table table-condensed">
+    <table class="table table-condensed" border=1>
         <thead>
             <tr>
                 <th class="small">{% trans "Time" %}</th>
@@ -68,6 +68,9 @@
               {% endfor %}
             </td>
             <td class="text-wrap text-truncate" style="max-width: 200px;"><small>
+              {% if record.notes %}
+              {{record.notes}}<br/>
+              {% endif %}
               {% for meal in record.get_meals %}
                 {% trans meal.ingredient_unit.ingredient.name %},{% trans meal.ingredient_unit.unit.name %}&nbsp;&nbsp;{{meal.quantity}}&nbsp;&nbsp;{{ meal.get_calories | floatformat:0 }}kkal<br/>
               {% endfor %}
