@@ -9,6 +9,9 @@
             <h1>{% trans "Records" %}</h1>      
         </div>
         <div>
+            {% if records %}
+            <a href="{% url 'records:diagram' %}" class="btn btn-primary">{% trans "Show Diagram" %}</a>
+            {% endif %}
             <a href="{% url 'records:create' 0 %}" class="btn btn-primary">{% trans "Add record" %}</a>
             {% if request.user.show_rapid_insulin or request.user.show_long_insulin %}
             <a href="{% url 'records:create' 1 %}" class="btn btn-primary">{% trans "Add prolongated" %}</a>            
@@ -65,6 +68,9 @@
               {% endfor %}
             </td>
             <td class="text-wrap text-truncate" style="max-width: 200px;"><small>
+              {% if record.notes %}
+              {{record.notes}}<br/>
+              {% endif %}
               {% for meal in record.get_meals %}
               <b>{{ meal.get_calories }} kkal</b>&nbsp;&nbsp;{% trans meal.ingredient_unit.ingredient.name %},{% trans meal.ingredient_unit.unit.name %}&nbsp;&nbsp;{{meal.quantity}}<br/>
               {% endfor %}
@@ -96,8 +102,8 @@
 </div>
 {% endblock %}
 
-<li class="page-item"><a class="page-link" href="#">Previous</a></li>
+{% comment %} <li class="page-item"><a class="page-link" href="#">Previous</a></li>
 <li class="page-item"><a class="page-link" href="#">1</a></li>
 <li class="page-item"><a class="page-link" href="#">2</a></li>
 <li class="page-item"><a class="page-link" href="#">3</a></li>
-<li class="page-item"><a class="page-link" href="#">Next</a></li>
+<li class="page-item"><a class="page-link" href="#">Next</a></li> {% endcomment %}

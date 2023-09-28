@@ -11,7 +11,7 @@ def get_choices(type_id):
         iunits = IngredientUnit.objects.all()
     else:
         ingredients = IngredientType.objects.filter(type=type_id)
-        iunits = IngredientUnit.objects.filter(ingredient__id__in = ingredients.values('ingredient')) 
+        iunits = IngredientUnit.objects.filter(ingredient__id__in = ingredients.values('ingredient')).order_by('ingredient__name') 
     return [(iunit.id, _(iunit.ingredient.name)+', '+_(iunit.unit.name)) for iunit in iunits]
 
 class MealForm (forms.Form):                  
@@ -23,6 +23,8 @@ class MealForm (forms.Form):
 class LongForm (forms.ModelForm):
     insulin_amount = forms.IntegerField(widget=forms.NumberInput(attrs={'class' : 'form-control input-sm'}), initial=0)
     notes = forms.CharField(widget=forms.Textarea(attrs={'class' : 'form-control input-sm'}), required=False)
+    bread_units = forms.FloatField(widget=forms.HiddenInput(attrs={'class' : 'form-control input-sm'}), initial=0, required=False)
+    calories = forms.IntegerField(widget=forms.HiddenInput(attrs={'class' : 'form-control input-sm'}), initial=0, required=False)
     class Meta:
         model = Record
         fields = ['insulin_amount','notes']

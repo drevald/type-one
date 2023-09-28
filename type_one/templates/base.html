@@ -1,20 +1,15 @@
 <html>
     <head>
     {% load i18n %}
-    {# Load the tag library #}
     {% load bootstrap4 %}
-    {# Load CSS and JavaScript #}
     {% bootstrap_css %}
     {% bootstrap_javascript jquery='full' %}
-    {# Display django.contrib.messages as Bootstrap alerts #}
     {% bootstrap_messages %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     </head>
     <body>
         <div class="container">
             <nav class="navbar navbar-dark bg-primary">
-                <!-- <a class="navbar-brand" href="#">Type One</a> -->
-
                 <a class="navbar-brand" href="{% url 'records:list' %}">{% trans "Records" %} <span class="sr-only">(current)</span></a>
                 <a class="navbar-brand" href="{% url 'ingredients:list' %}">{% trans "Ingredients" %}</a>
                 <a class="navbar-brand" href="{% url 'ingredients:units' %}">{% trans "Units" %}</a>
@@ -24,19 +19,6 @@
                     <a class="navbar-brand">You are logged as {{ request.user }}</a>
                     <a class="navbar-brand" href="{% url 'core:signout' %}">{% trans "Sign out" %}</a>
                 {% endif %}
-
-                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button> -->
-                <!-- <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                    <div class="navbar-nav">
-                    <a class="nav-item nav-link active" href="{% url 'records:list' %}">{% trans "Records" %} <span class="sr-only">(current)</span></a>
-                    <a class="nav-item nav-link" href="{% url 'ingredients:list' %}">{% trans "Ingredients" %}</a>
-                    <a class="nav-item nav-link" href="{% url 'ingredients:units' %}">{% trans "Units" %}</a>
-                    <a class="nav-item nav-link" href="{% url 'core:signout' %}">{% trans "Sign out" %}</a>
-                    <a class="nav-item nav-link" href="/admin" target="new">{% trans "Admin" %}</a>
-                    </div>
-                </div> -->
             </nav>
         <br>
         {% block content %}

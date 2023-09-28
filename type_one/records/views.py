@@ -6,11 +6,12 @@ from django.template import loader
 from django.urls import reverse
 from django.forms import ChoiceField
 from datetime import datetime
+from datetime import timedelta
 from ..core.models import User, GlucoseUnit, Insulin
 from ..ingredients.models import Ingredient, IngredientUnit, Type
 from .models import Record, Meal 
 from .forms import MealForm, RecordForm, LongForm, UploadFileForm, Photo
-from PIL import Image, ImageFilter
+from PIL import Image, ImageDraw
 from django.views.generic.edit import DeleteView
 from . import models
 from django.urls import reverse_lazy
@@ -22,17 +23,45 @@ import base64
 
 @login_required
 def records(request):
-    records_list = Record.objects.filter(user=request.user).prefetch_related('meals').order_by('-time')
-    page = request.GET.get('page', 1)
-    paginator = Paginator(records_list, 5)
-    try:
-        records = paginator.page(page)
-    except PageNotAnInteger:
-        records = paginator.page(1)
-    except EmptyPage:
-        records = paginator.page(paginator.num_pages)    
+    today = datetime.now()  
+    today_start = datetime(today.year, today.month, today.day, 00, 00, 00)
+    today_shifted = today_start + timedelta(hours = -3)
+    params = [today_shifted.year, today_shifted.month, today_shifted.day, today_shifted.hour, request.user.id]
+    records = Record.objects.raw('SELECT id, time FROM records_record where time > make_timestamp(%s, %s, %s, %s, 0, 0) and user_id=%s ORDER BY time DESC', params)
     template = loader.get_template('records.html')
     context = {'records' : records}
+    return HttpResponse(template.render(context, request))
+
+@login_required
+def diagram(request):
+    today = datetime.now()  
+    today_start = datetime(today.year, today.month, today.day, 00, 00, 00)
+    today_shifted = today_start + timedelta(hours = -3)
+    t = [today_shifted.year, today_shifted.month, today_shifted.day, today_shifted.hour]
+    records = Record.objects.raw('SELECT id, time FROM records_record where time > make_timestamp(%s, %s, %s, %s, 0, 0) ORDER BY time ASC', t)
+    diagram_data = []
+    if len(records) > 1:
+        prot = records[1].get_prots()
+        fat = records[1].get_fats()
+        carb = records[1].get_carbs()
+        for i in range(2, len(records)):
+            diagram_data.append((
+                records[i-1].time.hour + 3 + records[i-1].time.minute/60, 
+                prot,
+                fat,
+                carb,
+                records[i].time.hour + 3 + records[i].time.minute/60, 
+                prot + records[i].get_prots(), 
+                fat + records[i].get_fats(), 
+                carb + records[i].get_carbs()
+            ))
+            prot += records[i].get_prots() 
+            fat += records[i].get_fats() 
+            carb += records[i].get_carbs()
+
+
+    template = loader.get_template('diagram.html')
+    context = {"data":diagram_data}
     return HttpResponse(template.render(context, request))
 
 @login_required
@@ -91,7 +120,8 @@ def create(request, type=0):
         return HttpResponseRedirect(reverse('records:list'))    
     record = Record(glucose_level_unit = request.user.glucose_level_unit, type=type, user=request.user)
     record.insulin = request.user.rapid_acting_insulin if type==0 else request.user.long_acting_insulin
-    return store(request, record, type)
+    record.save()
+    return HttpResponseRedirect(reverse("records:details", kwargs={'pk':record.id}))
 
 @login_required
 def store(request, record, type):

@@ -20,9 +20,34 @@ class Record(models.Model):
     def get_meals(self):
         meals = list(Meal.objects.filter(record=self))
         return meals
+    def get_prots(self):
+        meals = self.get_meals()
+        prot = 0
+        for meal in meals:
+            prot += (meal.ingredient_unit.ingredient.protein_per_100g * meal.ingredient_unit.grams_in_unit * meal.quantity)/100
+        return prot
+    def get_fats(self):
+        meals = self.get_meals()
+        fat = 0
+        for meal in meals:
+            fat += (meal.ingredient_unit.ingredient.fat_per_100g * meal.ingredient_unit.grams_in_unit * meal.quantity)/100            
+        return fat    
+    def get_carbs(self):
+        meals = self.get_meals()
+        carb = 0
+        for meal in meals:
+            carb += (meal.ingredient_unit.ingredient.carbohydrate_per_100g * meal.ingredient_unit.grams_in_unit * meal.quantity)/100            
+        return carb        
     def get_calories_today(self):
-        records = list(Record.objects.filter(time__year=self.time.year, time__month=self.time.month, time__day=self.time.day))
-        return sum(record.calories for record in records)
+        today = datetime.now()  
+        today_start = datetime(today.year, today.month, today.day, 00, 00, 00)
+        today_shifted = today_start + timedelta(hours = -3)
+        t = [today_shifted.year, today_shifted.month, today_shifted.day, today_shifted.hour]
+        records = Record.objects.raw('SELECT id, time FROM records_record where time > make_timestamp(%s, %s, %s, %s, 0, 0) ORDER BY time DESC', t)        
+        sum = 0
+        for record in records:
+            sum += record.calories
+        return sum
 
 class Meal(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)
