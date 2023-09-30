@@ -1,5 +1,8 @@
 name: Django CI
 
+env:
+  DATABASE_URL: ""
+
 on:
   push:
     branches: [ "master" ]
