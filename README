@@ -38,3 +38,7 @@ heroku psql -a type-one
 SAMPLE DUMP/RESTORE
 pg_dump -h meduz -U postgres -p 5432 type_one > meduz-2023-03-16-23-00.dump 
 psql -h 192.168.0.186 -p 5432 -U postgres type_one < meduz-2023-03-16-23-00.dump
+
+SAMPLE .env file
+DATABASE_URL=postgres://postgres:password@192.168.0.198:5432/type_one
+PORT=8000
