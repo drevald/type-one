@@ -99,6 +99,7 @@ ALLOWED_HOSTS = [
     'type-one.ru',
     '192.168.0.186',
     'valdr.ru',
+    '192.168.0.100',
 ]
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
