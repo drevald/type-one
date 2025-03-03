@@ -9,6 +9,7 @@
             <h1>{% trans "Records" %}</h1>      
         </div>
         <div>
+            <a href="{% url 'records:calendar' %}" class="btn btn-primary">{% trans "Show Archive" %}</a>
             {% if records %}
             <a href="{% url 'records:diagram' %}" class="btn btn-primary">{% trans "Show Diagram" %}</a>
             {% endif %}

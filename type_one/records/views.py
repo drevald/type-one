@@ -17,20 +17,128 @@ from . import models
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator
+from django.db.models import Sum
+from django.db.models.functions import TruncDate
 
+import calendar
 import io
 import base64
 
 @login_required
 def records(request):
-    today = datetime.now()  
-    today_start = datetime(today.year, today.month, today.day, 00, 00, 00)
-    today_shifted = today_start + timedelta(hours = -3)
-    params = [today_shifted.year, today_shifted.month, today_shifted.day, today_shifted.hour, request.user.id]
-    records = Record.objects.raw('SELECT id, time FROM records_record where time > make_timestamp(%s, %s, %s, %s, 0, 0) and user_id=%s ORDER BY time DESC', params)
+    year = request.GET.get('year')
+    month = request.GET.get('month')
+    day = request.GET.get('day')
+    # Check if year, month, and day are not None and are not empty strings
+    if year and month and day:
+        today = datetime(int(year), int(month), int(day))  # Convert to integers
+    else:
+        today = datetime.now() 
+    # today_start = datetime(today.year, today.month, today.day, 00, 00, 00)
+
+    # today_shifted = today_start + timedelta(hours = -3)
+    # params = [today_shifted.year, today_shifted.month, today_shifted.day, today_shifted.hour, request.user.id]
+    # records = Record.objects.raw('SELECT id, time FROM records_record where time > make_timestamp(%s, %s, %s, %s, 0, 0) and user_id=%s ORDER BY time DESC', params)
+    
+    
+    # Calculate the start and end times for the given day
+    start_time = today.replace(hour=0, minute=0, second=0, microsecond=0)
+    end_time = today.replace(hour=23, minute=59, second=59, microsecond=999999)
+
+    # Fetch records for that specific day
+    records = Record.objects.filter(
+        time__gte=start_time, 
+        time__lte=end_time, 
+        user=request.user
+    ).order_by('-time')
+    
+    
     template = loader.get_template('records.html')
     context = {'records' : records}
     return HttpResponse(template.render(context, request))
+
+@login_required
+def calendar_view(request, year=None, month=None):
+    # Get year and month from query string or use current year and month
+    year = request.GET.get('year', datetime.now().year)  # Default to current year if not provided
+    month = request.GET.get('month', datetime.now().month)  # Default to current month if not provided
+
+    # Convert to integers
+    try:
+        year = int(year)
+        month = int(month)
+    except ValueError:
+        year = datetime.now().year
+        month = datetime.now().month
+
+    # Validate month (must be between 1 and 12)
+    if not (1 <= month <= 12):
+        month = datetime.now().month  # Default to current month if invalid month is provided
+
+    # Create "today" using the provided year and month
+    today = datetime(year, month, 1)
+
+    # Generate a matrix where each sub-list represents a week
+    month_weeks = calendar.monthcalendar(year, month)
+
+    # Validate month (must be between 1 and 12)
+    if not (1 <= month <= 12):
+        month = today.month  # Default to current month if invalid month is provided
+
+    # Calculate previous and next month
+    prev_month = month - 1 if month > 1 else 12
+    next_month = month + 1 if month < 12 else 1
+    
+    # Adjust the year if month changes
+    if month == 1:  # Previous month is December, so year must be adjusted
+        prev_year = year - 1
+    else:
+        prev_year = year
+
+    if month == 12:  # Next month is January, so year must be adjusted
+        next_year = year + 1
+    else:
+        next_year = year
+
+    calories_per_day = (
+        Record.objects
+        .filter(time__year=year, time__month=month)  # Filter by current month
+        .values(day=TruncDate('time'))  # Group by date
+        .annotate(total_calories=Sum('calories'))  # Sum calories
+        .order_by('day')
+    )
+
+    # Convert to a dictionary with day as key
+    calories_dict = {entry['day'].day: entry['total_calories'] for entry in calories_per_day}
+
+    # Transform the data structure to include custom data
+    structured_weeks = []
+    for week in month_weeks:
+        structured_week = []
+        for day in week:
+            if day == 0:
+                structured_week.append(None)  # Empty day slot
+            else:
+                structured_week.append({
+                    "day": day,
+                    "event": calories_dict.get(day, None),
+                  })
+        structured_weeks.append(structured_week)
+
+    month_name = datetime(year, month, 1).strftime("%B")  # Converts 3 → "March"
+    
+    return render(request, 'calendar.html', {
+        "weeks": structured_weeks,
+        "month_name": month_name,
+        "month": month,
+        "year": year,
+        'prev_month': prev_month,
+        'next_month': next_month,
+        'prev_year': prev_year,
+        'next_year': next_year,
+        'month_name': month_name,
+        'month_weeks': month_weeks,
+    })
 
 @login_required
 def diagram(request):

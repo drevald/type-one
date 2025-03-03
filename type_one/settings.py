@@ -84,26 +84,28 @@ AUTH_USER_MODEL = "core.User"
 
 SESSION_SAVE_EVERY_REQUEST = True
 
-ALLOWED_HOSTS = [
-    '192.168.0.191',
-    '127.0.0.1',
-    'localhost',
-    '0.0.0.0',
-    'type-one.herokuapp.com',
-    '192.168.113.101',
-    '192.168.0.189',
-    '192.168.0.148',
-    '192.168.0.198',    
-    '77.51.192.127',
-    '192.168.0.131',
-    'type-one.ru',
-    '192.168.0.186',
-    'valdr.ru',
-    '192.168.0.100',
-    'typeone.valdr.ru',
-    'type-one.valdr.ru',
-    'type_one.valdr.ru',
-]
+# ALLOWED_HOSTS = [
+#     '192.168.0.191',
+#     '127.0.0.1',
+#     'localhost',
+#     '0.0.0.0',
+#     'type-one.herokuapp.com',
+#     '192.168.113.101',
+#     '192.168.0.189',
+#     '192.168.0.148',
+#     '192.168.0.198',    
+#     '77.51.192.127',
+#     '192.168.0.131',
+#     'type-one.ru',
+#     '192.168.0.186',
+#     'valdr.ru',
+#     '192.168.0.100',
+#     'typeone.valdr.ru',
+#     'type-one.valdr.ru',
+#     'type_one.valdr.ru',
+# ]
+
+ALLOWED_HOSTS = ['*']
 
 SESSION_SERIALIZER = 'django.contrib.sessions.serializers.PickleSerializer'
 
