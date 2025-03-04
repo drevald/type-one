@@ -19,6 +19,8 @@ from django.utils.decorators import method_decorator
 from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.db.models.functions import TruncDate
+from django.db.models import Min, Max
+
 
 import calendar
 import io
@@ -29,32 +31,21 @@ def records(request):
     year = request.GET.get('year')
     month = request.GET.get('month')
     day = request.GET.get('day')
-    # Check if year, month, and day are not None and are not empty strings
     if year and month and day:
         today = datetime(int(year), int(month), int(day))  # Convert to integers
     else:
         today = datetime.now() 
-    # today_start = datetime(today.year, today.month, today.day, 00, 00, 00)
-
-    # today_shifted = today_start + timedelta(hours = -3)
-    # params = [today_shifted.year, today_shifted.month, today_shifted.day, today_shifted.hour, request.user.id]
-    # records = Record.objects.raw('SELECT id, time FROM records_record where time > make_timestamp(%s, %s, %s, %s, 0, 0) and user_id=%s ORDER BY time DESC', params)
-    
-    
-    # Calculate the start and end times for the given day
     start_time = today.replace(hour=0, minute=0, second=0, microsecond=0)
     end_time = today.replace(hour=23, minute=59, second=59, microsecond=999999)
-
-    # Fetch records for that specific day
     records = Record.objects.filter(
         time__gte=start_time, 
         time__lte=end_time, 
         user=request.user
-    ).order_by('-time')
-    
-    
+    ).order_by('time')
+    next_day = Record.objects.filter(time__date__gt=today.date()).aggregate(next_day=Min('time')).get('next_day')
+    prev_day = Record.objects.filter(time__date__lt=today.date()).aggregate(prev_day=Max('time')).get('prev_day')
     template = loader.get_template('records.html')
-    context = {'records' : records}
+    context = {'records' : records, 'next_day':next_day, 'prev_day':prev_day}
     return HttpResponse(template.render(context, request))
 
 @login_required
