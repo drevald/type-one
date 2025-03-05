@@ -20,30 +20,70 @@ from django.core.paginator import Paginator
 from django.db.models import Sum
 from django.db.models.functions import TruncDate
 from django.db.models import Min, Max
+from django.utils.timezone import make_aware
 
+import pytz
 
 import calendar
 import io
 import base64
+
+# SELECT 
+#     it.name AS ingredient_type,
+#     SUM(rm.quantity * iu.grams_in_unit) AS total_grams
+# FROM records_meal rm
+# JOIN ingredients_ingredientunit iu ON rm.ingredient_unit_id = iu.id
+# JOIN ingredients_ingredient i ON iu.ingredient_id = i.id
+# JOIN ingredients_ingredienttype iit ON i.id = iit.ingredient_id
+# JOIN ingredients_type it ON iit.type_id = it.id
+# JOIN records_record rr ON rm.record_id = rr.id
+# WHERE rr.time::DATE = '2025-02-21'  -- Replace with the desired date
+# GROUP BY it.name
+# ORDER BY total_grams DESC;
+
+# SELECT 
+#     SUM(rm.quantity * iu.grams_in_unit * i.fat_per_100g / 100) AS total_fat,
+#     SUM(rm.quantity * iu.grams_in_unit * i.protein_per_100g / 100) AS total_protein,
+#     SUM(rm.quantity * iu.grams_in_unit * i.carbohydrate_per_100g / 100) AS total_carbohydrates
+# FROM records_meal rm
+# JOIN ingredients_ingredientunit iu ON rm.ingredient_unit_id = iu.id
+# JOIN ingredients_ingredient i ON iu.ingredient_id = i.id
+# JOIN ingredients_ingredienttype iit ON i.id = iit.ingredient_id
+# JOIN ingredients_type it ON iit.type_id = it.id
+# JOIN records_record rr ON rm.record_id = rr.id
+# WHERE rr.time::DATE = '2025-02-19'  -- Replace with the desired date
+# ORDER BY total_carbohydrates DESC;
 
 @login_required
 def records(request):
     year = request.GET.get('year')
     month = request.GET.get('month')
     day = request.GET.get('day')
+
     if year and month and day:
-        today = datetime(int(year), int(month), int(day))  # Convert to integers
+        today = make_aware(datetime(int(year), int(month), int(day)))
     else:
-        today = datetime.now() 
+        today = make_aware(datetime.now())
+
+    # Define strict boundaries for filtering
     start_time = today.replace(hour=0, minute=0, second=0, microsecond=0)
     end_time = today.replace(hour=23, minute=59, second=59, microsecond=999999)
+
     records = Record.objects.filter(
         time__gte=start_time, 
         time__lte=end_time, 
         user=request.user
     ).order_by('time')
-    next_day = Record.objects.filter(time__date__gt=today.date()).aggregate(next_day=Min('time')).get('next_day')
-    prev_day = Record.objects.filter(time__date__lt=today.date()).aggregate(prev_day=Max('time')).get('prev_day')
+
+    # Get the previous day correctly
+    # prev_day = Record.objects.filter(time__lt=start_time).aggregate(prev_day=Max('time')).get('prev_day')
+    prev_day = (Record.objects.filter(time__lt=start_time).aggregate(prev_day=Max("time")).get("prev_day"))
+    # FIX: Use `end_time` to exclude today and get the real next day
+    next_day = Record.objects.filter(time__gt=end_time).aggregate(next_day=Min('time')).get('next_day')
+
+    print(f"Prev Day: {prev_day}")
+    print(f"Next Day: {next_day}")
+
     template = loader.get_template('records.html')
     context = {'records' : records, 'next_day':next_day, 'prev_day':prev_day}
     return HttpResponse(template.render(context, request))

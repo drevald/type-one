@@ -14,12 +14,20 @@
     <thead>
         <tr>
             <th>{% trans "Name" %}</th>
+            <th>{% trans "Enegery ckal per 100g" %}</th>
+            <th>{% trans "Protein per 100g" %}</th>
+            <th>{% trans "Fat per 100g" %}</th>
+            <th>{% trans "Carbohydrate per 100g" %}</th>
             <th>{% trans "Actions" %}</th>
         </tr>
     </thead>
     {% for ingredient in list %}
     <tr>
         <td>{% trans ingredient.name %}</td>
+        <td>{{ ingredient.energy_kKkal_per_100g }}</td>
+        <td>{{ ingredient.protein_per_100g }}</td>
+        <td>{{ ingredient.fat_per_100g }}</td>
+        <td>{{ ingredient.carbohydrate_per_100g }}</td>
         <td>
             {% if ingredient.user is not None %}
             <a href="{% url 'ingredients:delete' ingredient.id %}">{% trans "Delete" %}</a>
