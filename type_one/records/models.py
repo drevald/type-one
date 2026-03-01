@@ -51,6 +51,19 @@ class Record(models.Model):
         for record in records:
             total_calories += record.calories
         return total_calories
+    def get_carbs_today(self):
+        record_time = self.time  # Assuming 'self' is a Record instance
+        interval_start = datetime(record_time.year, record_time.month, record_time.day, 0, 0, 0)
+        interval_end = datetime(record_time.year, record_time.month, record_time.day, 23, 59, 59)
+        records = Record.objects.raw(
+            'SELECT id, time, bread_units FROM records_record '
+            'WHERE time BETWEEN %s AND %s AND user_id=%s ORDER BY time DESC',
+            [interval_start, interval_end, self.user.id]
+        )
+        total_carbs = 0
+        for record in records:
+            total_carbs += record.bread_units
+        return 12 * total_carbs  
 
 class Meal(models.Model):
     user = models.ForeignKey(User, on_delete = models.CASCADE)

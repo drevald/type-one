@@ -17,7 +17,8 @@
             <h1>{% trans "Records" %}</h1>      
         </div>
         <div>
-            <a href="{% url 'records:create' 0 %}" class="btn btn-primary">{% trans "Add record" %}</a>
+            <a href="{% url 'records:report' %}" class="btn btn-primary">{% trans "Report" %}</a>
+          <a href="{% url 'records:create' 0 %}" class="btn btn-primary">{% trans "Add record" %}</a>
             {% if request.user.show_rapid_insulin or request.user.show_long_insulin %}
             <a href="{% url 'records:create' 1 %}" class="btn btn-primary">{% trans "Add prolongated" %}</a>            
             {% endif %}
@@ -36,12 +37,17 @@
                 {%  if request.user.show_bread_unit %} 
                   <th class="small">{% trans "Bread units" %}...</th>
                 {% endif %}
-
                 {%  if request.user.show_calories %} 
                   <th class="small">{% trans "Calories" %}</th>
                 {% endif %}
                 {%  if request.user.show_calories_today %} 
                   <th class="small">{% trans "Calories today" %}</th>
+                {% endif %}
+                {%  if request.user.show_carbohydrates %} 
+                  <th class="small">{% trans "Carbs" %}</th>
+                {% endif %}
+                {%  if request.user.show_carbohydrates_today %} 
+                  <th class="small">{% trans "Carbs today" %}</th>
                 {% endif %}
                 <th class="small">{% trans "Picture" %}</th>
                 <th class="small">{% trans "Notes" %}</th>                    
@@ -60,13 +66,18 @@
             {%  if request.user.show_bread_units %} 
               <td>{{ record.bread_units }}000</td>
             {% endif %}
-
             {%  if request.user.show_calories %} 
               <td>{{ record.calories }}</td>
             {% endif %} 
             {%  if request.user.show_calories_today %} 
               <td>{{ record.get_calories_today }}</td>
             {% endif %}
+            {%  if request.user.show_carbohydrates %} 
+              <td>{{ record.carbs }}</td>
+            {% endif %} 
+            {%  if request.user.show_carbohydrates_today %} 
+              <td>{{ record.get_carbs_today }}</td>
+            {% endif %}            
             <td>
               {% for photo in record.photos.all %}
               <img  width="100px" height="100px" src="data:image/jpg;base64,{{ photo.data }}">

@@ -349,17 +349,20 @@ def meals_delete(request, pk, meal_id):
     return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))
 
 @login_required
-def recent(request, pk):    
-    all_records = Record.objects.exclude(id=pk,user=request.user).prefetch_related('meals');
-    #all_records = Record.objects.exclude(id=pk,user=request.user)
-    records = []
-    for record in all_records:
-        if (len(record.meals.all())>0):
-            records.append(record)
-    print("records")
-    template = "meals_recent.html"     
-    context = {'pk':pk,'list':records}
-    return render(request, template, context) 
+def recent(request, pk):
+    from django.db.models import Count
+    all_records = (Record.objects
+        .filter(user=request.user)
+        .exclude(id=pk)
+        .annotate(meal_count=Count('meals'))
+        .filter(meal_count__gt=0)
+        .order_by('-time')
+        .prefetch_related('meals'))
+    paginator = Paginator(all_records, 10)
+    page_obj = paginator.get_page(request.GET.get('page'))
+    template = "meals_recent.html"
+    context = {'pk': pk, 'list': page_obj}
+    return render(request, template, context)
 
 @login_required
 def select(request, pk, record_id):   
@@ -375,6 +378,89 @@ def select(request, pk, record_id):
         imported_meal.save()
         print(imported_meal)
     return HttpResponseRedirect(reverse("records:meals", kwargs={'pk':pk}))
+
+@login_required
+def report(request):
+    import csv
+    if 'start' in request.GET or 'preset' in request.GET:
+        preset = request.GET.get('preset')
+        if preset == '7days':
+            end = datetime.now()
+            start = end - timedelta(days=7)
+        elif preset == '30days':
+            end = datetime.now()
+            start = end - timedelta(days=30)
+        else:
+            try:
+                start = datetime.strptime(request.GET.get('start', ''), '%Y-%m-%d')
+                end = datetime.strptime(request.GET.get('end', ''), '%Y-%m-%d')
+            except ValueError:
+                return render(request, 'report.html', {'error': 'Invalid date format'})
+
+        start = make_aware(start.replace(hour=0, minute=0, second=0, microsecond=0))
+        end = make_aware(end.replace(hour=23, minute=59, second=59, microsecond=999999))
+
+        from django.db.models import Prefetch
+        records = Record.objects.filter(
+            user=request.user, time__gte=start, time__lte=end
+        ).order_by('time').select_related('insulin').prefetch_related(
+            Prefetch('meals', queryset=Meal.objects.select_related(
+                'ingredient_unit__ingredient',
+                'ingredient_unit__unit'
+            ))
+        )
+
+        response = HttpResponse(content_type='text/csv; charset=utf-8')
+        response['Content-Disposition'] = f'attachment; filename="report_{start.strftime("%Y%m%d")}_{end.strftime("%Y%m%d")}.csv"'
+        response.write('\ufeff')  # UTF-8 BOM for Excel
+
+        writer = csv.writer(response)
+
+        header = ['Time']
+        if request.user.show_rapid_insulin or request.user.show_long_insulin:
+            header += ['Insulin amount', 'Insulin']
+        if request.user.show_sugar:
+            header.append('Glucose level')
+        if request.user.show_bread_units:
+            header.append('Bread units')
+        if request.user.show_calories:
+            header.append('Calories')
+        header += ['Notes', 'Ingredient', 'Unit', 'Quantity', 'Carbs (g)', 'Fat (g)', 'Protein (g)', 'Cal (kcal)']
+        writer.writerow(header)
+
+        for record in records:
+            meals = record.meals.all()
+            record_row = [record.time.strftime('%Y-%m-%d %H:%M')]
+            if request.user.show_rapid_insulin or request.user.show_long_insulin:
+                record_row.append(record.insulin_amount or '')
+                record_row.append(record.insulin.name if record.insulin else '')
+            if request.user.show_sugar:
+                record_row.append(record.glucose_level or '')
+            if request.user.show_bread_units:
+                record_row.append(record.bread_units or '')
+            if request.user.show_calories:
+                record_row.append(record.calories or '')
+            record_row.append(record.notes or '')
+
+            if meals:
+                for m in meals:
+                    ing = m.ingredient_unit.ingredient
+                    grams = m.quantity * m.ingredient_unit.grams_in_unit
+                    writer.writerow(record_row + [
+                        ing.name,
+                        m.ingredient_unit.unit.name,
+                        m.quantity,
+                        round(grams * ing.carbohydrate_per_100g / 100, 1),
+                        round(grams * ing.fat_per_100g / 100, 1),
+                        round(grams * ing.protein_per_100g / 100, 1),
+                        round(grams * ing.energy_kKkal_per_100g / 100, 1),
+                    ])
+            else:
+                writer.writerow(record_row + ['', '', '', '', '', '', ''])
+
+        return response
+
+    return render(request, 'report.html')
 
 @login_required
 def photo_edit(request, pk, photo_id):
