@@ -43,6 +43,6 @@ six==1.15.0
 soupsieve==2.2.1
 sqlparse==0.4.4
 toml==0.10.2
-urllib3==1.26.18
+urllib3==2.7.0
 whitenoise==5.0.1
 wrapt==1.14.1
