@@ -28,7 +28,7 @@ psycopg2-binary==2.9.5
 py==1.11.0
 PyJWT==2.4.0
 pyparsing==2.4.7
-pytest==6.2.5
+pytest==9.0.3
 pytest-assert-utils==0.2.2
 pytest-common-subject==1.0.5
 pytest-django==4.2.0
